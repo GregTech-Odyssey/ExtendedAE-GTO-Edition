@@ -748,11 +748,8 @@ public class ContainerExCraftingTerminal extends MEStorageMenu implements IMenuC
     protected boolean isCraftable(ItemStack itemStack) {
         var clientRepo = getClientRepo();
         if (clientRepo != null) {
-            // Do not iterate IClientRepo#getAllEntries here. Its return type was changed from Set to Collection
-            // in AE2 15.2610.x, so the compiled call site would throw NoSuchMethodError at runtime.
-            // getByIngredient keeps the same descriptor (Collection) in both versions.
-            for (var entry : clientRepo.getByIngredient(Ingredient.of(itemStack))) {
-                if (AEItemKey.matches(entry.getWhat(), itemStack) && entry.isCraftable()) {
+            for (var stack : clientRepo.getAllEntries()) {
+                if (AEItemKey.matches(stack.getWhat(), itemStack) && stack.isCraftable()) {
                     return true;
                 }
             }
