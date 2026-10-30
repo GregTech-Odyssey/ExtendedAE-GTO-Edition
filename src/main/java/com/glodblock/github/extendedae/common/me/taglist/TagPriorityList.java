@@ -1,21 +1,27 @@
 package com.glodblock.github.extendedae.common.me.taglist;
 
+import net.minecraft.Util;
+import net.minecraftforge.registries.ForgeRegistries;
+
 import appeng.api.stacks.AEKey;
+import appeng.hooks.IUnique;
 import appeng.util.prioritylist.IPartitionList;
-import it.unimi.dsi.fastutil.objects.Reference2BooleanMap;
-import it.unimi.dsi.fastutil.objects.Reference2BooleanOpenHashMap;
+
+import com.gto.fastcollection.cache.WeakValueHashCache;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Collections;
 import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class TagPriorityList implements IPartitionList {
 
-    private static final Map<TagPriorityList, Runnable> INVALIDATOR = new WeakHashMap<>();
-    // Store raw expressions for isEmpty check and potentially for debugging/recompiling.
+    private static final TagPriorityList EMPTY = new TagPriorityList("", "");
+    private static final WeakValueHashCache<Expressions, TagPriorityList> CACHE = new WeakValueHashCache<>();
+    private static final Function<Expressions, TagPriorityList> FACTORY = expressions -> new TagPriorityList(expressions.whiteList(), expressions.blackList());
     private final String rawWhiteListExpression;
     private final String rawBlackListExpression;
 
@@ -25,9 +31,8 @@ public class TagPriorityList implements IPartitionList {
 
     private final boolean isWhitelistActive;
 
-    // Cache results per AEKey instance for performance.
-    // Using AEKey directly handles potential variations within the same item/fluid primary key.
-    private final Reference2BooleanMap<Object> memory = new Reference2BooleanOpenHashMap<>();
+    private final boolean empty;
+    private volatile IntOpenHashSet matchingIds;
 
     /**
      * Creates a tag-based partition list using complex filter expressions.
@@ -48,44 +53,58 @@ public class TagPriorityList implements IPartitionList {
         // An empty/whitespace-only expression means the whitelist doesn't restrict anything.
         this.isWhitelistActive = !this.rawWhiteListExpression.isBlank();
 
-        INVALIDATOR.put(this, this.memory::clear);
+        this.empty = this.rawWhiteListExpression.isBlank() && this.rawBlackListExpression.isBlank();
+        if (!this.empty) {
+            CompletableFuture.runAsync(() -> {
+                var ids = new IntOpenHashSet();
+                ForgeRegistries.ITEMS.forEach(item -> {
+                    if (eval(item)) ids.add(((IUnique) item).ae2$getUid());
+                });
+                ForgeRegistries.FLUIDS.forEach(fluid -> {
+                    if (eval(fluid)) ids.add(((IUnique) fluid).ae2$getUid());
+                });
+                this.matchingIds = ids;
+            }, Util.backgroundExecutor());
+        }
     }
 
     private String removeBlank(String raw) {
         return raw.replaceAll("\\s+", "");
     }
 
-    public static void reset() {
-        for (var e : INVALIDATOR.entrySet()) {
-            e.getValue().run();
-        }
+    public static TagPriorityList getCached(String whiteList, String blackList) {
+        if (whiteList.isBlank() && blackList.isBlank()) return EMPTY;
+        return CACHE.getCache(new Expressions(whiteList, blackList), FACTORY);
     }
+
+    public boolean isReady() {
+        return this.empty || this.matchingIds != null;
+    }
+
+    private record Expressions(String whiteList, String blackList) {}
 
     @Override
     public boolean isListed(AEKey input) {
-        // empty filter pass all inputs
-        if (this.isEmpty()) {
-            return true;
-        }
-        // computeIfAbsent ensures eval is called only once per key.
-        return this.memory.computeIfAbsent(input.getPrimaryKey(), this::eval);
+        if (this.empty) return true;
+        var ids = this.matchingIds;
+        return ids != null && ids.contains(input.getUid());
     }
 
     @Override
     public boolean isEmpty() {
         // The filter is considered empty if neither a whitelist nor a blacklist expression is provided.
-        return rawWhiteListExpression.isBlank() && rawBlackListExpression.isBlank();
+        return this.empty;
     }
 
     @Override
     public Iterable<AEKey> getItems() {
         // This partition list dynamically evaluates tags, it doesn't hold a predefined list of items.
-        return List.of();
+        return Collections.emptyList();
     }
 
     /**
      * Evaluates if the given Primary Key matches the filter rules (whitelist/blacklist).
-     * This method is called by the caching mechanism in `isListed`.
+     * Used once while building the shared item and fluid index.
      *
      * @param input The Primary Key (Item or Fluid key) to evaluate.
      * @return True if the key passes the filter rules, false otherwise.
@@ -105,5 +124,4 @@ public class TagPriorityList implements IPartitionList {
             return !blackMatches;
         }
     }
-
 }

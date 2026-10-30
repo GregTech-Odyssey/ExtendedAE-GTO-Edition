@@ -1,5 +1,13 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.api.IPage;
+import com.glodblock.github.extendedae.client.ExSemantics;
+import com.glodblock.github.extendedae.common.tileentities.TileExMolecularAssembler;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.inventories.InternalInventory;
 import appeng.api.stacks.AEItemKey;
 import appeng.client.Point;
@@ -12,14 +20,9 @@ import appeng.menu.interfaces.IProgressProvider;
 import appeng.menu.slot.AppEngSlot;
 import appeng.menu.slot.IOptionalSlot;
 import appeng.menu.slot.OutputSlot;
-import com.glodblock.github.extendedae.api.IPage;
-import com.glodblock.github.extendedae.client.ExSemantics;
-import com.glodblock.github.extendedae.common.tileentities.TileExMolecularAssembler;
+
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -58,7 +61,7 @@ public class ContainerExMolecularAssembler extends UpgradeableMenu<TileExMolecul
         this.molecularAssembler = host;
         for (int i = 0; i < TileExMolecularAssembler.MAX_THREAD; i++) {
             var inv = this.molecularAssembler.getCraftInventory(i);
-            for (int j = 0; j < 9; j ++) {
+            for (int j = 0; j < 9; j++) {
                 this.addSlot(new ExMolecularAssemblerPatternSlot(this, inv, j), SLOT[i]);
             }
             this.outputs.add((AppEngSlot) this.addSlot(new OutputSlot(inv, 9, null), SlotSemantics.MACHINE_OUTPUT));
@@ -66,7 +69,7 @@ public class ContainerExMolecularAssembler extends UpgradeableMenu<TileExMolecul
     }
 
     public void showPage() {
-        for (int x = 0; x < TileExMolecularAssembler.MAX_THREAD; x ++) {
+        for (int x = 0; x < TileExMolecularAssembler.MAX_THREAD; x++) {
             for (var slot : this.getSlots(SLOT[x])) {
                 if (slot instanceof AppEngSlot as) {
                     as.setSlotEnabled(this.page == x);
@@ -155,6 +158,4 @@ public class ContainerExMolecularAssembler extends UpgradeableMenu<TileExMolecul
             return new Point(x - 1, y - 1);
         }
     }
-
-
 }

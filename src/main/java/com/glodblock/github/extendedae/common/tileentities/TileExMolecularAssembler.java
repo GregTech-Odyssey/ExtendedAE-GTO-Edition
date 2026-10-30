@@ -1,5 +1,24 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.common.me.CraftingThread;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+import com.glodblock.github.extendedae.network.packet.SAssemblerAnimation;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+
 import appeng.api.config.Actionable;
 import appeng.api.config.PowerMultiplier;
 import appeng.api.crafting.IPatternDetails;
@@ -27,25 +46,9 @@ import appeng.core.definitions.AEItems;
 import appeng.core.localization.GuiText;
 import appeng.core.localization.Tooltips;
 import appeng.util.inv.CombinedInternalInventory;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.me.CraftingThread;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
-import com.glodblock.github.extendedae.network.packet.SAssemblerAnimation;
+
 import com.glodblock.github.glodium.network.TargetPoint;
 import com.glodblock.github.glodium.util.GlodUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -72,7 +75,7 @@ public class TileExMolecularAssembler extends AENetworkInvBlockEntity implements
         this.upgrades = UpgradeInventories.forMachine(EPPItemAndBlock.EX_ASSEMBLER, this.getUpgradeSlots(), this::saveChanges);
         var invs = new ArrayList<InternalInventory>();
         var invs2 = new ArrayList<InternalInventory>();
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             final int index = x;
             this.threads[index] = new CraftingThread(this, signal -> this.changeState(index, signal));
             invs.add(this.threads[x].getInternalInventory());
@@ -169,7 +172,7 @@ public class TileExMolecularAssembler extends AENetworkInvBlockEntity implements
     @Override
     public void saveAdditional(CompoundTag data) {
         super.saveAdditional(data);
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             var tag = this.threads[x].writeNBT();
             data.put("#ct" + x, tag);
         }
@@ -180,7 +183,7 @@ public class TileExMolecularAssembler extends AENetworkInvBlockEntity implements
     public void loadTag(CompoundTag data) {
         super.loadTag(data);
         this.upgrades.readFromNBT(data, "upgrades");
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             if (data.contains("#ct" + x)) {
                 this.threads[x].readNBT(data.getCompound("#ct" + x));
             }
@@ -321,5 +324,4 @@ public class TileExMolecularAssembler extends AENetworkInvBlockEntity implements
     public AssemblerAnimationStatus getAnimationStatus() {
         return this.animationStatus;
     }
-
 }

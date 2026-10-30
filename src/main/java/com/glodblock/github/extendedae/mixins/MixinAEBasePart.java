@@ -1,10 +1,12 @@
 package com.glodblock.github.extendedae.mixins;
 
-import appeng.api.networking.IManagedGridNode;
-import appeng.parts.AEBasePart;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
+import appeng.api.networking.IManagedGridNode;
+import appeng.parts.AEBasePart;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -26,10 +28,9 @@ public abstract class MixinAEBasePart {
     private BlockEntity blockEntity;
 
     @Redirect(
-            method = "readFromNBT",
-            at = @At(value = "INVOKE", target = "Lappeng/api/networking/IManagedGridNode;loadFromNBT(Lnet/minecraft/nbt/CompoundTag;)V"),
-            remap = false
-    )
+              method = "readFromNBT",
+              at = @At(value = "INVOKE", target = "Lappeng/api/networking/IManagedGridNode;loadFromNBT(Lnet/minecraft/nbt/CompoundTag;)V"),
+              remap = false)
     private void bypassNodeLoad(IManagedGridNode node, CompoundTag tag) {
         if (!tag.contains("BYPASS_EXTENDEDAE")) {
             node.loadFromNBT(tag);
@@ -48,5 +49,4 @@ public abstract class MixinAEBasePart {
             // NO-OP
         }
     }
-
 }

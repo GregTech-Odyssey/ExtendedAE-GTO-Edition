@@ -1,5 +1,22 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.client.button.ActionEPPButton;
+import com.glodblock.github.extendedae.client.button.CycleEPPButton;
+import com.glodblock.github.extendedae.client.gui.widget.AssemblerMatrixSlot;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
+import com.glodblock.github.extendedae.container.ContainerAssemblerMatrix;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+import com.glodblock.github.extendedae.util.FCUtil;
+
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.config.YesNo;
 import appeng.api.crafting.IPatternDetails;
 import appeng.api.crafting.PatternDetailsHelper;
@@ -16,13 +33,7 @@ import appeng.core.sync.packets.InventoryActionPacket;
 import appeng.crafting.pattern.EncodedPatternItem;
 import appeng.helpers.InventoryAction;
 import appeng.util.inv.AppEngInternalInventory;
-import com.glodblock.github.extendedae.client.button.ActionEPPButton;
-import com.glodblock.github.extendedae.client.button.CycleEPPButton;
-import com.glodblock.github.extendedae.client.gui.widget.AssemblerMatrixSlot;
-import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
-import com.glodblock.github.extendedae.container.ContainerAssemblerMatrix;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
-import com.glodblock.github.extendedae.util.FCUtil;
+
 import com.glodblock.github.glodium.network.packet.CGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
@@ -31,14 +42,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ReferenceMap;
 import it.unimi.dsi.fastutil.longs.Long2ReferenceOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenCustomHashSet;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.Rect2i;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -61,6 +64,7 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
     private final Scrollbar scrollbar;
     private final Long2ReferenceMap<PatternInfo> infos = new Long2ReferenceOpenHashMap<>();
     private final Set<ItemStack> matchedStack = new ObjectOpenCustomHashSet<>(new Hash.Strategy<>() {
+
         @Override
         public int hashCode(ItemStack o) {
             return o.getItem().hashCode() ^ (o.hasTag() ? o.getTag().hashCode() : 0xFFFFFFFF);
@@ -133,8 +137,7 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
                 this.font,
                 Component.translatable("gui.expatternprovider.assembler_matrix.threads", this.runningThreads),
                 80, 19,
-                textColor, false
-        );
+                textColor, false);
     }
 
     @Override
@@ -145,12 +148,12 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
             while (size < 4) {
                 if (size == 0) {
                     blit(guiGraphics, offsetX + GUI_PADDING_X - 1, offsetY + SLOT_SIZE * size + 30, EMPTY_ROW1);
-                } else if (size == 3){
+                } else if (size == 3) {
                     blit(guiGraphics, offsetX + GUI_PADDING_X - 1, offsetY + SLOT_SIZE * size + 30, EMPTY_ROW3);
                 } else {
                     blit(guiGraphics, offsetX + GUI_PADDING_X - 1, offsetY + SLOT_SIZE * size + 30, EMPTY_ROW2);
                 }
-                size ++;
+                size++;
             }
         }
     }
@@ -282,7 +285,6 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
         PatternRow getRowBySlot(int slot) {
             return this.internalRows.get(slot / 9);
         }
-
     }
 
     private static class PatternRow {
@@ -302,7 +304,5 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
         void setItemByInvSlot(int slot, ItemStack stack) {
             this.inventory.setItemDirect(slot - offset, stack);
         }
-
     }
-
 }

@@ -1,5 +1,15 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.container.ContainerThresholdLevelEmitter;
+
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
+
 import appeng.api.config.FuzzyMode;
 import appeng.api.config.RedstoneMode;
 import appeng.api.config.Settings;
@@ -21,14 +31,7 @@ import appeng.parts.PartModel;
 import appeng.parts.automation.AbstractLevelEmitterPart;
 import appeng.util.ConfigInventory;
 import appeng.util.SettingsFrom;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.container.ContainerThresholdLevelEmitter;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -41,8 +44,7 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
             new ResourceLocation(ExtendedAE.MODID, "part/threshold_level_emitter_base_on"),
             new ResourceLocation(AppEng.MOD_ID, "part/level_emitter_status_off"),
             new ResourceLocation(AppEng.MOD_ID, "part/level_emitter_status_on"),
-            new ResourceLocation(AppEng.MOD_ID, "part/level_emitter_status_has_channel")
-    );
+            new ResourceLocation(AppEng.MOD_ID, "part/level_emitter_status_has_channel"));
     public static final DustParticleOptions BLUE = new DustParticleOptions(Vec3.fromRGB24(0x0000ff).toVector3f(), 1.0F);
 
     public static final PartModel MODEL_OFF_OFF = new PartModel(MODELS.get(0), MODELS.get(2));
@@ -63,6 +65,7 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
     public PartThresholdLevelEmitter(IPartItem<?> partItem) {
         super(partItem);
         getMainNode().addService(IStorageWatcherNode.class, new IStorageWatcherNode() {
+
             @Override
             public void updateWatcher(IStackWatcher newWatcher) {
                 storageWatcher = newWatcher;
@@ -84,6 +87,7 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
             }
         });
         getMainNode().addService(ICraftingWatcherNode.class, new ICraftingWatcherNode() {
+
             @Override
             public void updateWatcher(IStackWatcher newWatcher) {
                 craftingWatcher = newWatcher;
@@ -96,8 +100,7 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
             }
 
             @Override
-            public void onCraftableChange(AEKey what) {
-            }
+            public void onCraftableChange(AEKey what) {}
         });
         getConfigManager().registerSetting(Settings.CRAFT_VIA_REDSTONE, YesNo.NO);
         getConfigManager().registerSetting(Settings.FUZZY_MODE, FuzzyMode.IGNORE_ALL);
@@ -220,9 +223,8 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
             } else if (isUpgradedWith(AEItems.FUZZY_CARD)) {
                 this.lastReportedValue = 0;
                 var fzMode = this.getConfigManager().getSetting(Settings.FUZZY_MODE);
-                var fuzzyList = stacks.findFuzzy(myStack, fzMode);
-                for (var st : fuzzyList) {
-                    this.lastReportedValue += st.getLongValue();
+                for (var iterator = stacks.findFuzzyValue(myStack, fzMode).iterator(); iterator.hasNext();) {
+                    this.lastReportedValue += iterator.nextLong();
                     if (this.lastReportedValue > this.getUpperValue()) {
                         // Stop here, we have enough info!
                         break;
@@ -313,5 +315,4 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
             output.putLong("lowerValue", this.lowerValue);
         }
     }
-
 }

@@ -3,9 +3,11 @@ package com.glodblock.github.extendedae.xmod.jade;
 import com.glodblock.github.extendedae.common.tileentities.TileCaner;
 import com.glodblock.github.extendedae.common.tileentities.TileCircuitCutter;
 import com.glodblock.github.extendedae.common.tileentities.TileIngredientBuffer;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaCommonRegistration;
 import snownee.jade.api.IWailaPlugin;
@@ -35,13 +37,10 @@ public class JadePlugin implements IWailaPlugin {
             for (var loc : CHEMICALS) {
                 if (target instanceof TileIngredientBuffer ||
                         target instanceof TileCaner ||
-                        target instanceof TileCircuitCutter
-                ) {
+                        target instanceof TileCircuitCutter) {
                     tooltip.remove(loc);
                 }
             }
         });
-
     }
-
 }

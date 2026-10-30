@@ -1,9 +1,8 @@
 package com.glodblock.github.extendedae.common.blocks;
 
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocators;
 import com.glodblock.github.extendedae.common.tileentities.TileIngredientBuffer;
 import com.glodblock.github.extendedae.container.ContainerIngredientBuffer;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -11,6 +10,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocators;
+
 import org.jetbrains.annotations.NotNull;
 
 public class BlockIngredientBuffer extends BlockBaseGui<TileIngredientBuffer> {
@@ -39,5 +42,4 @@ public class BlockIngredientBuffer extends BlockBaseGui<TileIngredientBuffer> {
     public void openGui(TileIngredientBuffer tile, Player p) {
         MenuOpener.open(ContainerIngredientBuffer.TYPE, p, MenuLocators.forBlockEntity(tile));
     }
-
 }

@@ -1,6 +1,7 @@
 package com.glodblock.github.extendedae.datagen;
 
 import com.glodblock.github.extendedae.common.EAERegistryHandler;
+
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
@@ -8,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;

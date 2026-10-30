@@ -1,5 +1,13 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.client.gui.widget.MultilineTextFieldWidget;
+import com.glodblock.github.extendedae.container.ContainerTagStorageBus;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.api.config.AccessRestriction;
 import appeng.api.config.ActionItems;
 import appeng.api.config.Settings;
@@ -12,13 +20,8 @@ import appeng.client.gui.widgets.ActionButton;
 import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
 import appeng.core.localization.GuiText;
-import com.glodblock.github.extendedae.client.gui.widget.MultilineTextFieldWidget;
-import com.glodblock.github.extendedae.container.ContainerTagStorageBus;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
 import com.glodblock.github.glodium.network.packet.CGenericPacket;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 
 import java.util.regex.Pattern;
 
@@ -31,8 +34,7 @@ public class GuiTagStorageBus extends UpgradeableScreen<ContainerTagStorageBus> 
     private final MultilineTextFieldWidget filterInputs;
     private final MultilineTextFieldWidget filterInputs2;
 
-    private static final Pattern ORE_DICTIONARY_FILTER =
-            Pattern.compile("[0-9a-zA-Z* &|^!():/_\\n]*");
+    private static final Pattern ORE_DICTIONARY_FILTER = Pattern.compile("[0-9a-zA-Z* &|^!():/_\\n]*");
 
     public GuiTagStorageBus(ContainerTagStorageBus menu, Inventory playerInventory, Component title, ScreenStyle style) {
         super(menu, playerInventory, title, style);
@@ -100,5 +102,4 @@ public class GuiTagStorageBus extends UpgradeableScreen<ContainerTagStorageBus> 
         }
         return super.mouseClicked(xCoord, yCoord, btn);
     }
-
 }

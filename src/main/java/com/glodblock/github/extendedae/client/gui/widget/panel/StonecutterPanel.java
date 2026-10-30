@@ -1,14 +1,9 @@
 package com.glodblock.github.extendedae.client.gui.widget.panel;
 
-import appeng.client.Point;
-import appeng.client.gui.Tooltip;
-import appeng.client.gui.WidgetContainer;
-import appeng.client.gui.style.Blitter;
-import appeng.client.gui.widgets.Scrollbar;
-import appeng.menu.SlotSemantics;
 import com.glodblock.github.extendedae.api.CraftingMode;
 import com.glodblock.github.extendedae.client.ExSemantics;
 import com.glodblock.github.extendedae.client.gui.GuiExCraftingTerminal;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
@@ -20,6 +15,14 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+
+import appeng.client.Point;
+import appeng.client.gui.Tooltip;
+import appeng.client.gui.WidgetContainer;
+import appeng.client.gui.style.Blitter;
+import appeng.client.gui.widgets.Scrollbar;
+import appeng.menu.SlotSemantics;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -167,5 +170,4 @@ public class StonecutterPanel extends ExPanel {
     public Component getTabTooltip() {
         return CraftingMode.STONECUTTER.getDisplayName();
     }
-
 }

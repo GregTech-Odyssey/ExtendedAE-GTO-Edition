@@ -1,11 +1,5 @@
 package com.glodblock.github.extendedae.client.gui;
 
-import appeng.client.gui.Icon;
-import appeng.client.gui.implementations.UpgradeableScreen;
-import appeng.client.gui.style.Blitter;
-import appeng.client.gui.style.PaletteColor;
-import appeng.client.gui.style.ScreenStyle;
-import appeng.core.AppEng;
 import com.glodblock.github.extendedae.client.button.ActionEPPButton;
 import com.glodblock.github.extendedae.client.button.HighlightButton;
 import com.glodblock.github.extendedae.common.me.wireless.WirelessStatus;
@@ -13,8 +7,7 @@ import com.glodblock.github.extendedae.common.tileentities.TileWirelessHub;
 import com.glodblock.github.extendedae.container.ContainerWirelessHub;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 import com.glodblock.github.extendedae.util.MessageUtil;
-import com.glodblock.github.glodium.network.packet.CGenericPacket;
-import java.util.function.Supplier;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -24,10 +17,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+
+import appeng.client.gui.Icon;
+import appeng.client.gui.implementations.UpgradeableScreen;
+import appeng.client.gui.style.Blitter;
+import appeng.client.gui.style.PaletteColor;
+import appeng.client.gui.style.ScreenStyle;
+import appeng.core.AppEng;
+
+import com.glodblock.github.glodium.network.packet.CGenericPacket;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Supplier;
+
 public class GuiWirelessHub extends UpgradeableScreen<ContainerWirelessHub> {
+
     private static final Blitter PORT = Blitter.texture(AppEng.makeId("textures/guis/wireless_hub.png")).src(176, 0, 16, 16);
     private static final int COL1_X = 37;
     private static final int COL2_X = 120;
@@ -41,7 +46,7 @@ public class GuiWirelessHub extends UpgradeableScreen<ContainerWirelessHub> {
 
     public GuiWirelessHub(ContainerWirelessHub menu, Inventory playerInventory, Component title, ScreenStyle style) {
         super(menu, playerInventory, title, style);
-        for (int i = 0; i < TileWirelessHub.MAX_PORT; i ++) {
+        for (int i = 0; i < TileWirelessHub.MAX_PORT; i++) {
             final int port = i;
             this.remotes[i] = new RemoteBlock(() -> menu.getRemotePosition(port), 0, 0, 16, 16);
             this.highlightBtn[i] = new HighlightButton();
@@ -54,7 +59,7 @@ public class GuiWirelessHub extends UpgradeableScreen<ContainerWirelessHub> {
     @Override
     public void init() {
         super.init();
-        for (int i = 0; i < TileWirelessHub.MAX_PORT; i ++) {
+        for (int i = 0; i < TileWirelessHub.MAX_PORT; i++) {
             int X = i < 4 ? COL1_X : COL2_X;
             int Y = i % 4;
             this.remotes[i].setPosition(this.leftPos + X, this.topPos + COL_Y + Y * Y_OFFSET);
@@ -70,7 +75,7 @@ public class GuiWirelessHub extends UpgradeableScreen<ContainerWirelessHub> {
     protected void updateBeforeRender() {
         super.updateBeforeRender();
         var dim = this.getPlayer().clientLevel.dimension();
-        for (int i = 0; i < TileWirelessHub.MAX_PORT; i ++) {
+        for (int i = 0; i < TileWirelessHub.MAX_PORT; i++) {
             var status = this.menu.getStatus(i);
             if (status == WirelessStatus.WORKING || status == WirelessStatus.NO_POWER) {
                 var remotePos = this.menu.getRemotePosition(i);
@@ -103,16 +108,14 @@ public class GuiWirelessHub extends UpgradeableScreen<ContainerWirelessHub> {
                 PADDING_X,
                 PADDING_Y + len,
                 textColor,
-                false
-        );
+                false);
         guiGraphics.drawString(
                 this.font,
                 Component.translatable("gui.wireless_connect.channel", this.menu.usedChannel, this.menu.maxChannel),
                 PADDING_X,
                 PADDING_Y + len * 2,
                 textColor,
-                false
-        );
+                false);
     }
 
     private double playerToBlockDis(BlockPos pos) {
@@ -157,6 +160,5 @@ public class GuiWirelessHub extends UpgradeableScreen<ContainerWirelessHub> {
         protected void updateWidgetNarration(@NotNull NarrationElementOutput pNarrationElementOutput) {
             // NO-OP
         }
-
     }
 }

@@ -1,5 +1,15 @@
 package com.glodblock.github.extendedae.common.me;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.TransientCraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+
 import appeng.api.config.Actionable;
 import appeng.api.config.PowerMultiplier;
 import appeng.api.crafting.IPatternDetails;
@@ -10,6 +20,7 @@ import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.KeyCounter;
 import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.crafting.IMolecularAssemblerSupportedPattern;
+import appeng.blockentity.crafting.MolecularAssemblerBlockEntity;
 import appeng.core.AELog;
 import appeng.me.helpers.IGridConnectedBlockEntity;
 import appeng.menu.AutoCraftingMenu;
@@ -17,14 +28,7 @@ import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.FilteredInternalInventory;
 import appeng.util.inv.InternalInventoryHost;
 import appeng.util.inv.filter.IAEItemFilter;
-import com.glodblock.github.extendedae.ExtendedAE;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.inventory.TransientCraftingContainer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -151,14 +155,7 @@ public class CraftingThread {
             return TickRateModulation.SLEEP;
         }
         this.reboot = false;
-        switch (cards) {
-            case 0 -> this.progress += this.userPower(ticksSinceLastCall, 20, 1.0);
-            case 1 -> this.progress += this.userPower(ticksSinceLastCall, 26, 1.3);
-            case 2 -> this.progress += this.userPower(ticksSinceLastCall, 34, 1.7);
-            case 3 -> this.progress += this.userPower(ticksSinceLastCall, 40, 2.0);
-            case 4 -> this.progress += this.userPower(ticksSinceLastCall, 50, 2.5);
-            case 5 -> this.progress += this.userPower(ticksSinceLastCall, 100, 5.0);
-        }
+        this.progress += this.userPower(ticksSinceLastCall, getProgressPerTick(cards), MolecularAssemblerBlockEntity.getPowerFactor(cards));
         if (this.progress >= 100) {
             return this.onCraftingDone();
         }
@@ -231,6 +228,10 @@ public class CraftingThread {
         } else {
             return myPlan;
         }
+    }
+
+    public static int getProgressPerTick(int speedCards) {
+        return 2 * MolecularAssemblerBlockEntity.getProgressPerTick(speedCards);
     }
 
     private int userPower(int ticksPassed, int bonusValue, double acceleratorTax) {
@@ -335,6 +336,7 @@ public class CraftingThread {
     }
 
     private static class CraftingGridFilter implements IAEItemFilter {
+
         @Override
         public boolean allowExtract(InternalInventory inv, int slot, int amount) {
             return slot == 9;
@@ -352,13 +354,10 @@ public class CraftingThread {
         public void slotsChanged(@NotNull Container container) {
             // NO-OP
         }
-
     }
 
     public interface SignalAccepter {
 
         void send(boolean signal);
-
     }
-
 }

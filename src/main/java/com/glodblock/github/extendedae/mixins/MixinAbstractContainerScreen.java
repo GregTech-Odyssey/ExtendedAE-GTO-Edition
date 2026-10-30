@@ -1,14 +1,17 @@
 package com.glodblock.github.extendedae.mixins;
 
-import appeng.api.stacks.AEKeyType;
-import appeng.api.stacks.AmountFormat;
-import appeng.client.gui.me.common.StackSizeRenderer;
 import com.glodblock.github.extendedae.container.pattern.ContainerPattern;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.Slot;
+
+import appeng.api.stacks.AEKeyType;
+import appeng.api.stacks.AmountFormat;
+import appeng.client.gui.me.common.StackSizeRenderer;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,8 +22,7 @@ public abstract class MixinAbstractContainerScreen extends Screen {
 
     @Inject(
             method = "renderSlot",
-            at = @At(value = "INVOKE", target = "net/minecraft/client/gui/GuiGraphics.renderItemDecorations (Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V")
-    )
+            at = @At(value = "INVOKE", target = "net/minecraft/client/gui/GuiGraphics.renderItemDecorations (Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V"))
     private void renderMESizeText(GuiGraphics guiGraphics, Slot slot, CallbackInfo ci) {
         if (slot instanceof ContainerPattern.DisplayOnlySlot dpSlot && dpSlot.shouldUseMEText()) {
             long size = dpSlot.getActualAmount();
@@ -34,5 +36,4 @@ public abstract class MixinAbstractContainerScreen extends Screen {
     private MixinAbstractContainerScreen(Component p_96550_) {
         super(p_96550_);
     }
-
 }

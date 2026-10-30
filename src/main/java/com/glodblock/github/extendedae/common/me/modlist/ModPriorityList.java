@@ -1,9 +1,11 @@
 package com.glodblock.github.extendedae.common.me.modlist;
 
+import com.glodblock.github.extendedae.util.FCUtil;
+
 import appeng.api.stacks.AEKey;
 import appeng.util.Platform;
 import appeng.util.prioritylist.IPartitionList;
-import com.glodblock.github.extendedae.util.FCUtil;
+
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
 

@@ -13,8 +13,7 @@ public class MessageUtil {
 
     private MessageUtil() {}
 
-    public  static Component createEnhancedHighlightMessage(Player player, BlockPos targetPos, ResourceKey<Level> targetDimension, String translatable) {
-
+    public static Component createEnhancedHighlightMessage(Player player, BlockPos targetPos, ResourceKey<Level> targetDimension, String translatable) {
         String dimensionId = targetDimension.location().toString();
 
         int distance = (int) Math.sqrt(player.blockPosition().distSqr(targetPos));
@@ -24,22 +23,19 @@ public class MessageUtil {
                 .withStyle(style -> style
                         .withColor(ChatFormatting.GREEN)
                         .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, tpCommand))
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("chat.coordinates.tooltip")))
-                );
+                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("chat.coordinates.tooltip"))));
 
         String dimTpCommand = "/execute in " + dimensionId + " run tp @s " + targetPos.getX() + " " + targetPos.getY() + " " + targetPos.getZ();
         Component dimensionComponent = Component.literal(dimensionId)
                 .withStyle(style -> style
                         .withColor(ChatFormatting.AQUA)
                         .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, dimTpCommand))
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("chat.coordinates.tooltip")))
-                );
+                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("chat.coordinates.tooltip"))));
 
         return Component.translatable(
                 translatable,
                 coordsComponent,
                 dimensionComponent,
-                distance
-        );
+                distance);
     }
 }

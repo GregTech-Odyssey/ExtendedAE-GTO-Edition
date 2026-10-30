@@ -1,5 +1,19 @@
 package com.glodblock.github.extendedae.common.tileentities.matrix;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.common.me.CraftingMatrixThread;
+import com.glodblock.github.extendedae.common.me.CraftingThread;
+import com.glodblock.github.extendedae.common.me.matrix.ClusterAssemblerMatrix;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+
 import appeng.api.config.Actionable;
 import appeng.api.crafting.IPatternDetails;
 import appeng.api.inventories.InternalInventory;
@@ -14,20 +28,9 @@ import appeng.api.stacks.GenericStack;
 import appeng.api.stacks.KeyCounter;
 import appeng.util.inv.CombinedInternalInventory;
 import appeng.util.inv.InternalInventoryHost;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.me.CraftingMatrixThread;
-import com.glodblock.github.extendedae.common.me.CraftingThread;
-import com.glodblock.github.extendedae.common.me.matrix.ClusterAssemblerMatrix;
+
 import com.glodblock.github.glodium.util.GlodUtil;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +52,7 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
         this.getMainNode().addService(IGridTickable.class, this);
         this.outputBuffer = new OutputBuffer();
         var invs = new InternalInventory[MAX_THREAD];
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             final int index = x;
             this.threads[index] = new CraftingMatrixThread(this, this::getSrc, signal -> this.changeState(index, signal));
             invs[index] = this.threads[index].getInternalInventory();
@@ -88,7 +91,7 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
         int cnt = 0;
         for (var t : this.threads) {
             if (t.isAwake()) {
-                cnt ++;
+                cnt++;
             }
         }
         return cnt;
@@ -129,7 +132,7 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
     @Override
     public void saveAdditional(CompoundTag data) {
         super.saveAdditional(data);
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             var tag = this.threads[x].writeNBT();
             data.put("#ct" + x, tag);
         }
@@ -147,7 +150,7 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
     @Override
     public void loadTag(CompoundTag data) {
         super.loadTag(data);
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             if (data.contains("#ct" + x)) {
                 this.threads[x].readNBT(data.getCompound("#ct" + x));
             }
@@ -314,7 +317,5 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
                 }
             }
         }
-
     }
-
 }

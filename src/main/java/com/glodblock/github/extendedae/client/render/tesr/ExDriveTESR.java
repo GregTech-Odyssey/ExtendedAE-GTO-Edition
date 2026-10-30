@@ -1,21 +1,24 @@
 package com.glodblock.github.extendedae.client.render.tesr;
 
-import appeng.api.implementations.blockentities.IChestOrDrive;
-import appeng.api.orientation.BlockOrientation;
-import appeng.api.orientation.RelativeSide;
-import appeng.api.storage.cells.CellState;
 import com.glodblock.github.extendedae.client.model.ExDriveBakedModel;
 import com.glodblock.github.extendedae.common.tileentities.TileExDrive;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexFormat;
+
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+
+import appeng.api.implementations.blockentities.IChestOrDrive;
+import appeng.api.orientation.BlockOrientation;
+import appeng.api.orientation.RelativeSide;
+import appeng.api.storage.cells.CellState;
+
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
@@ -23,12 +26,10 @@ import java.util.EnumMap;
 
 public class ExDriveTESR implements BlockEntityRenderer<TileExDrive> {
 
-    public ExDriveTESR(BlockEntityRendererProvider.Context context) {
-    }
+    public ExDriveTESR(BlockEntityRendererProvider.Context context) {}
 
     @Override
     public void render(TileExDrive drive, float partialTicks, @NotNull PoseStack ms, @NotNull MultiBufferSource buffers, int combinedLightIn, int combinedOverlayIn) {
-
         if (drive.getCellCount() != 20) {
             throw new IllegalStateException("Expected extended drive to have 20 slots");
         }
@@ -123,7 +124,6 @@ public class ExDriveTESR implements BlockEntityRenderer<TileExDrive> {
                         .createCompositeState(false));
 
         public static void renderLed(IChestOrDrive drive, int slot, VertexConsumer buffer, PoseStack ms) {
-
             Vector3f color = getColorForSlot(drive, slot);
             if (color == null) {
                 return;
@@ -163,10 +163,6 @@ public class ExDriveTESR implements BlockEntityRenderer<TileExDrive> {
             return x < 0.5f ? 4 * x * x * x : 1 - (float) Math.pow(-2 * x + 2, 3) / 2;
         }
 
-        private CellLedRenderer() {
-        }
-
+        private CellLedRenderer() {}
     }
-
-
 }

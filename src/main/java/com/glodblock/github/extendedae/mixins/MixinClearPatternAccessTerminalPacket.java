@@ -1,9 +1,12 @@
 package com.glodblock.github.extendedae.mixins;
 
-import appeng.core.sync.packets.ClearPatternAccessTerminalPacket;
 import com.glodblock.github.extendedae.client.gui.GuiExPatternTerminal;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
+
+import appeng.core.sync.packets.ClearPatternAccessTerminalPacket;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,13 +19,11 @@ public abstract class MixinClearPatternAccessTerminalPacket {
             method = "clientPacketData",
             at = @At("HEAD"),
             remap = false,
-            cancellable = true
-    )
+            cancellable = true)
     private void handleExGui(Player player, CallbackInfo ci) {
         if (Minecraft.getInstance().screen instanceof GuiExPatternTerminal<?> patternAccessTerminal) {
             patternAccessTerminal.clear();
             ci.cancel();
         }
     }
-
 }

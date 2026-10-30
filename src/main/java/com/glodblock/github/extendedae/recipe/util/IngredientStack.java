@@ -1,11 +1,12 @@
 package com.glodblock.github.extendedae.recipe.util;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.util.function.Predicate;
 
@@ -94,7 +95,7 @@ public abstract class IngredientStack<T> {
 
     @Override
     public String toString() {
-        return this.amount + " " +this.ingredient;
+        return this.amount + " " + this.ingredient;
     }
 
     public static final class Item extends IngredientStack<ItemStack> {
@@ -142,7 +143,6 @@ public abstract class IngredientStack<T> {
         public void setStackAmount(ItemStack stack, int amount) {
             stack.setCount(amount);
         }
-
     }
 
     public static final class Fluid extends IngredientStack<FluidStack> {
@@ -191,5 +191,4 @@ public abstract class IngredientStack<T> {
             stack.setAmount(amount);
         }
     }
-
 }

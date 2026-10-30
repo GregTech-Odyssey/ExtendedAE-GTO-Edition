@@ -1,10 +1,12 @@
 package com.glodblock.github.extendedae.client.gui;
 
-import appeng.client.gui.style.ScreenStyle;
-import appeng.client.gui.widgets.ToolboxPanel;
 import com.glodblock.github.extendedae.container.ContainerWirelessExCT;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import appeng.client.gui.style.ScreenStyle;
+import appeng.client.gui.widgets.ToolboxPanel;
 
 public class GuiWirelessExCT extends GuiExCraftingTerminal<ContainerWirelessExCT> {
 
@@ -14,5 +16,4 @@ public class GuiWirelessExCT extends GuiExCraftingTerminal<ContainerWirelessExCT
             this.widgets.add("toolbox", new ToolboxPanel(style, menu.getToolbox().getName()));
         }
     }
-
 }

@@ -1,15 +1,8 @@
 package com.glodblock.github.extendedae.common.items;
 
-import appeng.api.config.FuzzyMode;
-import appeng.api.stacks.AEFluidKey;
-import appeng.api.stacks.AEItemKey;
-import appeng.api.stacks.AEKey;
-import appeng.api.stacks.GenericStack;
-import appeng.api.storage.cells.ICellWorkbenchItem;
-import appeng.items.AEBaseItem;
-import appeng.items.storage.StorageCellTooltipComponent;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.config.EPPConfig;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -20,6 +13,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
+
+import appeng.api.config.FuzzyMode;
+import appeng.api.stacks.AEFluidKey;
+import appeng.api.stacks.AEItemKey;
+import appeng.api.stacks.AEKey;
+import appeng.api.stacks.GenericStack;
+import appeng.api.storage.cells.ICellWorkbenchItem;
+import appeng.items.AEBaseItem;
+import appeng.items.storage.StorageCellTooltipComponent;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -86,10 +89,6 @@ public class InfinityCell extends AEBaseItem implements ICellWorkbenchItem {
     }
 
     public static long getAsIntMax(AEKey key) {
-        if (key instanceof AEFluidKey) {
-            return (long) Integer.MAX_VALUE * AEFluidKey.AMOUNT_BUCKET;
-        }
-        return Integer.MAX_VALUE;
+        return 0x1fffffffffffffffL;
     }
-
 }

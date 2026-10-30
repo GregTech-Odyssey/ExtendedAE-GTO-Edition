@@ -1,5 +1,8 @@
 pluginManagement {
     repositories {
+        maven {
+            url = 'https://gtodyssey.com/maven/releases'
+        }
         gradlePluginPortal()
         mavenCentral()
         maven {

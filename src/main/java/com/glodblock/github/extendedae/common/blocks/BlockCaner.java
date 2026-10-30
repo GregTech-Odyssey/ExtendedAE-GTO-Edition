@@ -1,13 +1,8 @@
 package com.glodblock.github.extendedae.common.blocks;
 
-import appeng.api.orientation.IOrientationStrategy;
-import appeng.api.orientation.OrientationStrategies;
-import appeng.api.orientation.RelativeSide;
-import appeng.api.util.AEAxisAlignedBB;
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocators;
 import com.glodblock.github.extendedae.common.tileentities.TileCaner;
 import com.glodblock.github.extendedae.container.ContainerCaner;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -26,6 +21,14 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import appeng.api.orientation.IOrientationStrategy;
+import appeng.api.orientation.OrientationStrategies;
+import appeng.api.orientation.RelativeSide;
+import appeng.api.util.AEAxisAlignedBB;
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocators;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,9 +66,7 @@ public class BlockCaner extends BlockBaseGui<TileCaner> implements SimpleWaterlo
     @SuppressWarnings("deprecation")
     @Override
     public @NotNull FluidState getFluidState(BlockState blockState) {
-        return blockState.getValue(WATERLOGGED)
-                ? Fluids.WATER.getSource(false)
-                : super.getFluidState(blockState);
+        return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
     @SuppressWarnings("deprecation")
@@ -109,8 +110,7 @@ public class BlockCaner extends BlockBaseGui<TileCaner> implements SimpleWaterlo
                 bb.minX = 0.0;
                 bb.maxX = 1.0;
                 break;
-            default: {
-            }
+            default: {}
         }
 
         return Shapes.create(bb.getBoundingBox());
@@ -121,5 +121,4 @@ public class BlockCaner extends BlockBaseGui<TileCaner> implements SimpleWaterlo
     public @NotNull VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return Shapes.create(new AABB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0));
     }
-
 }

@@ -1,21 +1,24 @@
 package com.glodblock.github.extendedae.client.gui;
 
-import appeng.client.gui.AEBaseScreen;
-import appeng.client.gui.Icon;
-import appeng.client.gui.style.PaletteColor;
-import appeng.client.gui.style.ScreenStyle;
-import appeng.core.AppEng;
 import com.glodblock.github.extendedae.client.button.ActionEPPButton;
 import com.glodblock.github.extendedae.client.button.EPPIcon;
 import com.glodblock.github.extendedae.container.ContainerPatternModifier;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 import com.glodblock.github.extendedae.network.packet.CUpdatePage;
-import com.glodblock.github.glodium.network.packet.CGenericPacket;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import appeng.client.gui.AEBaseScreen;
+import appeng.client.gui.Icon;
+import appeng.client.gui.style.PaletteColor;
+import appeng.client.gui.style.ScreenStyle;
+import appeng.core.AppEng;
+
+import com.glodblock.github.glodium.network.packet.CGenericPacket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,32 +43,27 @@ public class GuiPatternModifier extends AEBaseScreen<ContainerPatternModifier> {
                 Button.builder(Component.literal("x2"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 2, false)))
                         .size(23, 18)
                         .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.multi.desc", 2)))
-                        .build()
-        );
+                        .build());
         this.multiBtns.add(
                 Button.builder(Component.literal("x10"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 10, false)))
                         .size(23, 18)
                         .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.multi.desc", 10)))
-                        .build()
-        );
+                        .build());
         this.multiBtns.add(
                 Button.builder(Component.literal("÷2"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 2, true)))
                         .size(23, 18)
                         .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.div.desc", 2)))
-                        .build()
-        );
+                        .build());
         this.multiBtns.add(
                 Button.builder(Component.literal("÷10"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 10, true)))
                         .size(23, 18)
                         .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.div.desc", 10)))
-                        .build()
-        );
+                        .build());
         this.multiBtns.add(
                 Button.builder(Component.translatable("gui.expatternprovider.pattern_modifier.clear"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("clear")))
                         .size(36, 18)
                         .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.clear.desc")))
-                        .build()
-        );
+                        .build());
         this.imageHeight = 192;
     }
 
@@ -77,8 +75,7 @@ public class GuiPatternModifier extends AEBaseScreen<ContainerPatternModifier> {
                 8,
                 6,
                 style.getColor(PaletteColor.DEFAULT_TEXT_COLOR).toARGB(),
-                false
-        );
+                false);
         if (this.menu.page == 2) {
             guiGraphics.drawString(
                     this.font,
@@ -86,16 +83,14 @@ public class GuiPatternModifier extends AEBaseScreen<ContainerPatternModifier> {
                     52,
                     57,
                     style.getColor(PaletteColor.DEFAULT_TEXT_COLOR).toARGB(),
-                    false
-            );
+                    false);
             guiGraphics.drawString(
                     this.font,
                     Component.translatable("gui.expatternprovider.pattern_modifier.target"),
                     52,
                     25,
                     style.getColor(PaletteColor.DEFAULT_TEXT_COLOR).toARGB(),
-                    false
-            );
+                    false);
         }
     }
 
@@ -154,5 +149,4 @@ public class GuiPatternModifier extends AEBaseScreen<ContainerPatternModifier> {
             default -> Component.empty();
         };
     }
-
 }

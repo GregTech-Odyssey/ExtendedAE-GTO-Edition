@@ -1,12 +1,13 @@
 package com.glodblock.github.extendedae.client.render;
 
-import com.glodblock.github.glodium.client.render.ColorData;
-import com.glodblock.github.glodium.client.render.highlight.HighlightHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+
+import com.glodblock.github.glodium.client.render.ColorData;
+import com.glodblock.github.glodium.client.render.highlight.HighlightHandler;
 
 public class EAEHighlightHandler {
 
@@ -23,5 +24,4 @@ public class EAEHighlightHandler {
     private static boolean blink() {
         return ((System.currentTimeMillis() / 500) & 1) != 0;
     }
-
 }

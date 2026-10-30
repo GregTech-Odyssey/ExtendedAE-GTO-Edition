@@ -1,12 +1,14 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.me.wireless.WirelessStatus;
+import com.glodblock.github.extendedae.common.tileentities.TileWirelessConnector;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.menu.guisync.GuiSync;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
-import com.glodblock.github.extendedae.common.me.wireless.WirelessStatus;
-import com.glodblock.github.extendedae.common.tileentities.TileWirelessConnector;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 
 public class ContainerWirelessConnector extends UpgradeableMenu<TileWirelessConnector> {
 
@@ -53,5 +55,4 @@ public class ContainerWirelessConnector extends UpgradeableMenu<TileWirelessConn
         }
         super.broadcastChanges();
     }
-
 }

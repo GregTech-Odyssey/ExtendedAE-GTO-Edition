@@ -1,5 +1,21 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.common.me.wireless.WirelessConnect;
+import com.glodblock.github.extendedae.common.me.wireless.WirelessNode;
+import com.glodblock.github.extendedae.config.EPPConfig;
+import com.glodblock.github.extendedae.util.CacheHolder;
+import com.glodblock.github.extendedae.xmod.jade.JadeDataProvider;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fml.ModList;
+
 import appeng.api.implementations.blockentities.IColorableBlockEntity;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.IGridNode;
@@ -12,27 +28,14 @@ import appeng.api.util.AEColor;
 import appeng.blockentity.ServerTickingBlockEntity;
 import appeng.blockentity.grid.AENetworkBlockEntity;
 import appeng.core.definitions.AEItems;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.me.wireless.WirelessConnect;
-import com.glodblock.github.extendedae.common.me.wireless.WirelessNode;
-import com.glodblock.github.extendedae.config.EPPConfig;
-import com.glodblock.github.extendedae.util.CacheHolder;
-import com.glodblock.github.extendedae.xmod.jade.JadeDataProvider;
+
 import com.glodblock.github.glodium.util.GlodUtil;
 import gripe._90.megacells.definition.MEGAItems;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fml.ModList;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.List;
-import org.jetbrains.annotations.Nullable;
 
 // Adapt from Quantum Bridge code
 public class TileWirelessConnector extends AENetworkBlockEntity implements ServerTickingBlockEntity, IUpgradeableObject, IColorableBlockEntity, WirelessNode, JadeDataProvider {
@@ -228,5 +231,4 @@ public class TileWirelessConnector extends AENetworkBlockEntity implements Serve
         tag.putString("color", this.color.name());
         this.getMainNode().ifPresent((gird, node) -> tag.putInt("used", node.getUsedChannels()));
     }
-
 }

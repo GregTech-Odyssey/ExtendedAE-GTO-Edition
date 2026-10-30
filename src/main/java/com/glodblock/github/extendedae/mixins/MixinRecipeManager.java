@@ -1,11 +1,13 @@
 package com.glodblock.github.extendedae.mixins;
 
 import com.glodblock.github.extendedae.util.RecipeManagerAccessor;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -20,5 +22,4 @@ public abstract class MixinRecipeManager implements RecipeManagerAccessor {
     public <C extends Container, T extends Recipe<C>> Map<ResourceLocation, T> getByType(RecipeType<T> type) {
         return this.byType(type);
     }
-
 }

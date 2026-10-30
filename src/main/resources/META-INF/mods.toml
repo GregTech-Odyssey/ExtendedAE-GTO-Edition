@@ -1,10 +1,10 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
+issueTrackerURL="https://github.com/GregTech-Odyssey/GregTech-Odyssey/issues"
 [[mods]]
 modId="expatternprovider"
-issueTrackerURL="https://github.com/GlodBlock/ExtendedAE/issues"
-displayURL="https://github.com/GlodBlock/ExtendedAE"
+displayURL="https://github.com/GregTech-Odyssey/ExtendedAE"
 version="${mod_version}"
 displayName="${mod_name}"
 authors="${mod_authors}"
@@ -27,7 +27,7 @@ description='''${mod_description}'''
 [[dependencies.expatternprovider]]
     modId="ae2"
     mandatory=true
-    versionRange="[15.4.1,)"
+    versionRange="[${ae2_version},)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.expatternprovider]]

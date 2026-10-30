@@ -1,14 +1,9 @@
 package com.glodblock.github.extendedae.client.render.tesr;
 
-import appeng.api.orientation.BlockOrientation;
-import appeng.recipes.handlers.InscriberProcessType;
-import appeng.recipes.handlers.InscriberRecipe;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.common.tileentities.TileExInscriber;
 import com.glodblock.github.extendedae.config.EPPConfig;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -26,6 +21,14 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.model.data.ModelData;
+
+import appeng.api.orientation.BlockOrientation;
+import appeng.recipes.handlers.InscriberProcessType;
+import appeng.recipes.handlers.InscriberRecipe;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
@@ -34,12 +37,12 @@ public class ExInscriberTESR implements BlockEntityRenderer<TileExInscriber> {
     private static final float ITEM_RENDER_SCALE = 0.5f;
 
     private static final float[][] offset = new float[][] {
-            {0.1875f, 0.1875f}, {0.1875f, -0.1875f}, {-0.1875f, 0.1875f}, {-0.1875f, -0.1875f}
+            { 0.1875f, 0.1875f }, { 0.1875f, -0.1875f }, { -0.1875f, 0.1875f }, { -0.1875f, -0.1875f }
     };
 
     private static final Material TEXTURE_INSIDE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(ExtendedAE.MODID, "block/ex_inscriber_inside"));
-    public ExInscriberTESR(BlockEntityRendererProvider.Context context) {
-    }
+
+    public ExInscriberTESR(BlockEntityRendererProvider.Context context) {}
 
     @Override
     public void render(@NotNull TileExInscriber blockEntity, float partialTicks, PoseStack ms, @NotNull MultiBufferSource buffers, int combinedLight, int combinedOverlay) {
@@ -145,7 +148,7 @@ public class ExInscriberTESR implements BlockEntityRenderer<TileExInscriber> {
         // render items.
 
         if (!EPPConfig.disableInscriberRender) {
-            for (int x = 0; x < TileExInscriber.MAX_THREAD; x ++) {
+            for (int x = 0; x < TileExInscriber.MAX_THREAD; x++) {
                 var inv = blockEntity.getIndexInventory(x);
 
                 int items = 0;
@@ -243,5 +246,4 @@ public class ExInscriberTESR implements BlockEntityRenderer<TileExInscriber> {
     private static float easeDecompressMotion(float x) {
         return x * x * x * x * x;
     }
-
 }

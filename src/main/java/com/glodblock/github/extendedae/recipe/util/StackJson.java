@@ -1,10 +1,11 @@
 package com.glodblock.github.extendedae.recipe.util;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 @SuppressWarnings("deprecation")
 public class StackJson {
@@ -35,5 +36,4 @@ public class StackJson {
         }
         return stack;
     }
-
 }

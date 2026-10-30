@@ -1,5 +1,20 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.container.ContainerActiveFormationPlane;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.model.data.ModelData;
+
 import appeng.api.behaviors.PlacementStrategy;
 import appeng.api.config.Actionable;
 import appeng.api.config.FuzzyMode;
@@ -30,6 +45,7 @@ import appeng.menu.ISubMenu;
 import appeng.menu.MenuOpener;
 import appeng.menu.locator.MenuLocators;
 import appeng.parts.PartModel;
+import appeng.parts.automation.IOBusPart;
 import appeng.parts.automation.PlaneConnectionHelper;
 import appeng.parts.automation.PlaneConnections;
 import appeng.parts.automation.PlaneModelData;
@@ -39,20 +55,8 @@ import appeng.parts.automation.UpgradeablePart;
 import appeng.util.ConfigInventory;
 import appeng.util.Platform;
 import appeng.util.prioritylist.IPartitionList;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.container.ContainerActiveFormationPlane;
+
 import com.google.common.collect.ImmutableList;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -62,8 +66,7 @@ public class PartActiveFormationPlane extends UpgradeablePart implements IGridTi
 
     public static final List<ResourceLocation> MODELS = List.of(
             ExtendedAE.id("part/active_formation_plane"),
-            ExtendedAE.id("part/active_formation_plane_on")
-    );
+            ExtendedAE.id("part/active_formation_plane_on"));
 
     @PartModels
     public static final IPartModel MODELS_OFF = new PartModel(MODELS.get(0), PlaneModels.MODEL_CHASSIS_OFF);
@@ -274,7 +277,7 @@ public class PartActiveFormationPlane extends UpgradeablePart implements IGridTi
 
         if (filterMode == IncludeExclude.WHITELIST) {
             int x;
-            for (x = 0; x < availableSlots(); x ++) {
+            for (x = 0; x < availableSlots(); x++) {
                 var what = getConfig().getKey(x);
                 if (what == null) {
                     continue;
@@ -304,13 +307,7 @@ public class PartActiveFormationPlane extends UpgradeablePart implements IGridTi
     }
 
     protected long getDropMultiplier() {
-        return switch (getInstalledUpgrades(AEItems.SPEED_CARD)) {
-            case 1 -> 8;
-            case 2 -> 32;
-            case 3 -> 64;
-            case 4 -> 96;
-            default -> 1;
-        };
+        return IOBusPart.getOperationsForSpeedCards(getInstalledUpgrades(AEItems.SPEED_CARD));
     }
 
     protected long getExtractAmount(AEKey what) {
@@ -363,5 +360,4 @@ public class PartActiveFormationPlane extends UpgradeablePart implements IGridTi
                 .with(PlaneModelData.CONNECTIONS, getConnections())
                 .build();
     }
-
 }

@@ -1,13 +1,15 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.parts.PartExExportBus;
+import com.glodblock.github.extendedae.common.parts.PartExImportBus;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.core.definitions.AEItems;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
 import appeng.parts.automation.IOBusPart;
-import com.glodblock.github.extendedae.common.parts.PartExExportBus;
-import com.glodblock.github.extendedae.common.parts.PartExImportBus;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 
 public class ContainerExIOBus extends UpgradeableMenu<IOBusPart> {
 

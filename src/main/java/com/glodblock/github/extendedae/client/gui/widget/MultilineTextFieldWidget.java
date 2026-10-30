@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -72,7 +73,9 @@ public class MultilineTextFieldWidget extends AbstractWidget {
         }
     }
 
-    public String getValue() { return textField.value(); }
+    public String getValue() {
+        return textField.value();
+    }
 
     public void setValue(String v) {
         String s = sanitize(v);
@@ -175,7 +178,7 @@ public class MultilineTextFieldWidget extends AbstractWidget {
         int y = clipT - (int) scrollAmount + firstLine * font.lineHeight;
 
         int selectionBegin = textField.hasSelection() ? textField.selection().begin() : -1;
-        int selectionEnd   = textField.hasSelection() ? textField.selection().end()   : -1;
+        int selectionEnd = textField.hasSelection() ? textField.selection().end() : -1;
         int selectionColor = 0x80007FFF;
 
         if (isFocused() && blink()) {
@@ -193,11 +196,11 @@ public class MultilineTextFieldWidget extends AbstractWidget {
             g.drawString(font, str, clipL, y, 0xFFE0E0E0);
             if (textField.hasSelection()) {
                 int lineStartChar = ln.begin();
-                int lineEndChar   = ln.end();
+                int lineEndChar = ln.end();
 
                 if (!(selectionEnd <= lineStartChar || selectionBegin >= lineEndChar)) {
                     int selStartInLine = Math.max(0, selectionBegin - lineStartChar);
-                    int selEndInLine   = Math.min(str.length(), selectionEnd - lineStartChar);
+                    int selEndInLine = Math.min(str.length(), selectionEnd - lineStartChar);
 
                     if (selStartInLine < selEndInLine) {
                         String preSel = str.substring(0, selStartInLine);
@@ -222,24 +225,27 @@ public class MultilineTextFieldWidget extends AbstractWidget {
     }
 
     @Override
-    protected void updateWidgetNarration(@NotNull NarrationElementOutput out) {
-    }
+    protected void updateWidgetNarration(@NotNull NarrationElementOutput out) {}
 
     public double getMaxScroll() {
         int textH = textField.lineCount() * font.lineHeight;
         return Math.max(textH - (height - 4), 0);
     }
+
     public void setScrollAmount(double a) {
         this.scrollAmount = Mth.clamp(a, 0, getMaxScroll());
     }
-    private void clampScroll() { setScrollAmount(this.scrollAmount); }
+
+    private void clampScroll() {
+        setScrollAmount(this.scrollAmount);
+    }
 
     private void ensureCursorVisible() {
-        int viewH     = height - 4;
+        int viewH = height - 4;
         int caretLine = textField.lineAtCursor();
-        int caretY    = caretLine * font.lineHeight;
+        int caretY = caretLine * font.lineHeight;
 
-        double top    = scrollAmount;
+        double top = scrollAmount;
         double bottom = scrollAmount + viewH - font.lineHeight;
 
         if (caretY < top) {
@@ -257,7 +263,9 @@ public class MultilineTextFieldWidget extends AbstractWidget {
     }
 
     private void onEdited() {
-        try { responder.accept(getValue()); } catch (Throwable ignored) {}
+        try {
+            responder.accept(getValue());
+        } catch (Throwable ignored) {}
     }
 
     private String sanitize(String in) {
@@ -266,7 +274,10 @@ public class MultilineTextFieldWidget extends AbstractWidget {
         for (int i = 0; i < in.length(); i++) {
             char c = in.charAt(i);
             if (c == '\r') continue;
-            if (c == '\n') { b.append('\n'); continue; }
+            if (c == '\n') {
+                b.append('\n');
+                continue;
+            }
             if (filter == null || filter.matcher(String.valueOf(c)).matches()) b.append(c);
         }
         String s = b.toString();
@@ -280,12 +291,16 @@ public class MultilineTextFieldWidget extends AbstractWidget {
         textField.seekCursorToPoint(relX, relY);
     }
 
-    private boolean blink() { return (Util.getMillis() / 500) % 2 == 0; }
+    private boolean blink() {
+        return (Util.getMillis() / 500) % 2 == 0;
+    }
 
     private record Line(int begin, int end) {}
 
     private static final class CachedTextField extends MultilineTextField {
+
         private List<Line> cache = new ArrayList<>();
+
         record Selection(int begin, int end) {}
 
         CachedTextField(Font font, int w) {
@@ -293,24 +308,39 @@ public class MultilineTextFieldWidget extends AbstractWidget {
             rebuild();
         }
 
-        int  lineCount()    { return cache.size(); }
-        Line line(int idx)  { return cache.get(Mth.clamp(idx, 0, cache.size()-1)); }
-        int  lineAtCursor() { return super.getLineAtCursor(); }
+        int lineCount() {
+            return cache.size();
+        }
+
+        Line line(int idx) {
+            return cache.get(Mth.clamp(idx, 0, cache.size() - 1));
+        }
+
+        int lineAtCursor() {
+            return super.getLineAtCursor();
+        }
 
         Selection selection() {
             var sv = super.getSelected();
             return new Selection(sv.beginIndex(), sv.endIndex());
         }
 
-        @Override public void setValue(@NotNull String v)   { super.setValue(v);   rebuild(); }
-        @Override public void insertText(@NotNull String t) { super.insertText(t); rebuild(); }
+        @Override
+        public void setValue(@NotNull String v) {
+            super.setValue(v);
+            rebuild();
+        }
+
+        @Override
+        public void insertText(@NotNull String t) {
+            super.insertText(t);
+            rebuild();
+        }
 
         private void rebuild() {
             if (cache == null) cache = new ArrayList<>();
             cache.clear();
-            super.iterateLines().forEach(sv ->
-                    cache.add(new Line(sv.beginIndex(), sv.endIndex()))
-            );
+            super.iterateLines().forEach(sv -> cache.add(new Line(sv.beginIndex(), sv.endIndex())));
         }
     }
 }

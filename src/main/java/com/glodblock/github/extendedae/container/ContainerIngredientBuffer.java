@@ -1,13 +1,15 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.tileentities.TileIngredientBuffer;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.menu.AEBaseMenu;
 import appeng.menu.SlotSemantics;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.slot.AppEngSlot;
 import appeng.util.ConfigMenuInventory;
-import com.glodblock.github.extendedae.common.tileentities.TileIngredientBuffer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 
 public class ContainerIngredientBuffer extends AEBaseMenu {
 
@@ -17,10 +19,9 @@ public class ContainerIngredientBuffer extends AEBaseMenu {
 
     public ContainerIngredientBuffer(int id, Inventory playerInventory, TileIngredientBuffer host) {
         super(TYPE, id, playerInventory, host);
-        for (int index = 0; index < host.getInventory().size(); index ++) {
+        for (int index = 0; index < host.getInventory().size(); index++) {
             this.addSlot(new AppEngSlot(new ConfigMenuInventory(host.getInventory()), index), SlotSemantics.STORAGE);
         }
         this.createPlayerInventorySlots(playerInventory);
     }
-
 }

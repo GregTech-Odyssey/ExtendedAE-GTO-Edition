@@ -4,6 +4,8 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.neoforged.moddev.legacyforge' version '2.0.86'
+    id 'com.gto.gtopublishgradleplugin' version '1.0.27'
+    id 'com.diffplug.spotless' version '6.25.0'
 }
 
 version = mod_version
@@ -14,10 +16,23 @@ repositories {
 }
 
 base {
-    archivesName = mod_name
+    archivesName = 'extendedae'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+spotless {
+    encoding 'UTF-8'
+    lineEndings = com.diffplug.spotless.LineEnding.UNIX
+    java {
+        target 'src/*/java/**/*.java'
+        toggleOffOn()
+        importOrderFile file('gradle/spotless/spotless.importorder')
+        removeUnusedImports()
+        endWithNewline()
+        eclipse('4.31').configFile file('gradle/spotless/spotless.eclipseformat.xml')
+    }
+}
 
 legacyForge {
 
@@ -65,6 +80,9 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
+        url = "https://gtodyssey.com/maven/releases"
+    }
+    maven {
         url = "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -87,32 +105,21 @@ repositories {
         name = "Modmaven"
         url = "https://modmaven.dev/"
     }
-    maven {
-        url "https://maven.shedaniel.me/"
-        content {
-            includeGroup "me.shedaniel"
-            includeGroup "me.shedaniel.cloth"
-            includeGroup "dev.architectury"
-        }
-    }
 }
 
 dependencies {
     modImplementation "curse.maven:glodium-957920:5006780"
-    modImplementation "appeng:appliedenergistics2-forge:15.4.2"
+    modImplementation "appeng:appliedenergistics2-forge-1.20.1:${ae2_version}"
+    modImplementation "dev.emi:emi-forge-1.20.1:${emi_version}"
+    implementation "com.gto.fastcollection:FastCollection:26.8.7"
     modImplementation "org.appliedenergistics:guideme:20.1.7"
     modCompileOnly "curse.maven:applied-energistics-2-wireless-terminals-459929:5162352"
-    modCompileOnly "mezz.jei:jei-1.20.1-forge:15.0.0.12"
     modCompileOnly "curse.maven:applied-flux-965012:5329825"
     modCompileOnly "curse.maven:mega-cells-622112:5320730"
     modCompileOnly "curse.maven:jade-324717:4768593"
-    // rei
-    compileOnly "me.shedaniel.cloth:basic-math:0.6.1"
-    modCompileOnly "dev.architectury:architectury-forge:7.0.66"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:12.0.622"
-    modCompileOnly "me.shedaniel.cloth:cloth-config-forge:9.0.94"
     // project e
     modCompileOnly "curse.maven:projecte-226410:4901949"
+    // Legacy AppliedE overrides AEKey identity methods and is incompatible at runtime with the GTO AE2 fork.
     modCompileOnly "curse.maven:appliede-1009940:5364294"
     // gregtech
     modCompileOnly "curse.maven:gregtechceu-modern-890405:5369020"
@@ -121,11 +128,10 @@ dependencies {
     modCompileOnly "curse.maven:immersive-engineering-231951:5224387"
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     // runtime test
-    modRuntimeOnly "mezz.jei:jei-1.20.1-forge:15.0.0.12"
     modRuntimeOnly "curse.maven:jade-324717:4768593"
     modRuntimeOnly "curse.maven:mega-cells-622112:5320730"
     modRuntimeOnly "curse.maven:projecte-226410:4901949"
-    modRuntimeOnly "curse.maven:appliede-1009940:5364294"
+    // MEGA Cells requires Cloth Config independently of recipe viewer integration.
     modRuntimeOnly "curse.maven:cloth-config-348521:5729105"
 
     compileOnly 'org.jetbrains:annotations:24.1.0'
@@ -159,7 +165,7 @@ tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
             forge_version       : forge_version, forge_version_range: forge_version_range,
-            loader_version_range: loader_version_range,
+            loader_version_range: loader_version_range, ae2_version: ae2_version,
             mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
             mod_authors         : mod_authors, mod_description: mod_description
     ]
@@ -176,13 +182,41 @@ publishing {
     publications {
         register('mavenJava', MavenPublication) {
             from components.java
+            pom {
+                name = project.mod_name
+                description = project.mod_description
+                url = 'https://github.com/GregTech-Odyssey/ExtendedAE'
+                issueManagement {
+                    system = 'GitHub'
+                    url = 'https://github.com/GregTech-Odyssey/GregTech-Odyssey/issues'
+                }
+            }
         }
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/repo"
+            name = 'gtodysseyRepository'
+            url = 'https://gtodyssey.com/maven/releases'
+            credentials {
+                username = findProperty('gtodysseyRepositoryUsername') ?: ''
+                password = findProperty('gtodysseyRepositoryPassword') ?: ''
+            }
         }
     }
+}
+
+gtoPublish {
+    publishMaven = true
+    publishGithub = false
+    publishCurseforge = false
+    mavenRepoName = 'gtodysseyRepository'
+    mavenRepoUrl = 'releases'
+    minecraftVersion = project.minecraft_version
+    modLoader = 'Forge'
+}
+
+tasks.named('compileJava') {
+    dependsOn tasks.named('spotlessCheck')
 }
 
 tasks.withType(JavaCompile).configureEach {

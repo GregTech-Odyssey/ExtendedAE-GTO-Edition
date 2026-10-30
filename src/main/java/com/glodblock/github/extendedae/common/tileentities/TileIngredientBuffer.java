@@ -1,13 +1,8 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
-import appeng.api.stacks.AEKeyType;
-import appeng.blockentity.AEBaseBlockEntity;
-import appeng.capabilities.Capabilities;
-import appeng.helpers.externalstorage.GenericStackFluidStorage;
-import appeng.helpers.externalstorage.GenericStackInv;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.xmod.ExternalTypes;
-import com.glodblock.github.glodium.util.GlodUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +12,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+
+import appeng.api.stacks.AEKeyType;
+import appeng.blockentity.AEBaseBlockEntity;
+import appeng.capabilities.Capabilities;
+import appeng.helpers.externalstorage.GenericStackFluidStorage;
+import appeng.helpers.externalstorage.GenericStackInv;
+
+import com.glodblock.github.glodium.util.GlodUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +51,7 @@ public class TileIngredientBuffer extends AEBaseBlockEntity {
     @Override
     public void addAdditionalDrops(Level level, BlockPos pos, List<ItemStack> drops) {
         super.addAdditionalDrops(level, pos, drops);
-        for (int index = 0; index < this.buffer.size(); index ++) {
+        for (int index = 0; index < this.buffer.size(); index++) {
             var stack = this.buffer.getStack(index);
             if (stack != null) {
                 stack.what().addDrops(stack.amount(), drops, level, pos);
@@ -88,5 +91,4 @@ public class TileIngredientBuffer extends AEBaseBlockEntity {
     public GenericStackInv getInventory() {
         return this.buffer;
     }
-
 }

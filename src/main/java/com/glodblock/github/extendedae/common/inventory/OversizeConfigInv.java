@@ -1,12 +1,14 @@
 package com.glodblock.github.extendedae.common.inventory;
 
+import com.glodblock.github.extendedae.config.EPPConfig;
+
 import appeng.api.behaviors.GenericSlotCapacities;
 import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKey;
 import appeng.api.storage.AEKeyFilter;
 import appeng.helpers.externalstorage.GenericStackInv;
 import appeng.util.ConfigInventory;
-import com.glodblock.github.extendedae.config.EPPConfig;
+
 import org.jetbrains.annotations.Nullable;
 
 public class OversizeConfigInv extends ConfigInventory {
@@ -42,5 +44,4 @@ public class OversizeConfigInv extends ConfigInventory {
         }
         return this.getCapacity(key.getType());
     }
-
 }

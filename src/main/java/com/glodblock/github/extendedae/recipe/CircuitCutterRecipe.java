@@ -2,6 +2,7 @@ package com.glodblock.github.extendedae.recipe;
 
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.recipe.util.IngredientStack;
+
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -89,5 +91,4 @@ public class CircuitCutterRecipe implements Recipe<Container> {
     public ResourceLocation getId() {
         return this.id;
     }
-
 }

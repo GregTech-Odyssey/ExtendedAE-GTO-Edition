@@ -1,17 +1,20 @@
 package com.glodblock.github.extendedae.common.me.wireless;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.common.me.FreqGenerator;
+import com.glodblock.github.extendedae.config.EPPConfig;
+
+import net.minecraft.core.BlockPos;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+
 import appeng.api.features.Locatables;
 import appeng.api.networking.GridHelper;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.security.IActionHost;
 import appeng.me.service.helpers.ConnectionWrapper;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.common.me.FreqGenerator;
-import com.glodblock.github.extendedae.config.EPPConfig;
-import net.minecraft.core.BlockPos;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -77,9 +80,7 @@ public class WirelessConnect implements IActionHost {
         if (sideB != null) {
             var sideA = this;
             this.dis = Math.sqrt(sideA.host.getBlockPos().distSqr(sideB.host.getBlockPos()));
-            if (sideA.isActive() && sideB.isActive()
-                    && this.dis <= EPPConfig.wirelessMaxRange
-                    && (sideA.host.getLevel() == sideB.host.getLevel())) {
+            if (sideA.isActive() && sideB.isActive() && this.dis <= EPPConfig.wirelessMaxRange && (sideA.host.getLevel() == sideB.host.getLevel())) {
                 if (this.connection != null && this.connection.getConnection() != null) {
                     final IGridNode a = this.connection.getConnection().a();
                     final IGridNode b = this.connection.getConnection().b();
@@ -185,8 +186,7 @@ public class WirelessConnect implements IActionHost {
                 CONNECTORS.unregister(host.getLevel(), getLocatableKey());
             }
             this.host = null;
-        } catch (Exception ignore) {
-        }
+        } catch (Exception ignore) {}
     }
 
     private long getLocatableKey() {
@@ -197,5 +197,4 @@ public class WirelessConnect implements IActionHost {
     public IGridNode getActionableNode() {
         return this.host.getGridNode();
     }
-
 }

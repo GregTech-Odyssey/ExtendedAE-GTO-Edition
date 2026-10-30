@@ -1,11 +1,13 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.parts.PartExPatternAccessTerminal;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.util.IConfigurableObject;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.PatternAccessTermMenu;
-import com.glodblock.github.extendedae.common.parts.PartExPatternAccessTerminal;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 
 public class ContainerExPatternTerminal extends PatternAccessTermMenu {
 
@@ -20,5 +22,4 @@ public class ContainerExPatternTerminal extends PatternAccessTermMenu {
     public ContainerExPatternTerminal(MenuType<?> type, int id, Inventory ip, IConfigurableObject host, boolean bindInventory) {
         super(type, id, ip, host, bindInventory);
     }
-
 }

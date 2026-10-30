@@ -1,5 +1,11 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.util.Ae2Reflect;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.ticking.TickRateModulation;
 import appeng.api.storage.StorageCells;
@@ -7,11 +13,8 @@ import appeng.api.upgrades.UpgradeInventories;
 import appeng.blockentity.storage.IOPortBlockEntity;
 import appeng.core.definitions.AEItems;
 import appeng.util.inv.AppEngInternalInventory;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.util.Ae2Reflect;
+
 import com.glodblock.github.glodium.util.GlodUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.state.BlockState;
 
 public class TileExIOPort extends IOPortBlockEntity {
 
@@ -72,5 +75,4 @@ public class TileExIOPort extends IOPortBlockEntity {
         }
         return ret;
     }
-
 }

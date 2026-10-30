@@ -1,5 +1,13 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.common.tileentities.TileCircuitCutter;
+import com.glodblock.github.extendedae.container.ContainerCircuitCutter;
+
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
 import appeng.api.stacks.GenericStack;
@@ -9,12 +17,7 @@ import appeng.client.gui.widgets.ProgressBar;
 import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
 import appeng.core.localization.Tooltips;
-import com.glodblock.github.extendedae.common.tileentities.TileCircuitCutter;
-import com.glodblock.github.extendedae.container.ContainerCircuitCutter;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -56,5 +59,4 @@ public class GuiCircuitCutter extends UpgradeableScreen<ContainerCircuitCutter> 
     private boolean isValidSlot(Slot slot) {
         return slot != null && slot.isActive() && slot.hasItem() && this.menu.isTank(slot);
     }
-
 }

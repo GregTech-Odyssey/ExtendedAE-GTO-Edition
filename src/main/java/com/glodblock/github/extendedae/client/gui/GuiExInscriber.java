@@ -1,5 +1,17 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.client.button.ActionEPPButton;
+import com.glodblock.github.extendedae.client.button.CycleEPPButton;
+import com.glodblock.github.extendedae.client.button.EPPIcon;
+import com.glodblock.github.extendedae.common.tileentities.TileExInscriber;
+import com.glodblock.github.extendedae.container.ContainerExInscriber;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+import com.glodblock.github.extendedae.network.packet.CUpdatePage;
+
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
 import appeng.client.gui.implementations.UpgradeableScreen;
@@ -8,17 +20,8 @@ import appeng.client.gui.style.ScreenStyle;
 import appeng.client.gui.widgets.ProgressBar;
 import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
-import com.glodblock.github.extendedae.client.button.ActionEPPButton;
-import com.glodblock.github.extendedae.client.button.CycleEPPButton;
-import com.glodblock.github.extendedae.client.button.EPPIcon;
-import com.glodblock.github.extendedae.common.tileentities.TileExInscriber;
-import com.glodblock.github.extendedae.container.ContainerExInscriber;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
-import com.glodblock.github.extendedae.network.packet.CUpdatePage;
+
 import com.glodblock.github.glodium.network.packet.CGenericPacket;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 
 public class GuiExInscriber extends UpgradeableScreen<ContainerExInscriber> {
 
@@ -83,8 +86,6 @@ public class GuiExInscriber extends UpgradeableScreen<ContainerExInscriber> {
                 8,
                 16,
                 style.getColor(PaletteColor.DEFAULT_TEXT_COLOR).toARGB(),
-                false
-        );
+                false);
     }
-
 }

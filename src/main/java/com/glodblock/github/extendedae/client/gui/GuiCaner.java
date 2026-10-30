@@ -1,15 +1,18 @@
 package com.glodblock.github.extendedae.client.gui;
 
-import appeng.client.gui.AEBaseScreen;
-import appeng.client.gui.style.ScreenStyle;
 import com.glodblock.github.extendedae.api.CanerMode;
 import com.glodblock.github.extendedae.client.button.CycleEPPButton;
 import com.glodblock.github.extendedae.client.button.EPPIcon;
 import com.glodblock.github.extendedae.container.ContainerCaner;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
-import com.glodblock.github.glodium.network.packet.CGenericPacket;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import appeng.client.gui.AEBaseScreen;
+import appeng.client.gui.style.ScreenStyle;
+
+import com.glodblock.github.glodium.network.packet.CGenericPacket;
 
 public class GuiCaner extends AEBaseScreen<ContainerCaner> {
 

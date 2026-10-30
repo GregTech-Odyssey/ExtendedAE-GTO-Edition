@@ -6,6 +6,7 @@ import com.glodblock.github.extendedae.network.packet.CUpdatePage;
 import com.glodblock.github.extendedae.network.packet.SAssemblerAnimation;
 import com.glodblock.github.extendedae.network.packet.SAssemblerMatrixUpdate;
 import com.glodblock.github.extendedae.network.packet.SExPatternInfo;
+
 import com.glodblock.github.glodium.network.NetworkHandler;
 import com.glodblock.github.glodium.network.packet.CGenericPacket;
 import com.glodblock.github.glodium.network.packet.SGenericPacket;
@@ -27,5 +28,4 @@ public class EPPNetworkHandler extends NetworkHandler {
         registerPacket(CUpdatePage.class, CUpdatePage::new);
         registerPacket(CGenericPacket.class, CGenericPacket::new);
     }
-
 }

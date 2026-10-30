@@ -1,19 +1,22 @@
 package com.glodblock.github.extendedae.client.gui;
 
-import appeng.client.gui.implementations.UpgradeableScreen;
-import appeng.client.gui.style.PaletteColor;
-import appeng.client.gui.style.ScreenStyle;
-import appeng.client.gui.widgets.ProgressBar;
 import com.glodblock.github.extendedae.client.button.ActionEPPButton;
 import com.glodblock.github.extendedae.client.button.EPPIcon;
 import com.glodblock.github.extendedae.common.tileentities.TileExMolecularAssembler;
 import com.glodblock.github.extendedae.container.ContainerExMolecularAssembler;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 import com.glodblock.github.extendedae.network.packet.CUpdatePage;
-import com.glodblock.github.glodium.network.packet.CGenericPacket;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import appeng.client.gui.implementations.UpgradeableScreen;
+import appeng.client.gui.style.PaletteColor;
+import appeng.client.gui.style.ScreenStyle;
+import appeng.client.gui.widgets.ProgressBar;
+
+import com.glodblock.github.glodium.network.packet.CGenericPacket;
 
 public class GuiExMolecularAssembler extends UpgradeableScreen<ContainerExMolecularAssembler> {
 
@@ -57,8 +60,6 @@ public class GuiExMolecularAssembler extends UpgradeableScreen<ContainerExMolecu
                 8,
                 18,
                 style.getColor(PaletteColor.DEFAULT_TEXT_COLOR).toARGB(),
-                false
-        );
+                false);
     }
-
 }

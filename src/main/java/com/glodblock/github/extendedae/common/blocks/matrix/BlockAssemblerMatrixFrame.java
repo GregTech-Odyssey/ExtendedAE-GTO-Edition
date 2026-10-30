@@ -2,6 +2,7 @@ package com.glodblock.github.extendedae.common.blocks.matrix;
 
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixFrame;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,13 +73,15 @@ public class BlockAssemblerMatrixFrame extends BlockAssemblerMatrixBase<TileAsse
     }
 
     public enum Shape implements StringRepresentable {
-        block, column_x, column_y, column_z;
+
+        block,
+        column_x,
+        column_y,
+        column_z;
 
         @Override
         public @NotNull String getSerializedName() {
             return this.name();
         }
-
     }
-
 }

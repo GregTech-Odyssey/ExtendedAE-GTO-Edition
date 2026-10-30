@@ -21,5 +21,4 @@ public class ActionEPPButton extends EPPButton {
     Blitter getBlitterIcon() {
         return icon;
     }
-
 }

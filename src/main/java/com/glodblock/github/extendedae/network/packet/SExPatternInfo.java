@@ -1,7 +1,7 @@
 package com.glodblock.github.extendedae.network.packet;
 
 import com.glodblock.github.extendedae.client.gui.GuiExPatternTerminal;
-import com.glodblock.github.glodium.network.packet.IMessage;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -10,6 +10,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+
+import com.glodblock.github.glodium.network.packet.IMessage;
 import org.jetbrains.annotations.Nullable;
 
 public class SExPatternInfo implements IMessage<SExPatternInfo> {

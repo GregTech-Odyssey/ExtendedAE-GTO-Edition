@@ -1,5 +1,7 @@
 package com.glodblock.github.extendedae.client.gui.subgui;
 
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.stacks.GenericStack;
 import appeng.client.gui.AEBaseScreen;
 import appeng.client.gui.AESubScreen;
@@ -10,12 +12,13 @@ import appeng.client.gui.widgets.TabButton;
 import appeng.core.localization.GuiText;
 import appeng.menu.AEBaseMenu;
 import appeng.menu.SlotSemantics;
+
 import com.google.common.primitives.Longs;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Consumer;
 
 public class SetAmount<C extends AEBaseMenu, P extends AEBaseScreen<C>> extends AESubScreen<C, P> {
+
     private final NumberEntryWidget amount;
 
     private final GenericStack currentStack;

@@ -1,12 +1,15 @@
 package com.glodblock.github.extendedae.mixins;
 
-import appeng.api.implementations.blockentities.PatternContainerGroup;
-import appeng.core.sync.packets.PatternAccessTerminalPacket;
 import com.glodblock.github.extendedae.client.gui.GuiExPatternTerminal;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+
+import appeng.api.implementations.blockentities.PatternContainerGroup;
+import appeng.core.sync.packets.PatternAccessTerminalPacket;
+
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,8 +36,7 @@ public abstract class MixinPatternAccessTerminalPacket {
             method = "clientPacketData",
             at = @At("HEAD"),
             remap = false,
-            cancellable = true
-    )
+            cancellable = true)
     private void handleExGui(Player player, CallbackInfo ci) {
         if (Minecraft.getInstance().screen instanceof GuiExPatternTerminal<?> patternAccessTerminal) {
             if (fullUpdate) {
@@ -45,5 +47,4 @@ public abstract class MixinPatternAccessTerminalPacket {
             ci.cancel();
         }
     }
-
 }

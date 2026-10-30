@@ -2,9 +2,7 @@ package com.glodblock.github.extendedae.client.model;
 
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixGlass;
-import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.objects.Object2ReferenceMap;
-import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
+
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -22,6 +20,10 @@ import net.minecraftforge.client.model.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.client.model.pipeline.QuadBakingVertexConsumer;
+
+import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.objects.Object2ReferenceMap;
+import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -63,9 +65,9 @@ public class AssemblerGlassBakedModel implements IDynamicBakedModel {
     public ModelData getModelData(@NotNull BlockAndTintGetter world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData modelData) {
         var connect = new Connect();
         connect.init(pos);
-        for (int x = -1; x <= 1; x ++) {
-            for (int y = -1; y <= 1; y ++) {
-                for (int z = -1; z <= 1; z ++) {
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                for (int z = -1; z <= 1; z++) {
                     var offset = pos.offset(x, y, z);
                     if (world.getBlockState(offset).getAppearance(world, offset, Direction.NORTH, state, pos).getBlock() instanceof BlockAssemblerMatrixGlass) {
                         connect.set(x, y, z);
@@ -323,10 +325,10 @@ public class AssemblerGlassBakedModel implements IDynamicBakedModel {
         int getIndexX(Direction face, int corner) {
             int x = face.getStepX();
             return switch (corner) {
-                case LU -> getIndex(this.connects[1][1][1+x], this.connects[1][2][1], this.connects[1][2][1+x]);
-                case RU -> getIndex(this.connects[1][1][1-x], this.connects[1][2][1], this.connects[1][2][1-x]);
-                case LD -> getIndex(this.connects[1][1][1+x], this.connects[1][0][1], this.connects[1][0][1+x]);
-                case RD -> getIndex(this.connects[1][1][1-x], this.connects[1][0][1], this.connects[1][0][1-x]);
+                case LU -> getIndex(this.connects[1][1][1 + x], this.connects[1][2][1], this.connects[1][2][1 + x]);
+                case RU -> getIndex(this.connects[1][1][1 - x], this.connects[1][2][1], this.connects[1][2][1 - x]);
+                case LD -> getIndex(this.connects[1][1][1 + x], this.connects[1][0][1], this.connects[1][0][1 + x]);
+                case RD -> getIndex(this.connects[1][1][1 - x], this.connects[1][0][1], this.connects[1][0][1 - x]);
                 default -> -1;
             };
         }
@@ -334,10 +336,10 @@ public class AssemblerGlassBakedModel implements IDynamicBakedModel {
         int getIndexZ(Direction face, int corner) {
             int z = face.getStepZ();
             return switch (corner) {
-                case LU -> getIndex(this.connects[1-z][1][1], this.connects[1][2][1], this.connects[1-z][2][1]);
-                case RU -> getIndex(this.connects[1+z][1][1], this.connects[1][2][1], this.connects[1+z][2][1]);
-                case LD -> getIndex(this.connects[1-z][1][1], this.connects[1][0][1], this.connects[1-z][0][1]);
-                case RD -> getIndex(this.connects[1+z][1][1], this.connects[1][0][1], this.connects[1+z][0][1]);
+                case LU -> getIndex(this.connects[1 - z][1][1], this.connects[1][2][1], this.connects[1 - z][2][1]);
+                case RU -> getIndex(this.connects[1 + z][1][1], this.connects[1][2][1], this.connects[1 + z][2][1]);
+                case LD -> getIndex(this.connects[1 - z][1][1], this.connects[1][0][1], this.connects[1 - z][0][1]);
+                case RD -> getIndex(this.connects[1 + z][1][1], this.connects[1][0][1], this.connects[1 + z][0][1]);
                 default -> -1;
             };
         }
@@ -345,10 +347,10 @@ public class AssemblerGlassBakedModel implements IDynamicBakedModel {
         int getIndexY(Direction face, int corner) {
             int y = face.getStepY();
             return switch (corner) {
-                case LU -> getIndex(this.connects[1][1][2], this.connects[1-y][1][1], this.connects[1-y][1][2]);
-                case RU -> getIndex(this.connects[1][1][0], this.connects[1-y][1][1], this.connects[1-y][1][0]);
-                case LD -> getIndex(this.connects[1][1][2], this.connects[1+y][1][1], this.connects[1+y][1][2]);
-                case RD -> getIndex(this.connects[1][1][0], this.connects[1+y][1][1], this.connects[1+y][1][0]);
+                case LU -> getIndex(this.connects[1][1][2], this.connects[1 - y][1][1], this.connects[1 - y][1][2]);
+                case RU -> getIndex(this.connects[1][1][0], this.connects[1 - y][1][1], this.connects[1 - y][1][0]);
+                case LD -> getIndex(this.connects[1][1][2], this.connects[1 + y][1][1], this.connects[1 + y][1][2]);
+                case RD -> getIndex(this.connects[1][1][0], this.connects[1 + y][1][1], this.connects[1 + y][1][0]);
                 default -> -1;
             };
         }
@@ -374,11 +376,9 @@ public class AssemblerGlassBakedModel implements IDynamicBakedModel {
             }
             return -1;
         }
-
     }
 
     private record FaceCorner(Direction face, int corner) {
 
     }
-
 }

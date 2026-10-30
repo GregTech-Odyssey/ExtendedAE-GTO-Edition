@@ -1,17 +1,21 @@
 package com.glodblock.github.extendedae.client.gui.widget.panel;
 
-import appeng.client.Point;
-import appeng.client.gui.ICompositeWidget;
-import appeng.client.gui.WidgetContainer;
 import com.glodblock.github.extendedae.client.gui.GuiExCraftingTerminal;
 import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
-import com.glodblock.github.glodium.network.packet.CGenericPacket;
+
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import appeng.client.Point;
+import appeng.client.gui.ICompositeWidget;
+import appeng.client.gui.WidgetContainer;
+
+import com.glodblock.github.glodium.network.packet.CGenericPacket;
+
 public abstract class ExPanel implements ICompositeWidget {
+
     protected final GuiExCraftingTerminal<? extends ContainerExCraftingTerminal> screen;
     protected final ContainerExCraftingTerminal menu;
     protected final WidgetContainer widgets;
@@ -36,8 +40,7 @@ public abstract class ExPanel implements ICompositeWidget {
     }
 
     @Override
-    public void setSize(int width, int height) {
-    }
+    public void setSize(int width, int height) {}
 
     @Override
     public Rect2i getBounds() {
@@ -56,5 +59,4 @@ public abstract class ExPanel implements ICompositeWidget {
     protected void sendPacket(String id, Object... paras) {
         EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket(id, paras));
     }
-
 }

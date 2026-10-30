@@ -1,5 +1,15 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.api.IPage;
+import com.glodblock.github.extendedae.client.ExSemantics;
+import com.glodblock.github.extendedae.client.gui.widget.SingleFakeSlot;
+import com.glodblock.github.extendedae.common.inventory.PatternModifierInventory;
+import com.glodblock.github.extendedae.util.Ae2Reflect;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.crafting.PatternDetailsHelper;
 import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKey;
@@ -15,16 +25,9 @@ import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.slot.AppEngSlot;
 import appeng.menu.slot.OutputSlot;
 import appeng.menu.slot.RestrictedInputSlot;
-import com.glodblock.github.extendedae.api.IPage;
-import com.glodblock.github.extendedae.client.ExSemantics;
-import com.glodblock.github.extendedae.client.gui.widget.SingleFakeSlot;
-import com.glodblock.github.extendedae.common.inventory.PatternModifierInventory;
-import com.glodblock.github.extendedae.util.Ae2Reflect;
+
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,7 +52,7 @@ public class ContainerPatternModifier extends AEBaseMenu implements IPage, IActi
         super(TYPE, id, playerInventory, host);
         this.createPlayerInventorySlots(playerInventory);
         var patternInv = host.getInventoryByName("patternInv");
-        for (int x = 0; x < patternInv.size(); x ++) {
+        for (int x = 0; x < patternInv.size(); x++) {
             this.addSlot(new RestrictedInputSlot(RestrictedInputSlot.PlacableItemType.ENCODED_PATTERN, patternInv, x), SlotSemantics.ENCODED_PATTERN);
         }
         var targetInv = host.getInventoryByName("targetInv");
@@ -60,7 +63,7 @@ public class ContainerPatternModifier extends AEBaseMenu implements IPage, IActi
         this.cloneSlot = (AppEngSlot) this.addSlot(new OutputSlot(clonePatternInv, 0, null), ExSemantics.EX_2);
         this.replaceTarget = (AppEngSlot) this.addSlot(new SingleFakeSlot(replaceInv, 0), ExSemantics.EX_4);
         this.replaceWith = (AppEngSlot) this.addSlot(new SingleFakeSlot(replaceInv, 1), ExSemantics.EX_5);
-        for (int x = 0; x < blankPatternInv.size(); x ++) {
+        for (int x = 0; x < blankPatternInv.size(); x++) {
             this.addSlot(new RestrictedInputSlot(RestrictedInputSlot.PlacableItemType.BLANK_PATTERN, blankPatternInv, x), ExSemantics.EX_3);
         }
         this.actions.put("clear", o -> clear());
@@ -117,11 +120,10 @@ public class ContainerPatternModifier extends AEBaseMenu implements IPage, IActi
                                 itemize(replaceInput),
                                 itemize(output),
                                 craft.canSubstitute,
-                                craft.canSubstituteFluids
-                        );
-                        //noinspection DataFlowIssue
+                                craft.canSubstituteFluids);
+                        // noinspection DataFlowIssue
                         var check = new AECraftingPattern(AEItemKey.of(newPattern), this.getPlayer().level());
-                        //noinspection ConstantValue
+                        // noinspection ConstantValue
                         if (check != null) {
                             slot.set(newPattern);
                         }
@@ -207,7 +209,7 @@ public class ContainerPatternModifier extends AEBaseMenu implements IPage, IActi
     }
 
     private void modifyStacks(GenericStack[] stacks, GenericStack[] des, int scale, boolean div) {
-        for (int i = 0; i < stacks.length; i ++) {
+        for (int i = 0; i < stacks.length; i++) {
             if (stacks[i] != null) {
                 long amt = div ? stacks[i].amount() / scale : stacks[i].amount() * scale;
                 des[i] = new GenericStack(stacks[i].what(), amt);
@@ -216,7 +218,7 @@ public class ContainerPatternModifier extends AEBaseMenu implements IPage, IActi
     }
 
     private void replace(GenericStack[] stacks, GenericStack[] des, AEKey replace, @Nullable AEKey with) {
-        for (int i = 0; i < stacks.length; i ++) {
+        for (int i = 0; i < stacks.length; i++) {
             if (stacks[i] != null) {
                 if (stacks[i].what().equals(replace)) {
                     if (with == null) {
@@ -233,7 +235,7 @@ public class ContainerPatternModifier extends AEBaseMenu implements IPage, IActi
 
     private ItemStack[] itemize(GenericStack[] stacks) {
         var items = new ItemStack[stacks.length];
-        for (int i = 0; i < stacks.length; i ++) {
+        for (int i = 0; i < stacks.length; i++) {
             items[i] = itemize(stacks[i]);
         }
         return items;

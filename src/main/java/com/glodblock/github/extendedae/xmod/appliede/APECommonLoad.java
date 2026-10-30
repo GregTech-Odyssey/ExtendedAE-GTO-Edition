@@ -1,10 +1,5 @@
 package com.glodblock.github.extendedae.xmod.appliede;
 
-import appeng.api.parts.PartModels;
-import appeng.api.upgrades.Upgrades;
-import appeng.core.AppEng;
-import appeng.core.definitions.AEItems;
-import appeng.items.parts.PartItem;
 import com.glodblock.github.extendedae.common.EAERegistryHandler;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.xmod.appliede.blocks.BlockExEMCInterface;
@@ -16,9 +11,17 @@ import com.glodblock.github.extendedae.xmod.appliede.parts.PartExEMCExportBus;
 import com.glodblock.github.extendedae.xmod.appliede.parts.PartExEMCImportBus;
 import com.glodblock.github.extendedae.xmod.appliede.parts.PartExEMCInterface;
 import com.glodblock.github.extendedae.xmod.appliede.tileentities.TileExEMCInterface;
-import gripe._90.appliede.AppliedE;
+
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import appeng.api.parts.PartModels;
+import appeng.api.upgrades.Upgrades;
+import appeng.core.AppEng;
+import appeng.core.definitions.AEItems;
+import appeng.items.parts.PartItem;
+
+import gripe._90.appliede.AppliedE;
 
 public class APECommonLoad {
 
@@ -58,5 +61,4 @@ public class APECommonLoad {
         Upgrades.add(AEItems.CAPACITY_CARD, EPPItemAndBlock.EX_EMC_EXPORT_BUS, 5, "group.ex_emc_io_bus_part");
         Upgrades.add(AEItems.SPEED_CARD, EPPItemAndBlock.EX_EMC_EXPORT_BUS, 4, "group.ex_emc_io_bus_part");
     }
-
 }

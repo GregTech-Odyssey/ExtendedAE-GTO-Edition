@@ -1,16 +1,18 @@
 package com.glodblock.github.extendedae.client.gui.widget.panel;
 
-import appeng.client.Point;
-import appeng.client.gui.WidgetContainer;
-import appeng.client.gui.style.Blitter;
-import appeng.menu.SlotSemantics;
 import com.glodblock.github.extendedae.api.CraftingMode;
 import com.glodblock.github.extendedae.client.gui.GuiExCraftingTerminal;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
+import appeng.client.Point;
+import appeng.client.gui.WidgetContainer;
+import appeng.client.gui.style.Blitter;
+import appeng.menu.SlotSemantics;
 
 public class CraftingPanel extends ExPanel {
 
@@ -41,5 +43,4 @@ public class CraftingPanel extends ExPanel {
         this.screen.setSlotsHidden(SlotSemantics.CRAFTING_GRID, !visible);
         this.screen.setSlotsHidden(SlotSemantics.CRAFTING_RESULT, !visible);
     }
-
 }

@@ -1,5 +1,10 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.tileentities.TileExIOPort;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.config.FullnessMode;
 import appeng.api.config.OperationMode;
 import appeng.api.config.Settings;
@@ -11,9 +16,6 @@ import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
 import appeng.menu.slot.OutputSlot;
 import appeng.menu.slot.RestrictedInputSlot;
-import com.glodblock.github.extendedae.common.tileentities.TileExIOPort;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 
 public class ContainerExIOPort extends UpgradeableMenu<TileExIOPort> {
 

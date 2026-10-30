@@ -1,14 +1,7 @@
 package com.glodblock.github.extendedae.common.blocks;
 
-import appeng.api.orientation.BlockOrientation;
-import appeng.api.orientation.IOrientationStrategy;
-import appeng.api.orientation.OrientationStrategies;
-import appeng.api.orientation.RelativeSide;
-import appeng.api.util.AEAxisAlignedBB;
-import appeng.client.render.effects.LightningArcParticleData;
-import appeng.core.AEConfig;
-import appeng.core.AppEngClient;
 import com.glodblock.github.extendedae.common.tileentities.TileExCharger;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -24,6 +17,16 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import appeng.api.orientation.BlockOrientation;
+import appeng.api.orientation.IOrientationStrategy;
+import appeng.api.orientation.OrientationStrategies;
+import appeng.api.orientation.RelativeSide;
+import appeng.api.util.AEAxisAlignedBB;
+import appeng.client.render.effects.LightningArcParticleData;
+import appeng.core.AEConfig;
+import appeng.core.AppEngClient;
+
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
@@ -118,8 +121,7 @@ public class BlockExCharger extends BlockBaseGui<TileExCharger> {
                 bb.minX = 0.0 + twoPixels;
                 bb.maxX = 1.0 - twoPixels;
                 break;
-            default: {
-            }
+            default: {}
         }
 
         return Shapes.create(bb.getBoundingBox());
@@ -130,5 +132,4 @@ public class BlockExCharger extends BlockBaseGui<TileExCharger> {
     public @NotNull VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return Shapes.create(new AABB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0));
     }
-
 }

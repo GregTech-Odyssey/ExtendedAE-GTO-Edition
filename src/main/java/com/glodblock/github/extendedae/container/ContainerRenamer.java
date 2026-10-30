@@ -1,20 +1,23 @@
 package com.glodblock.github.extendedae.container;
 
-import appeng.blockentity.AEBaseBlockEntity;
-import appeng.menu.AEBaseMenu;
-import appeng.menu.guisync.GuiSync;
-import appeng.menu.implementations.MenuTypeBuilder;
-import appeng.parts.AEBasePart;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 import com.glodblock.github.extendedae.util.Ae2Reflect;
-import com.glodblock.github.glodium.network.packet.SGenericPacket;
-import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
-import com.glodblock.github.glodium.network.packet.sync.Paras;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
+
+import appeng.blockentity.AEBaseBlockEntity;
+import appeng.menu.AEBaseMenu;
+import appeng.menu.guisync.GuiSync;
+import appeng.menu.implementations.MenuTypeBuilder;
+import appeng.parts.AEBasePart;
+
+import com.glodblock.github.glodium.network.packet.SGenericPacket;
+import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
+import com.glodblock.github.glodium.network.packet.sync.Paras;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -73,7 +76,7 @@ public class ContainerRenamer extends AEBaseMenu implements IActionHolder {
     }
 
     private static Consumer<String> setter(Object o) {
-        if (o instanceof AEBaseBlockEntity || o instanceof AEBasePart){
+        if (o instanceof AEBaseBlockEntity || o instanceof AEBasePart) {
             return s -> {
                 var c = s.isBlank() ? null : Component.literal(s);
                 Ae2Reflect.setCustomName(o, c);

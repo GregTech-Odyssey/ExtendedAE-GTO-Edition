@@ -14,5 +14,4 @@ public enum WirelessFail {
     public Component getTranslation() {
         return Component.translatable("chat.wireless_connect." + this.name().toLowerCase()).withStyle(ChatFormatting.RED);
     }
-
 }

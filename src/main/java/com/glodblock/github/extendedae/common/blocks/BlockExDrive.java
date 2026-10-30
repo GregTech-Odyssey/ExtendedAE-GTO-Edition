@@ -1,9 +1,11 @@
 package com.glodblock.github.extendedae.common.blocks;
 
+import com.glodblock.github.extendedae.common.tileentities.TileExDrive;
+
+import net.minecraft.world.entity.player.Player;
+
 import appeng.api.orientation.IOrientationStrategy;
 import appeng.api.orientation.OrientationStrategies;
-import com.glodblock.github.extendedae.common.tileentities.TileExDrive;
-import net.minecraft.world.entity.player.Player;
 
 public class BlockExDrive extends BlockBaseGui<TileExDrive> {
 
@@ -16,5 +18,4 @@ public class BlockExDrive extends BlockBaseGui<TileExDrive> {
     public IOrientationStrategy getOrientationStrategy() {
         return OrientationStrategies.full();
     }
-
 }

@@ -1,10 +1,9 @@
 package com.glodblock.github.extendedae.common.items;
 
-import appeng.util.InteractionUtil;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.config.EPPConfig;
-import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -19,12 +18,18 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
+import appeng.util.InteractionUtil;
+
+import com.mojang.datafixers.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 public class ItemWirelessAdvancedConnectTool extends Item {
+
     public ItemWirelessAdvancedConnectTool() {
         super(new Item.Properties().stacksTo(1));
     }
@@ -50,9 +55,9 @@ public class ItemWirelessAdvancedConnectTool extends Item {
                 var connection = connections.getCompound(i);
 
                 var globalPos = connection.contains("bind") ? GlobalPos.CODEC.decode(NbtOps.INSTANCE, connection.get("bind"))
-                    .resultOrPartial(Util.prefix("Connector position", ExtendedAE.LOGGER::error))
-                    .map(Pair::getFirst)
-                    .orElse(null) : null;
+                        .resultOrPartial(Util.prefix("Connector position", ExtendedAE.LOGGER::error))
+                        .map(Pair::getFirst)
+                        .orElse(null) : null;
 
                 BlockPos pos = globalPos != null ? globalPos.pos() : BlockPos.ZERO;
 

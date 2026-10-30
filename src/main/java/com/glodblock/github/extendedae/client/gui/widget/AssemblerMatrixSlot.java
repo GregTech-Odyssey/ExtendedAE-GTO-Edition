@@ -1,11 +1,13 @@
 package com.glodblock.github.extendedae.client.gui.widget;
 
+import com.glodblock.github.extendedae.util.MutableSlot;
+
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.crafting.pattern.EncodedPatternItem;
 import appeng.menu.slot.AppEngSlot;
 import appeng.util.inv.AppEngInternalInventory;
-import com.glodblock.github.extendedae.util.MutableSlot;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 
 public class AssemblerMatrixSlot extends AppEngSlot {
 
@@ -59,12 +61,10 @@ public class AssemblerMatrixSlot extends AppEngSlot {
     }
 
     @Override
-    public final void set(ItemStack stack) {
-    }
+    public final void set(ItemStack stack) {}
 
     @Override
-    public void initialize(ItemStack stack) {
-    }
+    public void initialize(ItemStack stack) {}
 
     @Override
     public final int getMaxStackSize() {

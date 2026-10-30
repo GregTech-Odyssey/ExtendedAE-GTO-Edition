@@ -1,5 +1,27 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
+import com.glodblock.github.extendedae.api.IRecipeMachine;
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.common.inventory.FluidInventory;
+import com.glodblock.github.extendedae.recipe.CircuitCutterRecipe;
+import com.glodblock.github.extendedae.util.FCUtil;
+import com.glodblock.github.extendedae.util.recipe.ContainerRecipeContext;
+import com.glodblock.github.extendedae.util.recipe.RecipeExecutor;
+import com.glodblock.github.extendedae.util.recipe.RecipeSearchContext;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
+
 import appeng.api.config.Setting;
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
@@ -31,27 +53,8 @@ import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.CombinedInternalInventory;
 import appeng.util.inv.FilteredInternalInventory;
 import appeng.util.inv.filter.AEItemFilters;
-import com.glodblock.github.extendedae.api.IRecipeMachine;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.inventory.FluidInventory;
-import com.glodblock.github.extendedae.recipe.CircuitCutterRecipe;
-import com.glodblock.github.extendedae.util.FCUtil;
-import com.glodblock.github.extendedae.util.recipe.ContainerRecipeContext;
-import com.glodblock.github.extendedae.util.recipe.RecipeExecutor;
-import com.glodblock.github.extendedae.util.recipe.RecipeSearchContext;
+
 import com.glodblock.github.glodium.util.GlodUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,6 +72,7 @@ public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGri
     private final AppEngInternalInventory output = new AppEngInternalInventory(this, 1, 64);
     private final CombinedInternalInventory inv = new CombinedInternalInventory(input, output);
     private final GenericStackInv tank = new FluidInventory(this::onChangeTank, GenericStackInv.Mode.STORAGE, 1, TANK_CAP) {
+
         @Override
         public boolean canExtract() {
             return false;
@@ -370,7 +374,7 @@ public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGri
                 fluidStack = key.toStack((int) fluid.amount());
             }
             for (var tester : sample) {
-                for (int x = 0; x < this.host.input.size(); x ++) {
+                for (int x = 0; x < this.host.input.size(); x++) {
                     var item = this.host.input.getStackInSlot(x);
                     if (tester.checkType(item)) {
                         tester.consume(item);
@@ -406,7 +410,5 @@ public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGri
             }
             return inv;
         }
-
     }
-
 }

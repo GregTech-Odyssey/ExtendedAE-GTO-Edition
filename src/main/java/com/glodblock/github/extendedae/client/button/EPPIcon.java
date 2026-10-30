@@ -1,8 +1,10 @@
 package com.glodblock.github.extendedae.client.button;
 
-import appeng.client.gui.style.Blitter;
 import com.glodblock.github.extendedae.ExtendedAE;
+
 import net.minecraft.resources.ResourceLocation;
+
+import appeng.client.gui.style.Blitter;
 
 public class EPPIcon {
 

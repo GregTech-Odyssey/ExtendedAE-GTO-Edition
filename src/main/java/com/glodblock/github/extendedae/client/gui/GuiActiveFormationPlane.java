@@ -1,5 +1,10 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.container.ContainerActiveFormationPlane;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.api.config.FuzzyMode;
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
@@ -7,9 +12,6 @@ import appeng.client.gui.implementations.UpgradeableScreen;
 import appeng.client.gui.style.ScreenStyle;
 import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
-import com.glodblock.github.extendedae.container.ContainerActiveFormationPlane;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 
 public class GuiActiveFormationPlane extends UpgradeableScreen<ContainerActiveFormationPlane> {
 
@@ -32,5 +34,4 @@ public class GuiActiveFormationPlane extends UpgradeableScreen<ContainerActiveFo
         this.fuzzyMode.setVisibility(menu.supportsFuzzyMode());
         this.placeMode.set(this.menu.getPlaceMode());
     }
-
 }

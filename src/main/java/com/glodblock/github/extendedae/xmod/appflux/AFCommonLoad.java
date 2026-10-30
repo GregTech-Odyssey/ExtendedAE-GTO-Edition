@@ -1,11 +1,12 @@
 package com.glodblock.github.extendedae.xmod.appflux;
 
-import appeng.api.upgrades.Upgrades;
-import appeng.core.localization.GuiText;
-import com.glodblock.github.appflux.common.AFItemAndBlock;
-import com.glodblock.github.appflux.xmod.wirelesscharger.ChargerBlacklist;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.common.tileentities.TileIngredientBuffer;
+
+import appeng.api.upgrades.Upgrades;
+
+import com.glodblock.github.appflux.common.AFItemAndBlock;
+import com.glodblock.github.appflux.xmod.wirelesscharger.ChargerBlacklist;
 
 public class AFCommonLoad {
 
@@ -22,5 +23,4 @@ public class AFCommonLoad {
             // NO-OP
         }
     }
-
 }

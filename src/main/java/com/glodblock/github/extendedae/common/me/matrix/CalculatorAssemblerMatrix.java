@@ -1,7 +1,5 @@
 package com.glodblock.github.extendedae.common.me.matrix;
 
-import appeng.me.cluster.IAEMultiBlock;
-import appeng.me.cluster.MBCalculator;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixBase;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixFrame;
@@ -9,9 +7,13 @@ import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerM
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixWall;
 import com.glodblock.github.extendedae.config.EPPConfig;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
+import appeng.me.cluster.IAEMultiBlock;
+import appeng.me.cluster.MBCalculator;
 
 public class CalculatorAssemblerMatrix extends MBCalculator<TileAssemblerMatrixBase, ClusterAssemblerMatrix> {
 
@@ -115,5 +117,4 @@ public class CalculatorAssemblerMatrix extends MBCalculator<TileAssemblerMatrixB
                 (min.getZ() == pos.getZ() && max.getX() == pos.getX()) ||
                 (min.getZ() == pos.getZ() && max.getY() == pos.getY());
     }
-
 }

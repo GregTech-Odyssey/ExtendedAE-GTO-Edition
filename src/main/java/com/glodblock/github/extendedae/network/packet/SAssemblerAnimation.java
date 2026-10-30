@@ -1,13 +1,16 @@
 package com.glodblock.github.extendedae.network.packet;
 
-import appeng.api.stacks.AEKey;
-import appeng.client.render.crafting.AssemblerAnimationStatus;
 import com.glodblock.github.extendedae.common.tileentities.TileExMolecularAssembler;
-import com.glodblock.github.glodium.network.packet.IMessage;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
+import appeng.api.stacks.AEKey;
+import appeng.client.render.crafting.AssemblerAnimationStatus;
+
+import com.glodblock.github.glodium.network.packet.IMessage;
 
 public class SAssemblerAnimation implements IMessage<SAssemblerAnimation> {
 

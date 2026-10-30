@@ -1,13 +1,8 @@
 package com.glodblock.github.extendedae.client;
 
-import appeng.api.util.AEColor;
-import appeng.client.render.StaticItemColor;
-import appeng.hotkeys.HotkeyActions;
-import appeng.hotkeys.InventoryHotkeyAction;
-import appeng.init.client.InitScreens;
 import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.client.gui.GuiExCraftingTerminal;
 import com.glodblock.github.extendedae.client.gui.*;
+import com.glodblock.github.extendedae.client.gui.GuiExCraftingTerminal;
 import com.glodblock.github.extendedae.client.gui.pattern.GuiCraftingPattern;
 import com.glodblock.github.extendedae.client.gui.pattern.GuiProcessingPattern;
 import com.glodblock.github.extendedae.client.gui.pattern.GuiSmithingTablePattern;
@@ -33,15 +28,15 @@ import com.glodblock.github.extendedae.common.tileentities.TileExDrive;
 import com.glodblock.github.extendedae.common.tileentities.TileExInscriber;
 import com.glodblock.github.extendedae.common.tileentities.TileExMolecularAssembler;
 import com.glodblock.github.extendedae.common.tileentities.TileIngredientBuffer;
-import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
 import com.glodblock.github.extendedae.container.*;
+import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
 import com.glodblock.github.extendedae.container.pattern.ContainerCraftingPattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerProcessingPattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerSmithingTablePattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerStonecuttingPattern;
 import com.glodblock.github.extendedae.xmod.appliede.APEClientLoad;
 import com.glodblock.github.extendedae.xmod.wt.WTClientLoad;
-import com.glodblock.github.glodium.util.GlodUtil;
+
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraftforge.client.event.ModelEvent;
@@ -49,6 +44,14 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
+
+import appeng.api.util.AEColor;
+import appeng.client.render.StaticItemColor;
+import appeng.hotkeys.HotkeyActions;
+import appeng.hotkeys.InventoryHotkeyAction;
+import appeng.init.client.InitScreens;
+
+import com.glodblock.github.glodium.util.GlodUtil;
 
 import static appeng.api.features.HotkeyAction.WIRELESS_TERMINAL;
 
@@ -141,5 +144,4 @@ public class ClientRegistryHandler {
     public void registerHotKey(RegisterKeyMappingsEvent e) {
         e.register(PatternHotKey.getHotKey());
     }
-
 }

@@ -1,10 +1,11 @@
 package com.glodblock.github.extendedae.xmod.appliede;
 
-import appeng.init.client.InitScreens;
 import com.glodblock.github.extendedae.client.gui.GuiExIOBus;
 import com.glodblock.github.extendedae.xmod.appliede.containers.ContainerExEMCIOBus;
 import com.glodblock.github.extendedae.xmod.appliede.containers.ContainerExEMCInterface;
 import com.glodblock.github.extendedae.xmod.appliede.guis.GuiExEMCInterface;
+
+import appeng.init.client.InitScreens;
 
 public class APEClientLoad {
 
@@ -13,5 +14,4 @@ public class APEClientLoad {
         InitScreens.register(ContainerExEMCIOBus.IMPORT_TYPE, GuiExIOBus::new, "/screens/ex_emc_import_bus.json");
         InitScreens.register(ContainerExEMCIOBus.EXPORT_TYPE, GuiExIOBus::new, "/screens/ex_emc_export_bus.json");
     }
-
 }

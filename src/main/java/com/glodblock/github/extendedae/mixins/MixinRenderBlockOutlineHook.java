@@ -1,11 +1,7 @@
 package com.glodblock.github.extendedae.mixins;
 
-import appeng.api.parts.IPart;
-import appeng.api.parts.IPartItem;
-import appeng.hooks.RenderBlockOutlineHook;
-import appeng.parts.PartPlacement;
 import com.glodblock.github.extendedae.common.items.ItemPackedDevice;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
@@ -15,6 +11,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import appeng.api.parts.IPart;
+import appeng.api.parts.IPartItem;
+import appeng.hooks.RenderBlockOutlineHook;
+import appeng.parts.PartPlacement;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,14 +28,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinRenderBlockOutlineHook {
 
     @Shadow(remap = false)
-    private static void renderPart(PoseStack poseStack, MultiBufferSource buffers, Camera camera, BlockPos pos, IPart part, Direction side, boolean preview, boolean insideBlock) {
-    }
+    private static void renderPart(PoseStack poseStack, MultiBufferSource buffers, Camera camera, BlockPos pos, IPart part, Direction side, boolean preview, boolean insideBlock) {}
 
     @Inject(
             method = "showPartPlacementPreview",
             at = @At("TAIL"),
-            remap = false
-    )
+            remap = false)
     private static void renderPackedDevicePreview(Player player, PoseStack poseStack, MultiBufferSource buffers, Camera camera, BlockHitResult blockHitResult, ItemStack itemInHand, boolean insideBlock, CallbackInfo ci) {
         if (itemInHand.getItem() instanceof ItemPackedDevice packed) {
             var ctx = itemInHand.getTag();
@@ -54,5 +55,4 @@ public abstract class MixinRenderBlockOutlineHook {
             }
         }
     }
-
 }

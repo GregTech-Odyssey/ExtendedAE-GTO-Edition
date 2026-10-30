@@ -5,5 +5,4 @@ public interface IPage {
     void setPage(int page);
 
     int getPage();
-
 }

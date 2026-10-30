@@ -1,10 +1,7 @@
 package com.glodblock.github.extendedae.common.blocks;
 
-import appeng.block.crafting.PushDirection;
-import appeng.menu.locator.MenuLocators;
-import appeng.util.InteractionUtil;
-import appeng.util.Platform;
 import com.glodblock.github.extendedae.common.tileentities.TileExPatternProvider;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -15,6 +12,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
+
+import appeng.block.crafting.PushDirection;
+import appeng.menu.locator.MenuLocators;
+import appeng.util.InteractionUtil;
+import appeng.util.Platform;
+
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -74,5 +77,4 @@ public class BlockExPatternProvider extends BlockBaseGui<TileExPatternProvider> 
 
         level.setBlockAndUpdate(pos, currentState.setValue(PUSH_DIRECTION, newPushDirection));
     }
-
 }

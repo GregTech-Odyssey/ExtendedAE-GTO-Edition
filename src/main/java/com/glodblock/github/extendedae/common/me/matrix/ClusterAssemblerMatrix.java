@@ -1,5 +1,13 @@
 package com.glodblock.github.extendedae.common.me.matrix;
 
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixBase;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixFunction;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+
 import appeng.api.config.Setting;
 import appeng.api.crafting.IPatternDetails;
 import appeng.api.networking.IGridNode;
@@ -10,16 +18,11 @@ import appeng.me.cluster.IAECluster;
 import appeng.me.cluster.MBCalculator;
 import appeng.me.helpers.MachineSource;
 import appeng.util.NullConfigManager;
-import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixBase;
-import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
-import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixFunction;
-import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
+
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ReferenceSet;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -245,5 +248,4 @@ public class ClusterAssemblerMatrix implements IAECluster {
         var core = getCore();
         return core != null ? core.getActionableNode() : null;
     }
-
 }

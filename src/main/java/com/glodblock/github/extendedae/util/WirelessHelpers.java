@@ -5,7 +5,7 @@ import com.glodblock.github.extendedae.common.me.wireless.WirelessFail;
 import com.glodblock.github.extendedae.common.tileentities.TileWirelessConnector;
 import com.glodblock.github.extendedae.common.tileentities.TileWirelessHub;
 import com.glodblock.github.extendedae.config.EPPConfig;
-import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -16,9 +16,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
+import com.mojang.datafixers.util.Pair;
+
 import java.util.function.Consumer;
 
 public class WirelessHelpers {
+
     public static boolean hasNoPorts(TileWirelessHub tile, Player player) {
         if (tile.allocatePort() < 0) {
             player.displayClientMessage(WirelessFail.OUT_OF_PORT.getTranslation(), true);
@@ -33,8 +36,8 @@ public class WirelessHelpers {
         nbt.putLong("freq", freq);
 
         GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, pos)
-            .result()
-            .ifPresent(tag -> nbt.put("bind", tag));
+                .result()
+                .ifPresent(tag -> nbt.put("bind", tag));
     }
 
     public static InteractionResult connectWireless(Consumer<Long> setThisFreq, CompoundTag nbt, Level world, BlockPos thisPos, Player player, Runnable onSuccess) {
@@ -49,9 +52,9 @@ public class WirelessHelpers {
         }
 
         var globalPos = GlobalPos.CODEC.decode(NbtOps.INSTANCE, nbt.get("bind"))
-            .resultOrPartial(Util.prefix("Connector position", ExtendedAE.LOGGER::error))
-            .map(Pair::getFirst)
-            .orElse(null);
+                .resultOrPartial(Util.prefix("Connector position", ExtendedAE.LOGGER::error))
+                .map(Pair::getFirst)
+                .orElse(null);
 
         if (globalPos == null) {
             player.displayClientMessage(WirelessFail.MISSING.getTranslation(), true);

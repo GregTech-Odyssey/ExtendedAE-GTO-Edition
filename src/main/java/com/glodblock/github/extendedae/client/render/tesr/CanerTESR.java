@@ -1,11 +1,14 @@
 package com.glodblock.github.extendedae.client.render.tesr;
 
-import appeng.client.render.renderable.ItemRenderable;
-import appeng.client.render.tesr.ModularTESR;
 import com.glodblock.github.extendedae.common.tileentities.TileCaner;
-import com.mojang.math.Transformation;
+
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
+
+import appeng.client.render.renderable.ItemRenderable;
+import appeng.client.render.tesr.ModularTESR;
+
+import com.mojang.math.Transformation;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Vector3f;
@@ -21,5 +24,4 @@ public class CanerTESR extends ModularTESR<TileCaner> {
     private static Pair<ItemStack, Transformation> renderItem(TileCaner te) {
         return new ImmutablePair<>(te.getContainer().getStackInSlot(0), T);
     }
-
 }

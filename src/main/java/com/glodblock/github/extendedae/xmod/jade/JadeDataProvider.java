@@ -7,5 +7,4 @@ public interface JadeDataProvider {
     String jadeID();
 
     void collectJadeInfo(CompoundTag tag);
-
 }

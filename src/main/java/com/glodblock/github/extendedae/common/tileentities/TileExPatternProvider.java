@@ -1,18 +1,21 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.container.ContainerExPatternProvider;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+
 import appeng.api.stacks.AEItemKey;
 import appeng.blockentity.crafting.PatternProviderBlockEntity;
 import appeng.helpers.patternprovider.PatternProviderLogic;
 import appeng.menu.ISubMenu;
 import appeng.menu.MenuOpener;
 import appeng.menu.locator.MenuLocator;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.container.ContainerExPatternProvider;
+
 import com.glodblock.github.glodium.util.GlodUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
 
 public class TileExPatternProvider extends PatternProviderBlockEntity {
 
@@ -44,5 +47,4 @@ public class TileExPatternProvider extends PatternProviderBlockEntity {
     public AEItemKey getTerminalIcon() {
         return AEItemKey.of(EPPItemAndBlock.EX_PATTERN_PROVIDER);
     }
-
 }

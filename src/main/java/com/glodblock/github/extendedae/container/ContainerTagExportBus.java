@@ -1,19 +1,23 @@
 package com.glodblock.github.extendedae.container;
 
-import appeng.menu.implementations.MenuTypeBuilder;
-import appeng.menu.implementations.UpgradeableMenu;
 import com.glodblock.github.extendedae.common.parts.PartTagExportBus;
-import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
-import com.glodblock.github.glodium.network.packet.sync.Paras;
+
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
+
+import appeng.menu.implementations.MenuTypeBuilder;
+import appeng.menu.implementations.UpgradeableMenu;
+
+import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
+import com.glodblock.github.glodium.network.packet.sync.Paras;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.function.Consumer;
 
 public class ContainerTagExportBus extends UpgradeableMenu<PartTagExportBus> implements IActionHolder {
+
     private final Map<String, Consumer<Paras>> actions = createHolder();
 
     public static final MenuType<ContainerTagExportBus> TYPE = MenuTypeBuilder
@@ -67,5 +71,4 @@ public class ContainerTagExportBus extends UpgradeableMenu<PartTagExportBus> imp
     public Map<String, Consumer<Paras>> getActionMap() {
         return this.actions;
     }
-
 }

@@ -1,9 +1,12 @@
 package com.glodblock.github.extendedae.mixins;
 
-import appeng.crafting.pattern.AECraftingPattern;
 import com.glodblock.github.extendedae.util.helper.CraftingRecipePattern;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+
+import appeng.crafting.pattern.AECraftingPattern;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,5 +31,4 @@ public class MixinAECraftingPattern implements CraftingRecipePattern {
     public CraftingRecipe getRecipeHolder() {
         return this.recipe;
     }
-
 }

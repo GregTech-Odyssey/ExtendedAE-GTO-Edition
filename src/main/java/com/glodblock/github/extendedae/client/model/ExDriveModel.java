@@ -1,13 +1,5 @@
 package com.glodblock.github.extendedae.client.model;
 
-import appeng.api.client.StorageCellModels;
-import appeng.api.orientation.BlockOrientation;
-import appeng.init.internal.InitStorageCells;
-import com.google.common.collect.ImmutableSet;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.mojang.math.Transformation;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
@@ -23,6 +15,16 @@ import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
 import net.minecraftforge.client.model.geometry.IGeometryLoader;
 import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
+
+import appeng.api.client.StorageCellModels;
+import appeng.api.orientation.BlockOrientation;
+import appeng.init.internal.InitStorageCells;
+
+import com.google.common.collect.ImmutableSet;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.mojang.math.Transformation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -97,7 +99,5 @@ public class ExDriveModel implements IUnbakedGeometry<ExDriveModel> {
         public ExDriveModel read(JsonObject jsonObject, JsonDeserializationContext deserializationContext) throws JsonParseException {
             return new ExDriveModel();
         }
-
     }
-
 }

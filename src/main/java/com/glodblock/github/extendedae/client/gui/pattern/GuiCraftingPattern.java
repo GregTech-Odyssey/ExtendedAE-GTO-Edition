@@ -1,12 +1,15 @@
 package com.glodblock.github.extendedae.client.gui.pattern;
 
-import appeng.core.AppEng;
-import appeng.core.localization.ButtonToolTips;
 import com.glodblock.github.extendedae.container.pattern.ContainerCraftingPattern;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+
+import appeng.core.AppEng;
+import appeng.core.localization.ButtonToolTips;
+
 import org.jetbrains.annotations.NotNull;
 
 public class GuiCraftingPattern extends GuiPattern<ContainerCraftingPattern> {
@@ -33,16 +36,13 @@ public class GuiCraftingPattern extends GuiPattern<ContainerCraftingPattern> {
                 8,
                 6,
                 0x303030,
-                false
-        );
+                false);
         guiGraphics.drawString(
                 this.font,
                 Component.translatable("gui.pattern_view.craft.fluid_substitute", this.menu.canSubstituteFluids() ? ButtonToolTips.On.text() : ButtonToolTips.Off.text()),
                 8,
                 19,
                 0x303030,
-                false
-        );
+                false);
     }
-
 }

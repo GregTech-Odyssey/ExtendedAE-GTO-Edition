@@ -1,16 +1,12 @@
 package com.glodblock.github.extendedae.common.blocks;
 
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocators;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.me.wireless.WirelessFail;
 import com.glodblock.github.extendedae.common.tileentities.TileWirelessConnector;
-import com.glodblock.github.extendedae.common.tileentities.TileWirelessHub;
 import com.glodblock.github.extendedae.config.EPPConfig;
 import com.glodblock.github.extendedae.container.ContainerWirelessConnector;
 import com.glodblock.github.extendedae.util.WirelessHelpers;
-import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -29,6 +25,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocators;
+
+import com.mojang.datafixers.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -111,9 +112,9 @@ public class BlockWirelessConnector extends BlockBaseGui<TileWirelessConnector> 
                         var connection = connections.getCompound(i);
 
                         var globalPos = GlobalPos.CODEC.decode(NbtOps.INSTANCE, connection.get("bind"))
-                            .resultOrPartial(Util.prefix("Connector position", ExtendedAE.LOGGER::error))
-                            .map(Pair::getFirst)
-                            .orElse(null);
+                                .resultOrPartial(Util.prefix("Connector position", ExtendedAE.LOGGER::error))
+                                .map(Pair::getFirst)
+                                .orElse(null);
 
                         if (globalPos.pos().equals(thisPos) && globalPos.dimension().equals(world.dimension())) {
                             duplicate = true;
@@ -153,5 +154,4 @@ public class BlockWirelessConnector extends BlockBaseGui<TileWirelessConnector> 
     public void openGui(TileWirelessConnector tile, Player p) {
         MenuOpener.open(ContainerWirelessConnector.TYPE, p, MenuLocators.forBlockEntity(tile));
     }
-
 }

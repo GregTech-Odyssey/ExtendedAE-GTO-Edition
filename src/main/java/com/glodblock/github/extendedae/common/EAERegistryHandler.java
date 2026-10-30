@@ -1,23 +1,9 @@
 package com.glodblock.github.extendedae.common;
 
-import appeng.api.client.StorageCellModels;
-import appeng.api.features.GridLinkables;
-import appeng.api.parts.PartModels;
-import appeng.api.storage.StorageCells;
-import appeng.api.upgrades.Upgrades;
-import appeng.block.AEBaseBlockItem;
-import appeng.block.AEBaseEntityBlock;
-import appeng.blockentity.AEBaseBlockEntity;
-import appeng.blockentity.ClientTickingBlockEntity;
-import appeng.blockentity.ServerTickingBlockEntity;
-import appeng.core.AppEng;
-import appeng.core.definitions.AEItems;
-import appeng.core.localization.GuiText;
-import appeng.items.AEBaseItem;
-import appeng.items.tools.powered.WirelessTerminalItem;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.common.inventory.InfinityCellInventory;
 import com.glodblock.github.extendedae.common.parts.PartActiveFormationPlane;
+import com.glodblock.github.extendedae.common.parts.PartExCraftingTerminal;
 import com.glodblock.github.extendedae.common.parts.PartExExportBus;
 import com.glodblock.github.extendedae.common.parts.PartExImportBus;
 import com.glodblock.github.extendedae.common.parts.PartExInterface;
@@ -25,7 +11,6 @@ import com.glodblock.github.extendedae.common.parts.PartExPatternAccessTerminal;
 import com.glodblock.github.extendedae.common.parts.PartExPatternProvider;
 import com.glodblock.github.extendedae.common.parts.PartModExportBus;
 import com.glodblock.github.extendedae.common.parts.PartModStorageBus;
-import com.glodblock.github.extendedae.common.parts.PartExCraftingTerminal;
 import com.glodblock.github.extendedae.common.parts.PartOversizeInterface;
 import com.glodblock.github.extendedae.common.parts.PartPreciseExportBus;
 import com.glodblock.github.extendedae.common.parts.PartPreciseStorageBus;
@@ -37,6 +22,7 @@ import com.glodblock.github.extendedae.container.ContainerActiveFormationPlane;
 import com.glodblock.github.extendedae.container.ContainerAssemblerMatrix;
 import com.glodblock.github.extendedae.container.ContainerCaner;
 import com.glodblock.github.extendedae.container.ContainerCircuitCutter;
+import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
 import com.glodblock.github.extendedae.container.ContainerExDrive;
 import com.glodblock.github.extendedae.container.ContainerExIOBus;
 import com.glodblock.github.extendedae.container.ContainerExIOPort;
@@ -45,7 +31,6 @@ import com.glodblock.github.extendedae.container.ContainerExInterface;
 import com.glodblock.github.extendedae.container.ContainerExMolecularAssembler;
 import com.glodblock.github.extendedae.container.ContainerExPatternProvider;
 import com.glodblock.github.extendedae.container.ContainerExPatternTerminal;
-import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
 import com.glodblock.github.extendedae.container.ContainerIngredientBuffer;
 import com.glodblock.github.extendedae.container.ContainerModExportBus;
 import com.glodblock.github.extendedae.container.ContainerModStorageBus;
@@ -71,8 +56,7 @@ import com.glodblock.github.extendedae.xmod.appflux.AFCommonLoad;
 import com.glodblock.github.extendedae.xmod.appliede.APECommonLoad;
 import com.glodblock.github.extendedae.xmod.mega.MEGACommonLoad;
 import com.glodblock.github.extendedae.xmod.wt.WTCommonLoad;
-import com.glodblock.github.glodium.registry.RegistryHandler;
-import com.glodblock.github.glodium.util.GlodUtil;
+
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -84,6 +68,25 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
+
+import appeng.api.client.StorageCellModels;
+import appeng.api.features.GridLinkables;
+import appeng.api.parts.PartModels;
+import appeng.api.storage.StorageCells;
+import appeng.api.upgrades.Upgrades;
+import appeng.block.AEBaseBlockItem;
+import appeng.block.AEBaseEntityBlock;
+import appeng.blockentity.AEBaseBlockEntity;
+import appeng.blockentity.ClientTickingBlockEntity;
+import appeng.blockentity.ServerTickingBlockEntity;
+import appeng.core.AppEng;
+import appeng.core.definitions.AEItems;
+import appeng.core.localization.GuiText;
+import appeng.items.AEBaseItem;
+import appeng.items.tools.powered.WirelessTerminalItem;
+
+import com.glodblock.github.glodium.registry.RegistryHandler;
+import com.glodblock.github.glodium.util.GlodUtil;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
@@ -180,8 +183,7 @@ public class EAERegistryHandler extends RegistryHandler {
             if (block instanceof AEBaseEntityBlock<?>) {
                 AEBaseBlockEntity.registerBlockEntityItem(
                         ((AEBaseEntityBlock<?>) block).getBlockEntityType(),
-                        block.asItem()
-                );
+                        block.asItem());
             }
         }
         this.registerAEUpgrade();
@@ -301,5 +303,4 @@ public class EAERegistryHandler extends RegistryHandler {
                 .build();
         Registry.register(registry, ExtendedAE.id("tab_main"), tab);
     }
-
 }

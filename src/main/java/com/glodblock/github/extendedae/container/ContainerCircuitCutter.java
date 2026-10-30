@@ -1,5 +1,12 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.tileentities.TileCircuitCutter;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
 import appeng.api.util.IConfigManager;
@@ -12,11 +19,6 @@ import appeng.menu.interfaces.IProgressProvider;
 import appeng.menu.slot.AppEngSlot;
 import appeng.menu.slot.OutputSlot;
 import appeng.util.ConfigMenuInventory;
-import com.glodblock.github.extendedae.common.tileentities.TileCircuitCutter;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
 
 import java.util.List;
 
@@ -44,8 +46,7 @@ public class ContainerCircuitCutter extends UpgradeableMenu<TileCircuitCutter> i
         this.addSlot(new OutputSlot(this.getHost().getOutput(), 0, null), SlotSemantics.MACHINE_OUTPUT);
         this.tank.setEmptyTooltip(() -> List.of(
                 Component.translatable("gui.expatternprovider.tank_empty"),
-                Component.translatable("gui.expatternprovider.tank_amount", 0, TileCircuitCutter.TANK_CAP).withStyle(Tooltips.NORMAL_TOOLTIP_TEXT)
-        ));
+                Component.translatable("gui.expatternprovider.tank_amount", 0, TileCircuitCutter.TANK_CAP).withStyle(Tooltips.NORMAL_TOOLTIP_TEXT)));
     }
 
     @Override

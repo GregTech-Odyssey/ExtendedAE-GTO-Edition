@@ -1,5 +1,10 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.parts.PartThresholdLevelEmitter;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.config.Settings;
 import appeng.api.stacks.AEKey;
 import appeng.api.stacks.GenericStack;
@@ -10,12 +15,10 @@ import appeng.menu.guisync.GuiSync;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
 import appeng.menu.slot.FakeSlot;
-import com.glodblock.github.extendedae.common.parts.PartThresholdLevelEmitter;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
+
 import org.jetbrains.annotations.Nullable;
 
-public class ContainerThresholdLevelEmitter extends UpgradeableMenu<PartThresholdLevelEmitter>  {
+public class ContainerThresholdLevelEmitter extends UpgradeableMenu<PartThresholdLevelEmitter> {
 
     private static final String ACTION_SET_UPPER_VALUE = "setUpperValue";
     private static final String ACTION_SET_LOWER_VALUE = "setLowerValue";
@@ -87,5 +90,4 @@ public class ContainerThresholdLevelEmitter extends UpgradeableMenu<PartThreshol
             getHost().setLowerValue(value);
         }
     }
-
 }

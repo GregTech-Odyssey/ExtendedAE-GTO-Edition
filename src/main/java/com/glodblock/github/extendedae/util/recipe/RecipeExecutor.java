@@ -1,13 +1,15 @@
 package com.glodblock.github.extendedae.util.recipe;
 
+import com.glodblock.github.extendedae.api.IRecipeMachine;
+
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+
 import appeng.api.config.Actionable;
 import appeng.api.config.PowerMultiplier;
 import appeng.api.networking.energy.IEnergyService;
 import appeng.api.networking.energy.IEnergySource;
 import appeng.api.networking.ticking.TickRateModulation;
-import com.glodblock.github.extendedae.api.IRecipeMachine;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.function.Function;
 
@@ -79,5 +81,4 @@ public class RecipeExecutor<T extends Recipe<?>> {
             return TickRateModulation.FASTER;
         }
     }
-
 }

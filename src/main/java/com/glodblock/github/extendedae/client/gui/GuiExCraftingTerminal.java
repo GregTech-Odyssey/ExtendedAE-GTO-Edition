@@ -1,14 +1,5 @@
 package com.glodblock.github.extendedae.client.gui;
 
-import appeng.api.config.ActionItems;
-import appeng.client.gui.me.common.MEStorageScreen;
-import appeng.client.gui.style.ScreenStyle;
-import appeng.client.gui.widgets.ActionButton;
-import appeng.client.gui.widgets.TabButton;
-import appeng.core.AEConfig;
-import appeng.core.sync.network.NetworkHandler;
-import appeng.core.sync.packets.InventoryActionPacket;
-import appeng.helpers.InventoryAction;
 import com.glodblock.github.extendedae.api.CraftingMode;
 import com.glodblock.github.extendedae.client.gui.widget.OutputResultSlot;
 import com.glodblock.github.extendedae.client.gui.widget.panel.AnvilPanel;
@@ -19,10 +10,7 @@ import com.glodblock.github.extendedae.client.gui.widget.panel.StonecutterPanel;
 import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 import com.glodblock.github.extendedae.util.CacheHolder;
-import com.glodblock.github.glodium.network.packet.CGenericPacket;
-import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
-import com.glodblock.github.glodium.network.packet.sync.Paras;
-import com.mojang.blaze3d.platform.InputConstants;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -33,6 +21,21 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+
+import appeng.api.config.ActionItems;
+import appeng.client.gui.me.common.MEStorageScreen;
+import appeng.client.gui.style.ScreenStyle;
+import appeng.client.gui.widgets.ActionButton;
+import appeng.client.gui.widgets.TabButton;
+import appeng.core.AEConfig;
+import appeng.core.sync.network.NetworkHandler;
+import appeng.core.sync.packets.InventoryActionPacket;
+import appeng.helpers.InventoryAction;
+
+import com.glodblock.github.glodium.network.packet.CGenericPacket;
+import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
+import com.glodblock.github.glodium.network.packet.sync.Paras;
+import com.mojang.blaze3d.platform.InputConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
@@ -157,5 +160,4 @@ public class GuiExCraftingTerminal<T extends ContainerExCraftingTerminal> extend
     public @NotNull Map<String, Consumer<Paras>> getActionMap() {
         return this.actions;
     }
-
 }

@@ -1,5 +1,13 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.api.IPage;
+import com.glodblock.github.extendedae.client.ExSemantics;
+
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+
 import appeng.api.config.Settings;
 import appeng.api.util.IConfigManager;
 import appeng.helpers.InterfaceLogicHost;
@@ -10,12 +18,6 @@ import appeng.menu.implementations.SetStockAmountMenu;
 import appeng.menu.implementations.UpgradeableMenu;
 import appeng.menu.slot.AppEngSlot;
 import appeng.menu.slot.FakeSlot;
-import com.glodblock.github.extendedae.api.IPage;
-import com.glodblock.github.extendedae.client.ExSemantics;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,7 @@ public class ContainerExInterface extends UpgradeableMenu<InterfaceLogicHost> im
     }
 
     public void showPage(int page) {
-        for (int index = 0; index < 4; index ++) {
+        for (int index = 0; index < 4; index++) {
             var slots = this.getSlots(CONFIG_PATTERN[index]);
             slots.addAll(this.getSlots(STORAGE_PATTERN[index]));
             for (var slot : slots) {
@@ -89,7 +91,7 @@ public class ContainerExInterface extends UpgradeableMenu<InterfaceLogicHost> im
             var stack = getHost().getConfig().getStack(configSlot);
             if (stack != null) {
                 SetStockAmountMenu.open((ServerPlayer) getPlayer(), getLocator(), configSlot,
-                        stack.what(), (int) stack.amount());
+                        stack.what(), stack.amount());
             }
         }
     }

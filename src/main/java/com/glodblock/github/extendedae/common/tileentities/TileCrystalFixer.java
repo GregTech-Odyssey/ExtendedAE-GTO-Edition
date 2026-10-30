@@ -1,5 +1,17 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.xmod.jade.JadeDataProvider;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+
 import appeng.api.config.Actionable;
 import appeng.api.config.PowerMultiplier;
 import appeng.api.inventories.InternalInventory;
@@ -17,24 +29,14 @@ import appeng.core.definitions.AEItems;
 import appeng.util.Platform;
 import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.filter.AEItemDefinitionFilter;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.xmod.jade.JadeDataProvider;
+
 import com.glodblock.github.glodium.util.GlodUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.EnumSet;
 import java.util.Set;
 
-
 public class TileCrystalFixer extends AENetworkInvBlockEntity implements IGridTickable, JadeDataProvider {
-    
+
     private int progress = 0;
     private final AppEngInternalInventory inv = new AppEngInternalInventory(this, 1);
 
@@ -185,5 +187,4 @@ public class TileCrystalFixer extends AENetworkInvBlockEntity implements IGridTi
     public void collectJadeInfo(CompoundTag tag) {
         tag.putInt("progress", this.progress);
     }
-
 }

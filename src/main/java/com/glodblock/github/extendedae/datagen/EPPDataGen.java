@@ -1,6 +1,7 @@
 package com.glodblock.github.extendedae.datagen;
 
 import com.glodblock.github.extendedae.ExtendedAE;
+
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,5 +20,4 @@ public class EPPDataGen {
         pack.addProvider(EPPLootTableProvider::new);
         pack.addProvider(c -> new EPPItemTagsProvider(c, lookup, blockTagsProvider.contentsGetter(), file));
     }
-
 }

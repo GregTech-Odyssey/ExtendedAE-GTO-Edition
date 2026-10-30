@@ -1,15 +1,17 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.config.EPPConfig;
+import com.glodblock.github.extendedae.container.ContainerExIOBus;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.parts.IPartItem;
 import appeng.api.parts.IPartModel;
 import appeng.core.AppEngBase;
 import appeng.parts.PartModel;
 import appeng.parts.automation.ImportBusPart;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.config.EPPConfig;
-import com.glodblock.github.extendedae.container.ContainerExIOBus;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.MenuType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +22,7 @@ public class PartExImportBus extends ImportBusPart {
             new ResourceLocation(ExtendedAE.MODID, "part/ex_import_bus_base"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/import_bus_on"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/import_bus_off"),
-            new ResourceLocation(AppEngBase.MOD_ID, "part/import_bus_has_channel")
-    );
+            new ResourceLocation(AppEngBase.MOD_ID, "part/import_bus_has_channel"));
 
     public static final PartModel MODELS_OFF = new PartModel(MODELS.get(0), MODELS.get(2));
     public static final PartModel MODELS_ON = new PartModel(MODELS.get(0), MODELS.get(1));
@@ -56,5 +57,4 @@ public class PartExImportBus extends ImportBusPart {
     protected MenuType<?> getMenuType() {
         return ContainerExIOBus.IMPORT_TYPE;
     }
-
 }

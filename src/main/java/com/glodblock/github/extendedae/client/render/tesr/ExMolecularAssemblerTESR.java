@@ -1,12 +1,7 @@
 package com.glodblock.github.extendedae.client.render.tesr;
 
-import appeng.client.render.crafting.AssemblerAnimationStatus;
-import appeng.client.render.effects.ParticleTypes;
-import appeng.core.AppEng;
-import appeng.core.AppEngClient;
 import com.glodblock.github.extendedae.common.tileentities.TileExMolecularAssembler;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -21,6 +16,14 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.model.data.ModelData;
+
+import appeng.client.render.crafting.AssemblerAnimationStatus;
+import appeng.client.render.effects.ParticleTypes;
+import appeng.core.AppEng;
+import appeng.core.AppEngClient;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.jetbrains.annotations.NotNull;
 
 public class ExMolecularAssemblerTESR implements BlockEntityRenderer<TileExMolecularAssembler> {
@@ -29,12 +32,10 @@ public class ExMolecularAssemblerTESR implements BlockEntityRenderer<TileExMolec
 
     private final RandomSource particleRandom = RandomSource.create();
 
-    public ExMolecularAssemblerTESR(BlockEntityRendererProvider.Context context) {
-    }
+    public ExMolecularAssemblerTESR(BlockEntityRendererProvider.Context context) {}
 
     @Override
     public void render(TileExMolecularAssembler molecularAssembler, float partialTicks, @NotNull PoseStack ms, @NotNull MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-
         AssemblerAnimationStatus status = molecularAssembler.getAnimationStatus();
         if (status != null) {
             if (!Minecraft.getInstance().isPaused()) {
@@ -91,5 +92,4 @@ public class ExMolecularAssemblerTESR implements BlockEntityRenderer<TileExMolec
                 OverlayTexture.NO_OVERLAY, ms, bufferIn, molecularAssembler.getLevel(), 0);
         ms.popPose();
     }
-
 }

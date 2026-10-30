@@ -1,5 +1,14 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.api.IPage;
+import com.glodblock.github.extendedae.client.ExSemantics;
+import com.glodblock.github.extendedae.common.tileentities.TileExInscriber;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
 import appeng.api.util.IConfigManager;
@@ -17,15 +26,9 @@ import appeng.menu.implementations.UpgradeableMenu;
 import appeng.menu.interfaces.IProgressProvider;
 import appeng.menu.slot.AppEngSlot;
 import appeng.menu.slot.OutputSlot;
-import com.glodblock.github.extendedae.api.IPage;
-import com.glodblock.github.extendedae.client.ExSemantics;
-import com.glodblock.github.extendedae.common.tileentities.TileExInscriber;
+
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -85,7 +88,7 @@ public class ContainerExInscriber extends UpgradeableMenu<TileExInscriber> imple
         super(TYPE, id, ip, host);
         this.actions.put("show", o -> showPage());
         this.actions.put("stack", o -> this.getHost().setInvStackSize(o.get(0)));
-        for (int x = 0; x < TileExInscriber.MAX_THREAD; x ++) {
+        for (int x = 0; x < TileExInscriber.MAX_THREAD; x++) {
             var inv = host.getIndexInventory(x);
 
             var top = new AppEngSlot(inv, 0);
@@ -103,20 +106,18 @@ public class ContainerExInscriber extends UpgradeableMenu<TileExInscriber> imple
             var middle = new AppEngSlot(inv, 2);
             middle.setIcon(Icon.BACKGROUND_INGOT);
             middle.setEmptyTooltip(
-                    () -> separateSides == YesNo.YES ? Tooltips.inputSlot(Side.LEFT, Side.RIGHT, Side.BACK, Side.FRONT)
-                            : Tooltips.inputSlot(Side.ANY));
+                    () -> separateSides == YesNo.YES ? Tooltips.inputSlot(Side.LEFT, Side.RIGHT, Side.BACK, Side.FRONT) : Tooltips.inputSlot(Side.ANY));
             this.middles[x] = this.addSlot(middle, MIDDLE[x]);
 
             var output = new OutputSlot(inv, 3, null);
             output.setEmptyTooltip(
-                    () -> separateSides == YesNo.YES ? Tooltips.outputSlot(Side.LEFT, Side.RIGHT, Side.BACK, Side.FRONT)
-                            : Tooltips.outputSlot(Side.ANY));
+                    () -> separateSides == YesNo.YES ? Tooltips.outputSlot(Side.LEFT, Side.RIGHT, Side.BACK, Side.FRONT) : Tooltips.outputSlot(Side.ANY));
             this.outputs[x] = this.addSlot(output, OUTPUT[x]);
         }
     }
 
     public void showPage() {
-        for (int x = 0; x < TileExInscriber.MAX_THREAD; x ++) {
+        for (int x = 0; x < TileExInscriber.MAX_THREAD; x++) {
             ((AppEngSlot) this.tops[x]).setSlotEnabled(x == this.page);
             ((AppEngSlot) this.bottoms[x]).setSlotEnabled(x == this.page);
             ((AppEngSlot) this.middles[x]).setSlotEnabled(x == this.page);

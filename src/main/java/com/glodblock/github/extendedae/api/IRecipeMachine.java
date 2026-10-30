@@ -1,11 +1,14 @@
 package com.glodblock.github.extendedae.api;
 
+import com.glodblock.github.extendedae.util.recipe.RecipeSearchContext;
+
+import net.minecraft.world.Container;
+import net.minecraft.world.item.crafting.Recipe;
+
 import appeng.api.inventories.InternalInventory;
 import appeng.api.networking.IManagedGridNode;
 import appeng.api.networking.energy.IEnergySource;
-import com.glodblock.github.extendedae.util.recipe.RecipeSearchContext;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.crafting.Recipe;
+
 import org.jetbrains.annotations.Nullable;
 
 public interface IRecipeMachine<C extends Container, T extends Recipe<C>> {
@@ -31,5 +34,4 @@ public interface IRecipeMachine<C extends Container, T extends Recipe<C>> {
     default IEnergySource getEnergy() {
         return null;
     }
-
 }

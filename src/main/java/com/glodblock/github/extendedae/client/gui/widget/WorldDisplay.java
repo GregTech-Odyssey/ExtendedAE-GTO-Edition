@@ -1,15 +1,7 @@
 package com.glodblock.github.extendedae.client.gui.widget;
 
-import appeng.client.gui.AEBaseScreen;
 import com.glodblock.github.extendedae.util.DisplayServerLevel;
-import com.glodblock.github.glodium.util.GlodUtil;
-import com.mojang.blaze3d.systems.RenderSystem;
-import guideme.color.LightDarkMode;
-import guideme.document.LytRect;
-import guideme.scene.CameraSettings;
-import guideme.scene.GuidebookLevelRenderer;
-import guideme.scene.GuidebookScene;
-import guideme.scene.level.GuidebookLevel;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -22,6 +14,17 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SingleThreadedRandomSource;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+
+import appeng.client.gui.AEBaseScreen;
+
+import com.glodblock.github.glodium.util.GlodUtil;
+import com.mojang.blaze3d.systems.RenderSystem;
+import guideme.color.LightDarkMode;
+import guideme.document.LytRect;
+import guideme.scene.CameraSettings;
+import guideme.scene.GuidebookLevelRenderer;
+import guideme.scene.GuidebookScene;
+import guideme.scene.level.GuidebookLevel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -110,8 +113,7 @@ public class WorldDisplay extends AbstractWidget {
                     (int) (viewport.x() * window.getGuiScale()),
                     (int) (window.getHeight() - viewport.bottom() * window.getGuiScale()),
                     (int) (viewport.width() * window.getGuiScale()),
-                    (int) (viewport.height() * window.getGuiScale())
-            );
+                    (int) (viewport.height() * window.getGuiScale()));
             guiGraphics.enableScissor(getX(), getY(), getX() + width, getY() + height);
             worldRender.render(this.scene.getLevel(), this.scene.getCameraSettings(), Collections.emptyList(), LightDarkMode.LIGHT_MODE);
             guiGraphics.disableScissor();
@@ -120,9 +122,7 @@ public class WorldDisplay extends AbstractWidget {
     }
 
     @Override
-    protected void updateWidgetNarration(@NotNull NarrationElementOutput pNarrationElementOutput) {
-
-    }
+    protected void updateWidgetNarration(@NotNull NarrationElementOutput pNarrationElementOutput) {}
 
     @Override
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
@@ -150,5 +150,4 @@ public class WorldDisplay extends AbstractWidget {
         }
         return false;
     }
-
 }

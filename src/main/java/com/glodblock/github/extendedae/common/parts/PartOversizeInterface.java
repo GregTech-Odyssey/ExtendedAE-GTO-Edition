@@ -1,5 +1,15 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.common.inventory.OversizeConfigInv;
+import com.glodblock.github.extendedae.container.ContainerExInterface;
+import com.glodblock.github.extendedae.util.Ae2Reflect;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+
 import appeng.api.parts.IPartItem;
 import appeng.api.parts.IPartModel;
 import appeng.core.AppEngBase;
@@ -8,14 +18,6 @@ import appeng.menu.ISubMenu;
 import appeng.menu.MenuOpener;
 import appeng.menu.locator.MenuLocator;
 import appeng.parts.PartModel;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.common.inventory.OversizeConfigInv;
-import com.glodblock.github.extendedae.container.ContainerExInterface;
-import com.glodblock.github.extendedae.util.Ae2Reflect;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,8 +28,7 @@ public class PartOversizeInterface extends PartExInterface {
             new ResourceLocation(ExtendedAE.MODID, "part/oversize_interface"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/interface_on"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/interface_off"),
-            new ResourceLocation(AppEngBase.MOD_ID, "part/interface_has_channel")
-    );
+            new ResourceLocation(AppEngBase.MOD_ID, "part/interface_has_channel"));
 
     public static final PartModel MODELS_OFF = new PartModel(MODELS.get(0), MODELS.get(2));
     public static final PartModel MODELS_ON = new PartModel(MODELS.get(0), MODELS.get(1));
@@ -67,5 +68,4 @@ public class PartOversizeInterface extends PartExInterface {
     public <T> LazyOptional<T> getCapability(Capability<T> capabilityClass) {
         return this.getInterfaceLogic().getCapability(capabilityClass, this.getSide());
     }
-
 }

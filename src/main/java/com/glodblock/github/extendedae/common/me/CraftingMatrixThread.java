@@ -1,5 +1,14 @@
 package com.glodblock.github.extendedae.common.me;
 
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
+import com.glodblock.github.extendedae.util.Ae2Reflect;
+import com.glodblock.github.extendedae.util.SingleThreadLRU;
+import com.glodblock.github.extendedae.util.helper.CraftingRecipePattern;
+import com.glodblock.github.extendedae.util.helper.IntruderInventory;
+
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.networking.security.IActionSource;
 import appeng.api.networking.ticking.TickRateModulation;
 import appeng.api.stacks.AEItemKey;
@@ -10,15 +19,9 @@ import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.crafting.IMolecularAssemblerSupportedPattern;
 import appeng.crafting.pattern.AECraftingPattern;
 import appeng.items.misc.WrappedGenericStack;
-import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
-import com.glodblock.github.extendedae.util.Ae2Reflect;
-import com.glodblock.github.extendedae.util.helper.CraftingRecipePattern;
-import com.glodblock.github.extendedae.util.helper.IntruderInventory;
-import com.glodblock.github.extendedae.util.SingleThreadLRU;
+
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -47,7 +50,7 @@ public class CraftingMatrixThread extends CraftingThread {
     @Override
     protected void ejectHeldItems() {
         boolean changed = false;
-        for (int x = 0; x < 10; x ++) {
+        for (int x = 0; x < 10; x++) {
             var stack = this.gridInv.getStackInSlot(x);
             if (!stack.isEmpty()) {
                 if (stack.getItem() instanceof WrappedGenericStack) {
@@ -186,7 +189,5 @@ public class CraftingMatrixThread extends CraftingThread {
         boolean isValid() {
             return this != NULL && this.results != null;
         }
-
     }
-
 }

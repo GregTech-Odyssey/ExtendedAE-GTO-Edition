@@ -17,5 +17,4 @@ public class ExSemantics {
     public final static SlotSemantic EX_10 = SlotSemantics.register("EX_10", false);
     public final static SlotSemantic EX_11 = SlotSemantics.register("EX_11", false);
     public final static SlotSemantic EX_12 = SlotSemantics.register("EX_12", false);
-
 }

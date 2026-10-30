@@ -1,5 +1,12 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.parts.PartTagStorageBus;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.config.AccessRestriction;
 import appeng.api.config.Settings;
 import appeng.api.config.StorageFilter;
@@ -8,13 +15,9 @@ import appeng.api.util.IConfigManager;
 import appeng.menu.guisync.GuiSync;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
-import com.glodblock.github.extendedae.common.parts.PartTagStorageBus;
+
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

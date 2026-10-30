@@ -1,8 +1,9 @@
 package com.glodblock.github.extendedae.client.gui.widget;
 
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.inventories.InternalInventory;
 import appeng.menu.slot.FakeSlot;
-import net.minecraft.world.item.ItemStack;
 
 public class SingleFakeSlot extends FakeSlot {
 
@@ -18,5 +19,4 @@ public class SingleFakeSlot extends FakeSlot {
         }
         super.set(is);
     }
-
 }

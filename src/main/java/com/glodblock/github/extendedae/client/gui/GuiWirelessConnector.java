@@ -1,19 +1,21 @@
 package com.glodblock.github.extendedae.client.gui;
 
-import appeng.client.gui.implementations.UpgradeableScreen;
-import appeng.client.gui.style.PaletteColor;
-import appeng.client.gui.style.ScreenStyle;
 import com.glodblock.github.extendedae.client.button.HighlightButton;
 import com.glodblock.github.extendedae.client.button.TooltipIcon;
 import com.glodblock.github.extendedae.client.gui.widget.WorldDisplay;
 import com.glodblock.github.extendedae.common.me.wireless.WirelessStatus;
 import com.glodblock.github.extendedae.container.ContainerWirelessConnector;
 import com.glodblock.github.extendedae.util.MessageUtil;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import appeng.client.gui.implementations.UpgradeableScreen;
+import appeng.client.gui.style.PaletteColor;
+import appeng.client.gui.style.ScreenStyle;
 
 import java.util.Objects;
 
@@ -88,24 +90,21 @@ public class GuiWirelessConnector extends UpgradeableScreen<ContainerWirelessCon
                 PADDING_X,
                 PADDING_Y + len,
                 textColor,
-                false
-        );
+                false);
         guiGraphics.drawString(
                 this.font,
                 Component.translatable("gui.wireless_connect.power", String.format("%.2f", this.menu.powerUse)),
                 PADDING_X,
                 PADDING_Y + len * 2,
                 textColor,
-                false
-        );
+                false);
         guiGraphics.drawString(
                 this.font,
                 Component.translatable("gui.wireless_connect.channel", this.menu.usedChannel, this.menu.maxChannel),
                 PADDING_X,
                 PADDING_Y + len * 3,
                 textColor,
-                false
-        );
+                false);
         if (this.menu.status == WirelessStatus.WORKING) {
             var pos = BlockPos.of(this.menu.otherSide);
             guiGraphics.drawString(
@@ -114,8 +113,7 @@ public class GuiWirelessConnector extends UpgradeableScreen<ContainerWirelessCon
                     22,
                     62,
                     textColor,
-                    false
-            );
+                    false);
         }
     }
 
@@ -134,5 +132,4 @@ public class GuiWirelessConnector extends UpgradeableScreen<ContainerWirelessCon
         }
         return super.mouseScrolled(pMouseX, pMouseY, pDelta);
     }
-
 }

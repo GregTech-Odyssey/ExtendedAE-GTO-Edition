@@ -1,17 +1,20 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.api.BatchMode;
+import com.glodblock.github.extendedae.common.parts.PartPreciseExportBus;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+
 import appeng.core.definitions.AEItems;
 import appeng.menu.SlotSemantics;
 import appeng.menu.guisync.GuiSync;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
-import com.glodblock.github.extendedae.api.BatchMode;
-import com.glodblock.github.extendedae.common.parts.PartPreciseExportBus;
+
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -23,8 +26,7 @@ public class ContainerPreciseExportBus extends UpgradeableMenu<PartPreciseExport
             .create(ContainerPreciseExportBus::new, PartPreciseExportBus.class)
             .withInitialData(
                     (host, buffer) -> buffer.writeEnum(host.getMode()),
-                    (host, menu, buffer) -> menu.mode = buffer.readEnum(BatchMode.class)
-            )
+                    (host, menu, buffer) -> menu.mode = buffer.readEnum(BatchMode.class))
             .build("precise_export_bus");
 
     private final Map<String, Consumer<Paras>> actions = createHolder();
@@ -70,5 +72,4 @@ public class ContainerPreciseExportBus extends UpgradeableMenu<PartPreciseExport
     public Map<String, Consumer<Paras>> getActionMap() {
         return this.actions;
     }
-
 }

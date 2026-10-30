@@ -1,23 +1,24 @@
 package com.glodblock.github.extendedae.client.render.tesr;
 
-import appeng.api.stacks.AEItemKey;
 import com.glodblock.github.extendedae.common.tileentities.TileIngredientBuffer;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
+
+import appeng.api.stacks.AEItemKey;
+
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
 public class IngredientBufferTESR implements BlockEntityRenderer<TileIngredientBuffer> {
 
-    public IngredientBufferTESR(BlockEntityRendererProvider.Context context) {
-
-    }
+    public IngredientBufferTESR(BlockEntityRendererProvider.Context context) {}
 
     @Override
     public void render(@NotNull TileIngredientBuffer tile, float partialTicks, @NotNull PoseStack matrixStackIn, @NotNull MultiBufferSource buffers,
@@ -25,8 +26,7 @@ public class IngredientBufferTESR implements BlockEntityRenderer<TileIngredientB
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(
                 GlStateManager.SourceFactor.SRC_ALPHA,
-                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA
-        );
+                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         var itemRenderer = Minecraft.getInstance().getItemRenderer();
         var inv = tile.getInventory();
         for (int i = 0; i < inv.size(); i++) {
@@ -42,5 +42,4 @@ public class IngredientBufferTESR implements BlockEntityRenderer<TileIngredientB
         }
         RenderSystem.disableBlend();
     }
-
 }

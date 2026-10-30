@@ -1,5 +1,15 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.api.StorageMode;
+import com.glodblock.github.extendedae.common.parts.base.PartSpecialStorageBus;
+import com.glodblock.github.extendedae.container.ContainerPreciseStorageBus;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.config.Actionable;
 import appeng.api.config.Setting;
 import appeng.api.networking.security.IActionSource;
@@ -16,14 +26,7 @@ import appeng.parts.PartModel;
 import appeng.util.ConfigInventory;
 import appeng.util.SettingsFrom;
 import appeng.util.prioritylist.IPartitionList;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.api.StorageMode;
-import com.glodblock.github.extendedae.common.parts.base.PartSpecialStorageBus;
-import com.glodblock.github.extendedae.container.ContainerPreciseStorageBus;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.MenuType;
+
 import org.jetbrains.annotations.Nullable;
 
 public class PartPreciseStorageBus extends PartSpecialStorageBus implements IConfigInvHost {
@@ -124,6 +127,8 @@ public class PartPreciseStorageBus extends PartSpecialStorageBus implements ICon
 
     public class PreciseInventory extends StorageBusInventory {
 
+        private final KeyCounter unfilteredContents = new KeyCounter();
+
         public PreciseInventory(MEStorage inventory) {
             super(inventory);
         }
@@ -170,7 +175,8 @@ public class PartPreciseStorageBus extends PartSpecialStorageBus implements ICon
                 return;
             }
             var filter = (PreciseFilter) this.getPartitionList();
-            var current = new KeyCounter();
+            var current = this.unfilteredContents;
+            current.clear();
             super.getAvailableStacks(current);
             for (var entry : current) {
                 long value = entry.getLongValue();
@@ -208,7 +214,6 @@ public class PartPreciseStorageBus extends PartSpecialStorageBus implements ICon
         public long getAmount(AEKey input) {
             return this.filter.get(input);
         }
-
     }
 
     public void setStorageMode(StorageMode mode) {

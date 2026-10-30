@@ -10,23 +10,28 @@ import appeng.api.stacks.AEKey;
 import appeng.api.stacks.AEKeyType;
 import appeng.util.prioritylist.IPartitionList;
 
-@SuppressWarnings({"UnstableApiUsage", "NonExtendableApiUsage"})
+import gto_ae.helpers.facility_management.ThroughputCounter;
+
+@SuppressWarnings({ "UnstableApiUsage", "NonExtendableApiUsage" })
 public class ModStackTransferContext implements StackTransferContext {
+
     private final IStorageService internalStorage;
     private final IEnergySource energySource;
     private final IActionSource actionSource;
     private final IPartitionList filter;
     private final int initialOperations;
+    private final ThroughputCounter stats;
     private int operationsRemaining;
     private boolean isInverted;
 
-    public ModStackTransferContext(IStorageService internalStorage, IEnergySource energySource, IActionSource actionSource, int operationsRemaining, IPartitionList filter) {
+    public ModStackTransferContext(IStorageService internalStorage, IEnergySource energySource, IActionSource actionSource, int operationsRemaining, IPartitionList filter, ThroughputCounter stats) {
         this.internalStorage = internalStorage;
         this.energySource = energySource;
         this.actionSource = actionSource;
         this.filter = filter;
         this.initialOperations = operationsRemaining;
         this.operationsRemaining = operationsRemaining;
+        this.stats = stats;
     }
 
     @Override
@@ -101,5 +106,10 @@ public class ModStackTransferContext implements StackTransferContext {
     @Override
     public void reduceOperationsRemaining(long inserted) {
         operationsRemaining -= inserted;
+    }
+
+    @Override
+    public ThroughputCounter getStats() {
+        return stats;
     }
 }

@@ -1,9 +1,12 @@
 package com.glodblock.github.extendedae.xmod.jade;
 
-import appeng.api.util.AEColor;
 import com.glodblock.github.extendedae.ExtendedAE;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+
+import appeng.api.util.AEColor;
+
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -26,16 +29,12 @@ public class WirelessConnectorTooltip implements IBlockComponentProvider {
                     tooltip.add(
                             Component.translatable(
                                     "jade.wireless_connector.color",
-                                    Component.translatable(aeColor.toString())
-                            )
-                    );
+                                    Component.translatable(aeColor.toString())));
                 }
                 tooltip.add(
                         Component.translatable(
                                 "jade.wireless_connector.used",
-                                used
-                        )
-                );
+                                used));
             }
         }
     }

@@ -1,10 +1,11 @@
 package com.glodblock.github.extendedae.recipe.util;
 
-import com.google.gson.JsonObject;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+
+import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,7 +57,5 @@ public class MachineResult<T extends Recipe<?>> implements FinishedRecipe {
         public MachineResult<T> result(ResourceLocation id, T recipe) {
             return new MachineResult<>(this.machine, recipe, id);
         }
-
     }
-
 }

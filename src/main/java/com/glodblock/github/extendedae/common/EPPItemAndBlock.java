@@ -1,8 +1,5 @@
 package com.glodblock.github.extendedae.common;
 
-import appeng.block.AEBaseBlock;
-import appeng.items.parts.PartItem;
-import appeng.items.tools.powered.WirelessTerminalItem;
 import com.glodblock.github.extendedae.common.blocks.BlockCaner;
 import com.glodblock.github.extendedae.common.blocks.BlockCircuitCutter;
 import com.glodblock.github.extendedae.common.blocks.BlockCrystalFixer;
@@ -39,12 +36,12 @@ import com.glodblock.github.extendedae.common.items.ItemWirelessConnectTool;
 import com.glodblock.github.extendedae.common.items.tools.ItemWirelessExCT;
 import com.glodblock.github.extendedae.common.items.tools.ItemWirelessExPAT;
 import com.glodblock.github.extendedae.common.parts.PartActiveFormationPlane;
+import com.glodblock.github.extendedae.common.parts.PartExCraftingTerminal;
 import com.glodblock.github.extendedae.common.parts.PartExExportBus;
 import com.glodblock.github.extendedae.common.parts.PartExImportBus;
 import com.glodblock.github.extendedae.common.parts.PartExInterface;
 import com.glodblock.github.extendedae.common.parts.PartExPatternAccessTerminal;
 import com.glodblock.github.extendedae.common.parts.PartExPatternProvider;
-import com.glodblock.github.extendedae.common.parts.PartExCraftingTerminal;
 import com.glodblock.github.extendedae.common.parts.PartModExportBus;
 import com.glodblock.github.extendedae.common.parts.PartModStorageBus;
 import com.glodblock.github.extendedae.common.parts.PartOversizeInterface;
@@ -75,9 +72,14 @@ import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerM
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixSpeed;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixWall;
 import com.glodblock.github.extendedae.xmod.appliede.APECommonLoad;
+
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.ModList;
+
+import appeng.block.AEBaseBlock;
+import appeng.items.parts.PartItem;
+import appeng.items.tools.powered.WirelessTerminalItem;
 
 import static appeng.block.AEBaseBlock.metalProps;
 
@@ -195,7 +197,7 @@ public class EPPItemAndBlock {
         WIRELESS_EX_CT = new ItemWirelessExCT();
         if (ModList.get().isLoaded("ae2wtlib")) {
             try {
-                //To prevent classloader issue
+                // To prevent classloader issue
                 WIRELESS_EX_PAT = (WirelessTerminalItem) Class.forName("com.glodblock.github.extendedae.xmod.wt.ItemUWirelessExPAT")
                         .getDeclaredConstructor()
                         .newInstance();
@@ -260,5 +262,4 @@ public class EPPItemAndBlock {
             APECommonLoad.initSingleton(regHandler);
         }
     }
-
 }

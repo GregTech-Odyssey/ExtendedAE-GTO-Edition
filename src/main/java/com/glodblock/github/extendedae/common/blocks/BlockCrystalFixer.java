@@ -1,12 +1,15 @@
 package com.glodblock.github.extendedae.common.blocks;
 
-import appeng.api.orientation.IOrientationStrategy;
-import appeng.api.orientation.OrientationStrategies;
 import com.glodblock.github.extendedae.common.tileentities.TileCrystalFixer;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
+
+import appeng.api.orientation.IOrientationStrategy;
+import appeng.api.orientation.OrientationStrategies;
+
 import org.jetbrains.annotations.NotNull;
 
 public class BlockCrystalFixer extends BlockBaseGui<TileCrystalFixer> {
@@ -30,5 +33,4 @@ public class BlockCrystalFixer extends BlockBaseGui<TileCrystalFixer> {
     public void openGui(TileCrystalFixer tile, Player p) {
         tile.refuel(p);
     }
-
 }

@@ -1,5 +1,20 @@
 package com.glodblock.github.extendedae.client.gui.widget;
 
+import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.TransientCraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeHooks;
+
 import appeng.api.config.Actionable;
 import appeng.api.config.PowerMultiplier;
 import appeng.api.inventories.InternalInventory;
@@ -18,19 +33,7 @@ import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.CarriedItemInventory;
 import appeng.util.inv.PlayerInternalInventory;
 import appeng.util.prioritylist.IPartitionList;
-import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.inventory.TransientCraftingContainer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeHooks;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -354,5 +357,4 @@ public class OutputResultSlot extends AppEngSlot {
         }
         return level.getRecipeManager().getRecipeFor((RecipeType<Recipe<Container>>) this.type, ic, level).orElse(null);
     }
-
 }

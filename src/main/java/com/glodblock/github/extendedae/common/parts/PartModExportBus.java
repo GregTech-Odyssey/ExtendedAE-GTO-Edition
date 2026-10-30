@@ -1,5 +1,16 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.common.me.modlist.ModPriorityList;
+import com.glodblock.github.extendedae.common.me.modlist.ModStackTransferContext;
+import com.glodblock.github.extendedae.common.parts.base.PartSpecialExportBus;
+import com.glodblock.github.extendedae.container.ContainerModExportBus;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.behaviors.StackTransferContext;
 import appeng.api.networking.energy.IEnergyService;
 import appeng.api.networking.storage.IStorageService;
@@ -10,15 +21,7 @@ import appeng.items.parts.PartModels;
 import appeng.parts.PartModel;
 import appeng.util.SettingsFrom;
 import appeng.util.prioritylist.IPartitionList;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.common.me.modlist.ModPriorityList;
-import com.glodblock.github.extendedae.common.me.modlist.ModStackTransferContext;
-import com.glodblock.github.extendedae.common.parts.base.PartSpecialExportBus;
-import com.glodblock.github.extendedae.container.ContainerModExportBus;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.MenuType;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -99,8 +102,8 @@ public class PartModExportBus extends PartSpecialExportBus {
                 energyService,
                 this.source,
                 getOperationsPerTick(),
-                createFilter()
-        );
+                createFilter(),
+                this.throughputCounter);
     }
 
     @Override

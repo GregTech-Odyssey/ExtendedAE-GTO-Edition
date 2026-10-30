@@ -1,11 +1,14 @@
 package com.glodblock.github.extendedae.client.render.tesr;
 
-import appeng.client.render.renderable.ItemRenderable;
-import appeng.client.render.tesr.ModularTESR;
 import com.glodblock.github.extendedae.common.tileentities.TileCrystalFixer;
-import com.mojang.math.Transformation;
+
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
+
+import appeng.client.render.renderable.ItemRenderable;
+import appeng.client.render.tesr.ModularTESR;
+
+import com.mojang.math.Transformation;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Quaternionf;
@@ -17,8 +20,7 @@ public class CrystalFixerTESR extends ModularTESR<TileCrystalFixer> {
     private static final Transformation T = new Transformation(
             new Vector3f(0.5f, 0.5f, 0.4f),
             new Quaternionf().rotateYXZ(0, -HALF_PI, 0),
-            null, null
-    );
+            null, null);
 
     public CrystalFixerTESR(BlockEntityRendererProvider.Context context) {
         super(new ItemRenderable<>(CrystalFixerTESR::renderItem));
@@ -27,5 +29,4 @@ public class CrystalFixerTESR extends ModularTESR<TileCrystalFixer> {
     private static Pair<ItemStack, Transformation> renderItem(TileCrystalFixer te) {
         return new ImmutablePair<>(te.getInternalInventory().getStackInSlot(0), T);
     }
-
 }

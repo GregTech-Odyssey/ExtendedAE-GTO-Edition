@@ -1,5 +1,8 @@
 package com.glodblock.github.extendedae.common.me.taglist;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.config.EPPConfig;
+
 import appeng.api.behaviors.StackTransferContext;
 import appeng.api.config.Actionable;
 import appeng.api.networking.energy.IEnergySource;
@@ -9,27 +12,30 @@ import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKey;
 import appeng.api.stacks.AEKeyType;
 import appeng.util.prioritylist.IPartitionList;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.config.EPPConfig;
+
+import gto_ae.helpers.facility_management.ThroughputCounter;
 
 // clueless
-@SuppressWarnings({"UnstableApiUsage", "NonExtendableApiUsage"})
+@SuppressWarnings({ "UnstableApiUsage", "NonExtendableApiUsage" })
 public class TagStackTransferContext implements StackTransferContext {
+
     private final IStorageService internalStorage;
     private final IEnergySource energySource;
     private final IActionSource actionSource;
     private final IPartitionList filter;
     private final int initialOperations;
+    private final ThroughputCounter stats;
     private int operationsRemaining;
     private boolean isInverted;
 
-    public TagStackTransferContext(IStorageService internalStorage, IEnergySource energySource, IActionSource actionSource, int operationsRemaining, IPartitionList filter) {
+    public TagStackTransferContext(IStorageService internalStorage, IEnergySource energySource, IActionSource actionSource, int operationsRemaining, IPartitionList filter, ThroughputCounter stats) {
         this.internalStorage = internalStorage;
         this.energySource = energySource;
         this.actionSource = actionSource;
         this.filter = filter;
         this.initialOperations = operationsRemaining;
         this.operationsRemaining = operationsRemaining;
+        this.stats = stats;
         if (EPPConfig.debugMode) {
             ExtendedAE.LOGGER.debug("Created TagStackTransferContext with filter: {}", filter.getClass().getSimpleName());
             ExtendedAE.LOGGER.debug("Filter isEmpty: {}", filter.isEmpty());
@@ -108,5 +114,10 @@ public class TagStackTransferContext implements StackTransferContext {
     @Override
     public void reduceOperationsRemaining(long inserted) {
         operationsRemaining -= inserted;
+    }
+
+    @Override
+    public ThroughputCounter getStats() {
+        return stats;
     }
 }

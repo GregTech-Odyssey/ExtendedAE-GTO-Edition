@@ -1,17 +1,20 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.api.CanerMode;
+import com.glodblock.github.extendedae.client.ExSemantics;
+import com.glodblock.github.extendedae.common.tileentities.TileCaner;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.menu.AEBaseMenu;
 import appeng.menu.guisync.GuiSync;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.slot.AppEngSlot;
 import appeng.util.ConfigMenuInventory;
-import com.glodblock.github.extendedae.api.CanerMode;
-import com.glodblock.github.extendedae.client.ExSemantics;
-import com.glodblock.github.extendedae.common.tileentities.TileCaner;
+
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -23,8 +26,7 @@ public class ContainerCaner extends AEBaseMenu implements IActionHolder {
             .create(ContainerCaner::new, TileCaner.class)
             .withInitialData(
                     (host1, buffer) -> buffer.writeEnum(host1.getMode()),
-                    (host1, menu, buffer) -> menu.mode = buffer.readEnum(CanerMode.class)
-            )
+                    (host1, menu, buffer) -> menu.mode = buffer.readEnum(CanerMode.class))
             .build("caner");
 
     private final Map<String, Consumer<Paras>> actions = createHolder();
@@ -62,5 +64,4 @@ public class ContainerCaner extends AEBaseMenu implements IActionHolder {
     public Map<String, Consumer<Paras>> getActionMap() {
         return this.actions;
     }
-
 }

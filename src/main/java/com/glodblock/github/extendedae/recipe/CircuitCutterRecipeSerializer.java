@@ -4,9 +4,11 @@ import com.glodblock.github.extendedae.recipe.util.IngredientStack;
 import com.glodblock.github.extendedae.recipe.util.MachineRecipe;
 import com.glodblock.github.extendedae.recipe.util.MachineResult;
 import com.glodblock.github.extendedae.recipe.util.StackJson;
-import com.google.gson.JsonObject;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+
+import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,5 +55,4 @@ public class CircuitCutterRecipeSerializer implements MachineRecipe<CircuitCutte
         var fluid = IngredientStack.ofFluid(buff);
         return new CircuitCutterRecipe(id, output, input, fluid);
     }
-
 }

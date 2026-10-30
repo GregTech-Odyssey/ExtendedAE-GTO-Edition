@@ -1,5 +1,21 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.container.ContainerExPatternProvider;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.IGridNodeListener;
 import appeng.api.parts.IPartCollisionHelper;
@@ -17,20 +33,7 @@ import appeng.menu.locator.MenuLocators;
 import appeng.parts.AEBasePart;
 import appeng.parts.PartModel;
 import appeng.util.SettingsFrom;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.container.ContainerExPatternProvider;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -43,8 +46,7 @@ public class PartExPatternProvider extends AEBasePart implements PatternProvider
             new ResourceLocation(ExtendedAE.MODID, "part/ex_pattern_provider_base"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/interface_on"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/interface_off"),
-            new ResourceLocation(AppEngBase.MOD_ID, "part/interface_has_channel")
-    );
+            new ResourceLocation(AppEngBase.MOD_ID, "part/interface_has_channel"));
 
     public static final PartModel MODELS_OFF = new PartModel(MODELS.get(0), MODELS.get(2));
     public static final PartModel MODELS_ON = new PartModel(MODELS.get(0), MODELS.get(1));

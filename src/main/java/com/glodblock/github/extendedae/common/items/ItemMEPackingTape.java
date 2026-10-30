@@ -1,9 +1,8 @@
 package com.glodblock.github.extendedae.common.items;
 
-import appeng.blockentity.networking.CableBusBlockEntity;
-import appeng.util.Platform;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.config.EPPConfig;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -14,8 +13,12 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import javax.annotation.Nonnull;
+import appeng.blockentity.networking.CableBusBlockEntity;
+import appeng.util.Platform;
+
 import java.util.Collections;
+
+import javax.annotation.Nonnull;
 
 public class ItemMEPackingTape extends Item {
 
@@ -82,5 +85,4 @@ public class ItemMEPackingTape extends Item {
     private static boolean invalid(ResourceLocation id) {
         return !EPPConfig.tapeWhitelist.contains(id);
     }
-
 }

@@ -1,15 +1,23 @@
 package com.glodblock.github.extendedae.client.gui.pattern;
 
-import appeng.api.client.AEKeyRendering;
-import appeng.api.stacks.AEItemKey;
-import appeng.core.localization.ButtonToolTips;
-import appeng.core.localization.Tooltips;
-import appeng.items.misc.WrappedGenericStack;
 import com.glodblock.github.extendedae.container.pattern.ContainerPattern;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
+
+import appeng.api.client.AEKeyRendering;
+import appeng.api.stacks.AEItemKey;
+import appeng.api.stacks.GenericStack;
+import appeng.core.localization.ButtonToolTips;
+import appeng.core.localization.Tooltips;
+import appeng.integration.modules.emi.EmiStackHelper;
+import appeng.items.misc.WrappedGenericStack;
+
+import dev.emi.emi.api.EmiApi;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class GuiPattern<T extends ContainerPattern> extends AbstractContainerScreen<T> {
@@ -23,6 +31,21 @@ public abstract class GuiPattern<T extends ContainerPattern> extends AbstractCon
     }
 
     @Override
+    protected void slotClicked(Slot slot, int slotId, int mouseButton, @NotNull ClickType type) {
+        if (slot instanceof ContainerPattern.DisplayOnlySlot && !slot.getItem().isEmpty()) {
+            var stack = GenericStack.fromItemStack(slot.getItem());
+            var ingredient = stack == null ? null : EmiStackHelper.toEmiStack(stack);
+            if (ingredient != null) {
+                if (mouseButton == 0) {
+                    EmiApi.displayRecipes(ingredient);
+                } else if (mouseButton == 1) {
+                    EmiApi.displayUses(ingredient);
+                }
+            }
+        }
+    }
+
+    @Override
     protected void renderLabels(@NotNull GuiGraphics guiGraphics, int x, int y) {
         // NO-OP
     }
@@ -32,10 +55,8 @@ public abstract class GuiPattern<T extends ContainerPattern> extends AbstractCon
         if (this.hoveredSlot instanceof ContainerPattern.DisplayOnlySlot dpSlot && !dpSlot.getItem().isEmpty()) {
             var stack = dpSlot.getItem();
             var item = dpSlot.getItem().getItem();
-            var key = item instanceof WrappedGenericStack wgs
-                    ? wgs.unwrapWhat(stack) : AEItemKey.of(stack);
-            var amount = item instanceof WrappedGenericStack wgs
-                    ? wgs.unwrapAmount(stack) : dpSlot.getActualAmount();
+            var key = item instanceof WrappedGenericStack wgs ? wgs.unwrapWhat(stack) : AEItemKey.of(stack);
+            var amount = item instanceof WrappedGenericStack wgs ? wgs.unwrapAmount(stack) : dpSlot.getActualAmount();
             if (key != null && amount > 0) {
                 var currentToolTip = AEKeyRendering.getTooltip(key);
                 if (Tooltips.shouldShowAmountTooltip(key, amount)) {
@@ -55,13 +76,12 @@ public abstract class GuiPattern<T extends ContainerPattern> extends AbstractCon
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (this.cycleTick % 80 == 0) {
-            this.cycle ++;
+            this.cycle++;
             this.menu.setCycleItem(this.cycle);
         }
         this.renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
-        this.cycleTick ++;
+        this.cycleTick++;
     }
-
 }

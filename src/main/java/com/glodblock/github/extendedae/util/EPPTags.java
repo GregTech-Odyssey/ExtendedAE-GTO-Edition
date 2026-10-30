@@ -1,6 +1,7 @@
 package com.glodblock.github.extendedae.util;
 
 import com.glodblock.github.extendedae.ExtendedAE;
+
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -19,5 +20,4 @@ public class EPPTags {
     public static final TagKey<Block> SILICON_BLOCK_BLOCK = TagKey.create(Registries.BLOCK, new ResourceLocation("forge", "storage_blocks/silicon"));
     public static final TagKey<Fluid> XP_LIQUID = TagKey.create(Registries.FLUID, new ResourceLocation("forge", "xpjuice"));
     public static final TagKey<Fluid> EXPERIENCE = TagKey.create(Registries.FLUID, new ResourceLocation("forge", "experience"));
-
 }

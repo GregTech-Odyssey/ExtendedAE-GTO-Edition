@@ -1,5 +1,11 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.container.ContainerExIOPort;
+
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.api.config.FullnessMode;
 import appeng.api.config.OperationMode;
 import appeng.api.config.RedstoneMode;
@@ -10,10 +16,6 @@ import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
 import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
-import com.glodblock.github.extendedae.container.ContainerExIOPort;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 
 public class GuiExIOPort extends UpgradeableScreen<ContainerExIOPort> {
 
@@ -49,5 +51,4 @@ public class GuiExIOPort extends UpgradeableScreen<ContainerExIOPort> {
         this.drawItem(guiGraphics, offsetX + 66 - 8, offsetY + 17, AEItems.ITEM_CELL_1K.stack());
         this.drawItem(guiGraphics, offsetX + 94 + 8, offsetY + 17, AEBlocks.DRIVE.stack());
     }
-
 }

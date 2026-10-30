@@ -1,6 +1,7 @@
 package com.glodblock.github.extendedae.common.tileentities.matrix;
 
 import com.glodblock.github.extendedae.common.me.matrix.ClusterAssemblerMatrix;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,5 +14,4 @@ public abstract class TileAssemblerMatrixFunction extends TileAssemblerMatrixBas
     }
 
     public abstract void add(ClusterAssemblerMatrix c);
-
 }

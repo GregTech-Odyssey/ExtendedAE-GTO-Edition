@@ -1,5 +1,7 @@
 package com.glodblock.github.extendedae.common.parts.base;
 
+import net.minecraft.server.level.ServerLevel;
+
 import appeng.api.behaviors.StackExportStrategy;
 import appeng.api.behaviors.StackTransferContext;
 import appeng.api.networking.IGrid;
@@ -11,7 +13,7 @@ import appeng.core.settings.TickRates;
 import appeng.parts.automation.IOBusPart;
 import appeng.parts.automation.StackWorldBehaviors;
 import appeng.util.prioritylist.IPartitionList;
-import net.minecraft.server.level.ServerLevel;
+
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -68,5 +70,4 @@ public abstract class PartSpecialExportBus extends IOBusPart {
     protected abstract StackTransferContext createTransferContext(IStorageService storageService, IEnergyService energyService);
 
     protected abstract IPartitionList createFilter();
-
 }

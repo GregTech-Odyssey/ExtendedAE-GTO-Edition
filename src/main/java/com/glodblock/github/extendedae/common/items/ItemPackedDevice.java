@@ -1,12 +1,8 @@
 package com.glodblock.github.extendedae.common.items;
 
-import appeng.api.parts.IPartItem;
-import appeng.blockentity.AEBaseBlockEntity;
-import appeng.items.AEBaseItem;
-import appeng.parts.PartPlacement;
-import appeng.util.Platform;
 import com.glodblock.github.extendedae.util.Ae2Reflect;
 import com.glodblock.github.extendedae.util.FCUtil;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -19,10 +15,18 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import appeng.api.parts.IPartItem;
+import appeng.blockentity.AEBaseBlockEntity;
+import appeng.items.AEBaseItem;
+import appeng.parts.PartPlacement;
+import appeng.util.Platform;
+
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 public class ItemPackedDevice extends AEBaseItem {
 
@@ -31,8 +35,7 @@ public class ItemPackedDevice extends AEBaseItem {
     }
 
     @Override
-    public void addToMainCreativeTab(CreativeModeTab.Output output) {
-    }
+    public void addToMainCreativeTab(CreativeModeTab.Output output) {}
 
     @Override
     public void appendHoverText(@NotNull ItemStack is, Level world, @NotNull List<Component> lines, @NotNull TooltipFlag adv) {
@@ -131,5 +134,4 @@ public class ItemPackedDevice extends AEBaseItem {
     public boolean checkNBT(CompoundTag content) {
         return content.contains("part") && content.contains("id") && content.contains("ctx");
     }
-
 }

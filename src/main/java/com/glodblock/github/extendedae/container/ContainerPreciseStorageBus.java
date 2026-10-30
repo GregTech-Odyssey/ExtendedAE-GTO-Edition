@@ -1,5 +1,15 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.api.StorageMode;
+import com.glodblock.github.extendedae.common.parts.PartPreciseStorageBus;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+
 import appeng.api.config.AccessRestriction;
 import appeng.api.config.Settings;
 import appeng.api.config.StorageFilter;
@@ -11,18 +21,11 @@ import appeng.menu.SlotSemantics;
 import appeng.menu.guisync.GuiSync;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
-import com.glodblock.github.extendedae.api.StorageMode;
-import com.glodblock.github.extendedae.common.parts.PartPreciseStorageBus;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
 import com.glodblock.github.glodium.network.packet.SGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
 import com.google.common.collect.Iterators;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

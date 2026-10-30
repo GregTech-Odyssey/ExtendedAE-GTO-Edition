@@ -2,13 +2,15 @@ package com.glodblock.github.extendedae.common.me.taglist;
 
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.config.EPPConfig;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayDeque;
@@ -29,6 +31,7 @@ public final class TagExpParser {
     private final static LoadingCache<String, Predicate<Set<String>>> COMPILED_EXPRESSION_CACHE = CacheBuilder.newBuilder()
             .maximumSize(512) // Sensible cache size limit
             .build(new CacheLoader<>() {
+
                 @Override
                 public @NotNull Predicate<Set<String>> load(@NotNull String key) {
                     return compileInternal(key);
@@ -46,7 +49,7 @@ public final class TagExpParser {
      *
      * @param expression The tag expression string (e.g., "tag1 & (tag2 | tag3)")
      * @return A predicate for evaluating the expression against tag sets. Returns a predicate
-     * that always evaluates to `true` if the expression is empty or whitespace.
+     *         that always evaluates to `true` if the expression is empty or whitespace.
      */
     public static Predicate<Set<String>> compile(String expression) {
         if (expression == null || expression.isBlank()) {
@@ -97,7 +100,6 @@ public final class TagExpParser {
         return false; // Cannot evaluate if not an Item or Fluid with tags.
     }
 
-
     // --- Internal Implementation ---
 
     private static Predicate<Set<String>> compileInternal(String expression) {
@@ -127,17 +129,29 @@ public final class TagExpParser {
 
     // --- Tokenizer ---
 
-    private enum TokenType { TAG, OPERATOR, LPAREN, RPAREN }
+    private enum TokenType {
+        TAG,
+        OPERATOR,
+        LPAREN,
+        RPAREN
+    }
 
     private record Token(TokenType type, String value, Operator op) {
-        Token(TokenType type, String value) { this(type, value, null); } // For TAG, LPAREN, RPAREN
-        Token(Operator op) { this(TokenType.OPERATOR, op.symbol, op); } // For OPERATOR
+
+        Token(TokenType type, String value) {
+            this(type, value, null);
+        } // For TAG, LPAREN, RPAREN
+
+        Token(Operator op) {
+            this(TokenType.OPERATOR, op.symbol, op);
+        } // For OPERATOR
     }
 
     // Define operators with precedence and associativity.
     // Higher precedence value means it binds tighter.
     // NOT has highest, then AND, then XOR, then OR.
     private enum Operator {
+
         NOT("!", 3, true),   // Right associative (though usually unary)
         AND("&", 2, false),  // Left associative
         XOR("^", 1, false),  // Left associative
@@ -191,7 +205,7 @@ public final class TagExpParser {
                 flushTag(currentTag, tokens); // Previous tag finished
                 tokens.add(new Token(TokenType.LPAREN, "("));
                 expectingOperand = true; // After '(', expect an operand or '!'
-                lp ++;
+                lp++;
                 lastIsTag = false;
             } else if (c == ')') {
                 if (expectingOperand && lp <= 0) {
@@ -201,7 +215,7 @@ public final class TagExpParser {
                 flushTag(currentTag, tokens); // Finish any tag before ')'
                 tokens.add(new Token(TokenType.RPAREN, ")"));
                 expectingOperand = false; // After ')', expect an operator or end of expression
-                lp --;
+                lp--;
                 lastIsTag = false;
             } else if (op != null) {
                 // Handle unary NOT vs binary operators
@@ -264,7 +278,6 @@ public final class TagExpParser {
             // expectingOperand = false; // This state change is handled in the main loop logic now
         }
     }
-
 
     // --- Shunting-Yard Algorithm ---
 
@@ -378,10 +391,18 @@ public final class TagExpParser {
                         boolean right = valueStack.pop();
                         boolean left = valueStack.pop();
                         switch (op) {
-                            case AND: valueStack.push(left && right); break;
-                            case OR:  valueStack.push(left || right); break;
-                            case XOR: valueStack.push(left ^ right); break;
-                            default: throw new IllegalStateException("Unexpected binary operator: " + op); // Should not happen
+                            case AND:
+                                valueStack.push(left && right);
+                                break;
+                            case OR:
+                                valueStack.push(left || right);
+                                break;
+                            case XOR:
+                                valueStack.push(left ^ right);
+                                break;
+                            default:
+                                throw new IllegalStateException("Unexpected binary operator: " + op); // Should not
+                                                                                                      // happen
                         }
                     }
                 } catch (NoSuchElementException e) {

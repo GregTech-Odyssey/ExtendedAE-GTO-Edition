@@ -1,5 +1,12 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.client.gui.widget.NumberInputField;
+import com.glodblock.github.extendedae.container.ContainerThresholdLevelEmitter;
+
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.api.config.FuzzyMode;
 import appeng.api.config.RedstoneMode;
 import appeng.api.config.Settings;
@@ -8,11 +15,6 @@ import appeng.client.gui.implementations.UpgradeableScreen;
 import appeng.client.gui.style.ScreenStyle;
 import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
-import com.glodblock.github.extendedae.client.gui.widget.NumberInputField;
-import com.glodblock.github.extendedae.container.ContainerThresholdLevelEmitter;
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 
 public class GuiThresholdLevelEmitter extends UpgradeableScreen<ContainerThresholdLevelEmitter> {
 
@@ -76,5 +78,4 @@ public class GuiThresholdLevelEmitter extends UpgradeableScreen<ContainerThresho
     private void saveLowerValue() {
         this.lowerLevel.getLongValue().ifPresent(menu::setLowerValue);
     }
-
 }

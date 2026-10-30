@@ -1,7 +1,5 @@
 package com.glodblock.github.extendedae.util;
 
-import appeng.api.inventories.InternalInventory;
-import appeng.blockentity.AEBaseBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -12,6 +10,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import appeng.api.inventories.InternalInventory;
+import appeng.blockentity.AEBaseBlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class FCUtil {
 
     public static String[] trimSplit(String str) {
         var sp = str.split(",");
-        for (int i = 0; i < sp.length; i ++) {
+        for (int i = 0; i < sp.length; i++) {
             sp[i] = sp[i].trim();
         }
         return sp;
@@ -131,5 +132,4 @@ public class FCUtil {
             }
         }
     }
-
 }

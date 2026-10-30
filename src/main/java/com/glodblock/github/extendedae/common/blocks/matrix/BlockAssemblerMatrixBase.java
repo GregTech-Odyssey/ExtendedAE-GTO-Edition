@@ -1,10 +1,9 @@
 package com.glodblock.github.extendedae.common.blocks.matrix;
 
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocators;
 import com.glodblock.github.extendedae.common.blocks.BlockBaseGui;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixBase;
 import com.glodblock.github.extendedae.container.ContainerAssemblerMatrix;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +18,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocators;
+
 import org.jetbrains.annotations.NotNull;
 
 public abstract class BlockAssemblerMatrixBase<M extends TileAssemblerMatrixBase> extends BlockBaseGui<M> {
@@ -96,5 +99,4 @@ public abstract class BlockAssemblerMatrixBase<M extends TileAssemblerMatrixBase
     }
 
     public abstract Item getPresentItem();
-
 }

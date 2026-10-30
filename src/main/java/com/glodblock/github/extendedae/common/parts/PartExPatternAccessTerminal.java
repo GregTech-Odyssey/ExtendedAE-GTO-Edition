@@ -1,5 +1,14 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.container.ContainerExPatternTerminal;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
+
 import appeng.api.config.Settings;
 import appeng.api.config.ShowPatternProviders;
 import appeng.api.parts.IPartItem;
@@ -11,13 +20,9 @@ import appeng.menu.locator.MenuLocators;
 import appeng.parts.PartModel;
 import appeng.parts.reporting.AbstractDisplayPart;
 import appeng.util.ConfigManager;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.container.ContainerExPatternTerminal;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.Vec3;
+
+import gto_ae.api.config.ExtendedSettings;
+import gto_ae.menu.ShowMolecularAssembler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,8 +31,7 @@ public class PartExPatternAccessTerminal extends AbstractDisplayPart implements 
 
     public static List<ResourceLocation> MODELS = Arrays.asList(
             new ResourceLocation(ExtendedAE.MODID, "part/ex_pattern_access_terminal_off"),
-            new ResourceLocation(ExtendedAE.MODID, "part/ex_pattern_access_terminal_on")
-    );
+            new ResourceLocation(ExtendedAE.MODID, "part/ex_pattern_access_terminal_on"));
 
     public static final IPartModel MODELS_OFF = new PartModel(MODEL_BASE, MODELS.get(0), MODEL_STATUS_OFF);
     public static final IPartModel MODELS_ON = new PartModel(MODEL_BASE, MODELS.get(1), MODEL_STATUS_ON);
@@ -38,6 +42,7 @@ public class PartExPatternAccessTerminal extends AbstractDisplayPart implements 
     public PartExPatternAccessTerminal(IPartItem<?> partItem) {
         super(partItem, true);
         this.configManager.registerSetting(Settings.TERMINAL_SHOW_PATTERN_PROVIDERS, ShowPatternProviders.VISIBLE);
+        this.configManager.registerSetting(ExtendedSettings.TERMINAL_SHOW_MOLECULAR_ASSEMBLERS, ShowMolecularAssembler.ALL);
     }
 
     @Override
@@ -69,5 +74,4 @@ public class PartExPatternAccessTerminal extends AbstractDisplayPart implements 
         super.readFromNBT(tag);
         configManager.readFromNBT(tag);
     }
-
 }

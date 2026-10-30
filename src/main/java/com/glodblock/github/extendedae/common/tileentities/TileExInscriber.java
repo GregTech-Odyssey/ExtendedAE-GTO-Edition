@@ -1,5 +1,21 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.common.me.Crankable;
+import com.glodblock.github.extendedae.common.me.InscriberThread;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+
 import appeng.api.config.Setting;
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
@@ -25,21 +41,8 @@ import appeng.recipes.handlers.InscriberRecipe;
 import appeng.util.ConfigManager;
 import appeng.util.SettingsFrom;
 import appeng.util.inv.CombinedInternalInventory;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.me.Crankable;
-import com.glodblock.github.extendedae.common.me.InscriberThread;
+
 import com.glodblock.github.glodium.util.GlodUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -76,7 +79,7 @@ public class TileExInscriber extends AENetworkPowerBlockEntity implements IGridT
         var invs3 = new InternalInventory[MAX_THREAD];
         var invs4 = new InternalInventory[MAX_THREAD];
         var invs5 = new InternalInventory[MAX_THREAD];
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             this.threads[x] = new InscriberThread(this);
             invs[x] = this.threads[x].topItemHandlerExtern;
             invs2[x] = this.threads[x].bottomItemHandlerExtern;
@@ -102,7 +105,7 @@ public class TileExInscriber extends AENetworkPowerBlockEntity implements IGridT
 
     public boolean isSmash() {
         if (this.animationIndex < 0) {
-            for (int x = 0; x < MAX_THREAD; x ++) {
+            for (int x = 0; x < MAX_THREAD; x++) {
                 if (this.threads[x].isSmash() && this.checkTime(this.threads[x].getClientStart())) {
                     this.animationIndex = x;
                     return true;
@@ -249,7 +252,7 @@ public class TileExInscriber extends AENetworkPowerBlockEntity implements IGridT
     @Override
     protected void saveVisualState(CompoundTag data) {
         super.saveVisualState(data);
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             data.putBoolean("smash#" + x, this.threads[x].isSmash());
         }
     }
@@ -257,7 +260,7 @@ public class TileExInscriber extends AENetworkPowerBlockEntity implements IGridT
     @Override
     protected void loadVisualState(CompoundTag data) {
         super.loadVisualState(data);
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             this.threads[x].setSmash(data.getBoolean("smash#" + x));
         }
     }
@@ -374,5 +377,4 @@ public class TileExInscriber extends AENetworkPowerBlockEntity implements IGridT
         }
         return super.getCapability(capability, facing);
     }
-
 }

@@ -1,18 +1,18 @@
 package com.glodblock.github.extendedae.config;
 
-import appeng.api.stacks.AEKeyType;
-import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.util.FCUtil;
-import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import appeng.api.stacks.AEKeyType;
+
+import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber(modid = ExtendedAE.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EPPConfig {
 
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -58,8 +57,7 @@ public class EPPConfig {
                     "ae2:cable_pattern_provider",
                     "ae2:interface",
                     "ae2:pattern_provider",
-                    "ae2:drive"
-            ), o -> true);
+                    "ae2:drive"), o -> true);
 
     private static final ForgeConfigSpec.BooleanValue INSCRIBER_RENDER = BUILDER
             .comment("Disable Extended Inscriber's item render, it only works in client side.")
@@ -73,8 +71,7 @@ public class EPPConfig {
             .comment("Set multiplier for specific AEKeyType in oversize interface")
             .defineList("device.custom_oversize_interface_multiplier", Lists.newArrayList(
                     "appbot:mana 2",
-                    "appflux:flux 4"
-            ), o -> true);
+                    "appflux:flux 4"), o -> true);
 
     private static final ForgeConfigSpec.IntValue ASSEMBLER_MATRIX_SIZE = BUILDER
             .comment("The max size of Assembler Matrix")
@@ -112,8 +109,10 @@ public class EPPConfig {
         return customOversizeMultiplier.getOrDefault(type.getId(), oversizeMultiplier);
     }
 
-    @SubscribeEvent
-    static void onLoad(final ModConfigEvent event) {
+    public static void onLoad(final ModConfigEvent event) {
+        if (event.getConfig().getSpec() != SPEC) {
+            return;
+        }
         busSpeed = EX_BUS_SPEED.get();
         infCellCost = INFINITY_CELL_ENERGY.get();
         wirelessMaxRange = WIRELESS_CONNECTOR_RANGE.get();
@@ -150,5 +149,4 @@ public class EPPConfig {
             return null;
         }
     }
-
 }

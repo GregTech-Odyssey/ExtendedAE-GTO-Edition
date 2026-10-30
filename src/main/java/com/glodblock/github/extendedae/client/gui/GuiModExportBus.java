@@ -1,5 +1,12 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.container.ContainerModExportBus;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+import com.glodblock.github.extendedae.util.FCClientUtil;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.api.config.RedstoneMode;
 import appeng.api.config.Settings;
 import appeng.client.gui.implementations.UpgradeableScreen;
@@ -8,14 +15,10 @@ import appeng.client.gui.widgets.AETextField;
 import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
 import appeng.core.definitions.AEItems;
-import com.glodblock.github.extendedae.container.ContainerModExportBus;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
-import com.glodblock.github.extendedae.util.FCClientUtil;
+
 import com.glodblock.github.glodium.network.packet.CGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -68,5 +71,4 @@ public class GuiModExportBus extends UpgradeableScreen<ContainerModExportBus> im
         super.init();
         setInitialFocus(this.filterInputs);
     }
-
 }

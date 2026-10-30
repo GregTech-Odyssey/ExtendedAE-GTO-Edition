@@ -1,15 +1,9 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
-import appeng.api.storage.cells.CellState;
-import appeng.blockentity.storage.DriveBlockEntity;
-import appeng.core.AELog;
-import appeng.menu.ISubMenu;
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocators;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.container.ContainerExDrive;
 import com.glodblock.github.extendedae.util.Ae2Reflect;
-import com.glodblock.github.glodium.util.GlodUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -18,6 +12,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
+
+import appeng.api.storage.cells.CellState;
+import appeng.blockentity.storage.DriveBlockEntity;
+import appeng.core.AELog;
+import appeng.menu.ISubMenu;
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocators;
+
+import com.glodblock.github.glodium.util.GlodUtil;
 
 public class TileExDrive extends DriveBlockEntity {
 
@@ -97,5 +100,4 @@ public class TileExDrive extends DriveBlockEntity {
     public ItemStack getMainMenuIcon() {
         return new ItemStack(EPPItemAndBlock.EX_DRIVE);
     }
-
 }

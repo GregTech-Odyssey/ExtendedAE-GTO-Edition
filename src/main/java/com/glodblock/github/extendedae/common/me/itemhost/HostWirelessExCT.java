@@ -1,16 +1,19 @@
 package com.glodblock.github.extendedae.common.me.itemhost;
 
+import com.glodblock.github.extendedae.api.CraftingMode;
+import com.glodblock.github.extendedae.common.parts.PartExCraftingTerminal;
+import com.glodblock.github.extendedae.util.helper.ExtendedCraftingTerminal;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.inventories.InternalInventory;
 import appeng.helpers.WirelessTerminalMenuHost;
 import appeng.menu.ISubMenu;
 import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.InternalInventoryHost;
-import com.glodblock.github.extendedae.api.CraftingMode;
-import com.glodblock.github.extendedae.common.parts.PartExCraftingTerminal;
-import com.glodblock.github.extendedae.util.helper.ExtendedCraftingTerminal;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
@@ -94,5 +97,4 @@ public class HostWirelessExCT extends WirelessTerminalMenuHost implements Extend
     public void onChangeInventory(InternalInventory inv, int slot) {
         this.saveChanges();
     }
-
 }

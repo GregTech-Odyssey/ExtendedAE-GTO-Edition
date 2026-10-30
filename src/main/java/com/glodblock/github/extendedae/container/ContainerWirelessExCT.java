@@ -1,14 +1,16 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.me.itemhost.HostWirelessExCT;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.networking.IGridNode;
 import appeng.api.upgrades.IUpgradeInventory;
 import appeng.menu.SlotSemantics;
 import appeng.menu.ToolboxMenu;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.slot.RestrictedInputSlot;
-import com.glodblock.github.extendedae.common.me.itemhost.HostWirelessExCT;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 
 public class ContainerWirelessExCT extends ContainerExCraftingTerminal {
 
@@ -51,5 +53,4 @@ public class ContainerWirelessExCT extends ContainerExCraftingTerminal {
     public ToolboxMenu getToolbox() {
         return this.toolbox;
     }
-
 }

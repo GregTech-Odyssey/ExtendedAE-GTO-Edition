@@ -1,9 +1,8 @@
 package com.glodblock.github.extendedae.common.items;
 
-import appeng.util.InteractionUtil;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -18,10 +17,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
+import appeng.util.InteractionUtil;
+
+import com.mojang.datafixers.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 public class ItemWirelessConnectTool extends Item {
 
@@ -30,7 +34,7 @@ public class ItemWirelessConnectTool extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> lines, @NotNull TooltipFlag adv){
+    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> lines, @NotNull TooltipFlag adv) {
         var nbt = stack.hasTag() ? stack.getTag() : new CompoundTag();
         assert nbt != null;
         var freq = nbt.getLong("freq");

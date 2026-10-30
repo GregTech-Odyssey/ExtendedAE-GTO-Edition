@@ -1,19 +1,22 @@
 package com.glodblock.github.extendedae.xmod.appliede.tileentities;
 
-import appeng.menu.ISubMenu;
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocator;
 import com.glodblock.github.extendedae.api.IPage;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.xmod.appliede.containers.ContainerExEMCInterface;
-import com.glodblock.github.glodium.util.GlodUtil;
-import gripe._90.appliede.block.EMCInterfaceBlockEntity;
-import gripe._90.appliede.me.misc.EMCInterfaceLogic;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+
+import appeng.menu.ISubMenu;
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocator;
+
+import com.glodblock.github.glodium.util.GlodUtil;
+import gripe._90.appliede.block.EMCInterfaceBlockEntity;
+import gripe._90.appliede.me.misc.EMCInterfaceLogic;
 
 public class TileExEMCInterface extends EMCInterfaceBlockEntity implements IPage {
 
@@ -29,7 +32,7 @@ public class TileExEMCInterface extends EMCInterfaceBlockEntity implements IPage
     }
 
     @Override
-    protected Item getItemFromBlockEntity() {
+    public Item getItemFromBlockEntity() {
         return EPPItemAndBlock.EX_EMC_INTERFACE.asItem();
     }
 
@@ -57,5 +60,4 @@ public class TileExEMCInterface extends EMCInterfaceBlockEntity implements IPage
     public int getPage() {
         return this.page;
     }
-
 }

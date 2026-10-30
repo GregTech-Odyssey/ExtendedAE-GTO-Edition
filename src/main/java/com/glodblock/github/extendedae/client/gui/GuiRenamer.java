@@ -1,16 +1,19 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.container.ContainerRenamer;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.client.gui.AEBaseScreen;
 import appeng.client.gui.style.ScreenStyle;
 import appeng.client.gui.widgets.AETextField;
 import appeng.client.guidebook.PageAnchor;
-import com.glodblock.github.extendedae.container.ContainerRenamer;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
 import com.glodblock.github.glodium.network.packet.CGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 

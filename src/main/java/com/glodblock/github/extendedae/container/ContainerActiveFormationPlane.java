@@ -1,5 +1,10 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.parts.PartActiveFormationPlane;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
 import appeng.api.stacks.AEKey;
@@ -8,9 +13,6 @@ import appeng.core.definitions.AEItems;
 import appeng.menu.guisync.GuiSync;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
-import com.glodblock.github.extendedae.common.parts.PartActiveFormationPlane;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 
 public class ContainerActiveFormationPlane extends UpgradeableMenu<PartActiveFormationPlane> {
 

@@ -1,9 +1,11 @@
 package com.glodblock.github.extendedae.xmod.jade;
 
 import com.glodblock.github.extendedae.ExtendedAE;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IServerDataProvider;
 
@@ -29,5 +31,4 @@ public class JadeDateSender implements IServerDataProvider<BlockAccessor> {
     public ResourceLocation getUid() {
         return ExtendedAE.id("tile_data");
     }
-
 }

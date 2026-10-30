@@ -1,20 +1,23 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.api.ThresholdMode;
+import com.glodblock.github.extendedae.common.parts.PartThresholdExportBus;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+
 import appeng.core.definitions.AEItems;
 import appeng.menu.SlotSemantics;
 import appeng.menu.guisync.GuiSync;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
-import com.glodblock.github.extendedae.api.ThresholdMode;
-import com.glodblock.github.extendedae.common.parts.PartThresholdExportBus;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
 import com.glodblock.github.glodium.network.packet.SGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -77,5 +80,4 @@ public class ContainerThresholdExportBus extends UpgradeableMenu<PartThresholdEx
     public Map<String, Consumer<Paras>> getActionMap() {
         return this.actions;
     }
-
 }

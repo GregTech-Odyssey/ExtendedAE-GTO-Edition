@@ -1,13 +1,16 @@
 package com.glodblock.github.extendedae.xmod.wt;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+
+import net.minecraftforge.registries.ForgeRegistries;
+
 import appeng.api.upgrades.Upgrades;
 import appeng.core.AppEng;
 import appeng.core.localization.GuiText;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+
 import de.mari_023.ae2wtlib.AE2wtlib;
 import de.mari_023.ae2wtlib.terminal.IUniversalWirelessTerminalItem;
 import de.mari_023.ae2wtlib.wut.WUTHandler;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class WTCommonLoad {
 
@@ -23,9 +26,7 @@ public class WTCommonLoad {
                 ContainerUWirelessExPAT.TYPE,
                 (IUniversalWirelessTerminalItem) EPPItemAndBlock.WIRELESS_EX_PAT,
                 "wireless_pattern_access_terminal",
-                "item.expatternprovider.wireless_ex_pat"
-        );
+                "item.expatternprovider.wireless_ex_pat");
         Upgrades.add(AE2wtlib.QUANTUM_BRIDGE_CARD, EPPItemAndBlock.WIRELESS_EX_PAT, 1, GuiText.WirelessTerminals.getTranslationKey());
     }
-
 }

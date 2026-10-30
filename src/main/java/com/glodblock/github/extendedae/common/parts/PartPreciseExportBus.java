@@ -1,5 +1,15 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.api.BatchMode;
+import com.glodblock.github.extendedae.config.EPPConfig;
+import com.glodblock.github.extendedae.container.ContainerPreciseExportBus;
+import com.glodblock.github.extendedae.util.Ae2Reflect;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.behaviors.StackTransferContext;
 import appeng.api.config.Actionable;
 import appeng.api.config.RedstoneMode;
@@ -17,14 +27,6 @@ import appeng.parts.PartModel;
 import appeng.parts.automation.ExportBusPart;
 import appeng.parts.automation.StackWorldBehaviors;
 import appeng.util.ConfigInventory;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.api.BatchMode;
-import com.glodblock.github.extendedae.config.EPPConfig;
-import com.glodblock.github.extendedae.container.ContainerPreciseExportBus;
-import com.glodblock.github.extendedae.util.Ae2Reflect;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.MenuType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,8 +37,7 @@ public class PartPreciseExportBus extends ExportBusPart {
             new ResourceLocation(ExtendedAE.MODID, "part/precise_export_bus_base"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/export_bus_on"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/export_bus_off"),
-            new ResourceLocation(AppEngBase.MOD_ID, "part/export_bus_has_channel")
-    );
+            new ResourceLocation(AppEngBase.MOD_ID, "part/export_bus_has_channel"));
 
     public static final PartModel MODELS_OFF = new PartModel(MODELS.get(0), MODELS.get(2));
     public static final PartModel MODELS_ON = new PartModel(MODELS.get(0), MODELS.get(1));
@@ -129,7 +130,9 @@ public class PartPreciseExportBus extends ExportBusPart {
                 continue;
             }
 
-            long ceil = this.useExactAmount() ? simulateExtract(context, what, amount) : (simulateExtract(context, what, before * transferFactor) / amount * amount);
+            long fit = (long) before * transferFactor / amount;
+            long batches = Math.max(1, Math.min(this.getTickRateCompensation(), fit));
+            long ceil = this.useExactAmount() ? simulateExtract(context, what, batches * amount) : (simulateExtract(context, what, (long) before * transferFactor) / amount * amount);
             long canHold = getExportStrategy().push(what, ceil, Actionable.SIMULATE) / amount * amount;
             if (canHold > 0) {
                 var realSend = getExportStrategy().transfer(context, what, canHold);
@@ -201,7 +204,5 @@ public class PartPreciseExportBus extends ExportBusPart {
         public long getMaxAmount(AEKey key) {
             return 64L * key.getAmountPerUnit();
         }
-
     }
-
 }

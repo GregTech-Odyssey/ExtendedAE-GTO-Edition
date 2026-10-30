@@ -1,8 +1,5 @@
 package com.glodblock.github.extendedae.client.model;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
@@ -13,6 +10,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
 import net.minecraftforge.client.model.geometry.IGeometryLoader;
 import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
@@ -30,7 +31,5 @@ public class AssemblerGlassModel implements IUnbakedGeometry<AssemblerGlassModel
         public @NotNull AssemblerGlassModel read(@NotNull JsonObject jsonObject, @NotNull JsonDeserializationContext deserializationContext) throws JsonParseException {
             return new AssemblerGlassModel();
         }
-
     }
-
 }

@@ -1,5 +1,20 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.api.BatchMode;
+import com.glodblock.github.extendedae.client.button.CycleEPPButton;
+import com.glodblock.github.extendedae.client.button.EPPIcon;
+import com.glodblock.github.extendedae.client.gui.subgui.SetAmount;
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.container.ContainerPreciseExportBus;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+import com.glodblock.github.extendedae.util.Ae2ReflectClient;
+
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.config.RedstoneMode;
 import appeng.api.config.SchedulingMode;
 import appeng.api.config.Settings;
@@ -16,20 +31,8 @@ import appeng.core.localization.Tooltips;
 import appeng.core.sync.network.NetworkHandler;
 import appeng.core.sync.packets.InventoryActionPacket;
 import appeng.helpers.InventoryAction;
-import com.glodblock.github.extendedae.api.BatchMode;
-import com.glodblock.github.extendedae.client.button.CycleEPPButton;
-import com.glodblock.github.extendedae.client.button.EPPIcon;
-import com.glodblock.github.extendedae.client.gui.subgui.SetAmount;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.container.ContainerPreciseExportBus;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
-import com.glodblock.github.extendedae.util.Ae2ReflectClient;
+
 import com.glodblock.github.glodium.network.packet.CGenericPacket;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -135,5 +138,4 @@ public class GuiPreciseExportBus extends UpgradeableScreen<ContainerPreciseExpor
     private boolean isValidSlot(Slot slot) {
         return slot != null && slot.isActive() && slot.hasItem() && this.menu.isConfigSlot(slot);
     }
-
 }

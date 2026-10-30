@@ -1,21 +1,10 @@
 package com.glodblock.github.extendedae.datagen;
 
-import appeng.api.stacks.AEFluidKey;
-import appeng.api.stacks.AEItemKey;
-import appeng.api.util.AEColor;
-import appeng.core.definitions.AEBlocks;
-import appeng.core.definitions.AEItems;
-import appeng.core.definitions.AEParts;
-import appeng.datagen.providers.tags.ConventionTags;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.recipe.CircuitCutterRecipeBuilder;
 import com.glodblock.github.extendedae.util.EPPTags;
-import com.glodblock.github.glodium.datagen.NBTRecipeBuilder;
-import gripe._90.appliede.AppliedE;
-import gripe._90.megacells.definition.MEGAItems;
-import gripe._90.megacells.definition.MEGATags;
-import moze_intel.projecte.gameObjs.registries.PEItems;
+
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -33,6 +22,20 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.fml.ModList;
+
+import appeng.api.stacks.AEFluidKey;
+import appeng.api.stacks.AEItemKey;
+import appeng.api.util.AEColor;
+import appeng.core.definitions.AEBlocks;
+import appeng.core.definitions.AEItems;
+import appeng.core.definitions.AEParts;
+import appeng.datagen.providers.tags.ConventionTags;
+
+import com.glodblock.github.glodium.datagen.NBTRecipeBuilder;
+import gripe._90.appliede.AppliedE;
+import gripe._90.megacells.definition.MEGAItems;
+import gripe._90.megacells.definition.MEGATags;
+import moze_intel.projecte.gameObjs.registries.PEItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
@@ -697,7 +700,6 @@ public class EPPRecipeProvider extends RecipeProvider {
                                     .unlockedBy(C, has(EPPItemAndBlock.EMC_IO_BUS_UPGRADE))::save)
                     .build(c, ExtendedAE.id("ex_emc_import_bus_upgrade"));
         }
-
     }
 
     private void cutter(@NotNull Consumer<FinishedRecipe> c) {
@@ -727,5 +729,4 @@ public class EPPRecipeProvider extends RecipeProvider {
                     .build(c, ExtendedAE.id("cutter/accumulation"));
         }
     }
-
 }

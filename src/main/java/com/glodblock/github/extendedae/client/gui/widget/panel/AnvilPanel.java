@@ -1,18 +1,20 @@
 package com.glodblock.github.extendedae.client.gui.widget.panel;
 
-import appeng.client.Point;
-import appeng.client.gui.WidgetContainer;
-import appeng.client.gui.style.Blitter;
-import appeng.client.gui.widgets.AETextField;
 import com.glodblock.github.extendedae.api.CraftingMode;
 import com.glodblock.github.extendedae.client.ExSemantics;
 import com.glodblock.github.extendedae.client.gui.GuiExCraftingTerminal;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
+import appeng.client.Point;
+import appeng.client.gui.WidgetContainer;
+import appeng.client.gui.style.Blitter;
+import appeng.client.gui.widgets.AETextField;
 
 public class AnvilPanel extends ExPanel {
 

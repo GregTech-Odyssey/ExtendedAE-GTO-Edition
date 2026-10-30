@@ -12,5 +12,4 @@ public abstract class ContainerRecipeContext<T extends Recipe<Container>> extend
     public ContainerRecipeContext(Supplier<Level> levelGetter, RecipeType<T> type) {
         super(levelGetter, type);
     }
-
 }

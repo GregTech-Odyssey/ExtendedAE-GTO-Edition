@@ -1,9 +1,11 @@
 package com.glodblock.github.extendedae.network.packet;
 
 import com.glodblock.github.extendedae.api.IPage;
-import com.glodblock.github.glodium.network.packet.IMessage;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
+
+import com.glodblock.github.glodium.network.packet.IMessage;
 
 import java.util.function.Supplier;
 

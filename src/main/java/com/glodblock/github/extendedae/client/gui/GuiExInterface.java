@@ -1,5 +1,17 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.client.ExSemantics;
+import com.glodblock.github.extendedae.client.button.ActionEPPButton;
+import com.glodblock.github.extendedae.client.button.EPPIcon;
+import com.glodblock.github.extendedae.container.ContainerExInterface;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+import com.glodblock.github.extendedae.network.packet.CUpdatePage;
+
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.api.config.FuzzyMode;
 import appeng.api.config.Settings;
 import appeng.client.gui.Icon;
@@ -11,16 +23,6 @@ import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
 import appeng.core.definitions.AEItems;
 import appeng.core.localization.ButtonToolTips;
-import com.glodblock.github.extendedae.client.ExSemantics;
-import com.glodblock.github.extendedae.client.button.ActionEPPButton;
-import com.glodblock.github.extendedae.client.button.EPPIcon;
-import com.glodblock.github.extendedae.container.ContainerExInterface;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
-import com.glodblock.github.extendedae.network.packet.CUpdatePage;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,8 +74,7 @@ public class GuiExInterface extends UpgradeableScreen<ContainerExInterface> {
                 8,
                 24,
                 style.getColor(PaletteColor.DEFAULT_TEXT_COLOR).toARGB(),
-                false
-        );
+                false);
     }
 
     @Override
@@ -102,6 +103,7 @@ public class GuiExInterface extends UpgradeableScreen<ContainerExInterface> {
     }
 
     static class SetAmountButton extends IconButton {
+
         public SetAmountButton(OnPress onPress) {
             super(onPress);
         }

@@ -1,5 +1,13 @@
 package com.glodblock.github.extendedae.xmod.appliede.containers;
 
+import com.glodblock.github.extendedae.api.IPage;
+import com.glodblock.github.extendedae.client.ExSemantics;
+
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+
 import appeng.api.stacks.AEItemKey;
 import appeng.menu.SlotSemantic;
 import appeng.menu.guisync.GuiSync;
@@ -7,14 +15,9 @@ import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.UpgradeableMenu;
 import appeng.menu.slot.AppEngSlot;
 import appeng.menu.slot.FakeSlot;
-import com.glodblock.github.extendedae.api.IPage;
-import com.glodblock.github.extendedae.client.ExSemantics;
+
 import gripe._90.appliede.me.misc.EMCInterfaceLogicHost;
 import gripe._90.appliede.menu.EMCSetStockAmountMenu;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +65,7 @@ public class ContainerExEMCInterface extends UpgradeableMenu<EMCInterfaceLogicHo
     }
 
     public void showPage(int page) {
-        for (int index = 0; index < 4; index ++) {
+        for (int index = 0; index < 4; index++) {
             var slots = this.getSlots(CONFIG_PATTERN[index]);
             slots.addAll(this.getSlots(STORAGE_PATTERN[index]));
             for (var slot : slots) {

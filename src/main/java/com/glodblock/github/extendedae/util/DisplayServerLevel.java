@@ -24,6 +24,7 @@ import net.minecraft.world.level.storage.WritableLevelData;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.ticks.LevelTickAccess;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -161,8 +162,7 @@ public class DisplayServerLevel extends Level implements ServerLevelAccessor {
                 true,
                 world.isDebug(),
                 0,
-                10000
-        );
+                10000);
         this.delegate = world;
     }
 
@@ -170,5 +170,4 @@ public class DisplayServerLevel extends Level implements ServerLevelAccessor {
     public ServerLevel getLevel() {
         throw new UnsupportedOperationException();
     }
-
 }

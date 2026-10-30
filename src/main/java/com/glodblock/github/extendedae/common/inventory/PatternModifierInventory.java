@@ -1,11 +1,13 @@
 package com.glodblock.github.extendedae.common.inventory;
 
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.implementations.menuobjects.ItemMenuHost;
 import appeng.api.inventories.InternalInventory;
 import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.InternalInventoryHost;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.Nullable;
 
 public class PatternModifierInventory extends ItemMenuHost implements InternalInventoryHost {
@@ -68,5 +70,4 @@ public class PatternModifierInventory extends ItemMenuHost implements InternalIn
             default -> null;
         };
     }
-
 }

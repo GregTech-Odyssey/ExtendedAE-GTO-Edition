@@ -1,11 +1,13 @@
 package com.glodblock.github.extendedae.client.button;
 
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.client.gui.Icon;
 import appeng.client.gui.style.Blitter;
 import appeng.client.gui.widgets.IconButton;
+
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.ItemStack;
 
 public abstract class EPPButton extends IconButton {
 
@@ -67,5 +69,4 @@ public abstract class EPPButton extends IconButton {
             }
         }
     }
-
 }

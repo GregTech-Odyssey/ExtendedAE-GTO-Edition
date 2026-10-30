@@ -1,5 +1,18 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.api.IPage;
+import com.glodblock.github.extendedae.container.ContainerExInterface;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+
 import appeng.api.inventories.InternalInventory;
 import appeng.api.networking.GridHelper;
 import appeng.api.networking.IGridNode;
@@ -19,17 +32,7 @@ import appeng.menu.locator.MenuLocator;
 import appeng.menu.locator.MenuLocators;
 import appeng.parts.AEBasePart;
 import appeng.parts.PartModel;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.api.IPage;
-import com.glodblock.github.extendedae.container.ContainerExInterface;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -41,14 +44,14 @@ public class PartExInterface extends AEBasePart implements InterfaceLogicHost, I
             new ResourceLocation(ExtendedAE.MODID, "part/ex_interface"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/interface_on"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/interface_off"),
-            new ResourceLocation(AppEngBase.MOD_ID, "part/interface_has_channel")
-    );
+            new ResourceLocation(AppEngBase.MOD_ID, "part/interface_has_channel"));
 
     public static final PartModel MODELS_OFF = new PartModel(MODELS.get(0), MODELS.get(2));
     public static final PartModel MODELS_ON = new PartModel(MODELS.get(0), MODELS.get(1));
     public static final PartModel MODELS_HAS_CHANNEL = new PartModel(MODELS.get(0), MODELS.get(3));
 
     private static final IGridNodeListener<PartExInterface> NODE_LISTENER = new AEBasePart.NodeListener<>() {
+
         @Override
         public void onGridChanged(PartExInterface nodeOwner, IGridNode node) {
             super.onGridChanged(nodeOwner, node);

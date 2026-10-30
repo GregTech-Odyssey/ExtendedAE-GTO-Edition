@@ -1,8 +1,9 @@
 package com.glodblock.github.extendedae.xmod;
 
+import net.minecraft.resources.ResourceLocation;
+
 import appeng.api.stacks.AEKeyType;
 import appeng.api.stacks.AEKeyTypes;
-import net.minecraft.resources.ResourceLocation;
 
 public class ExternalTypes {
 
@@ -33,5 +34,4 @@ public class ExternalTypes {
             SOURCE = null;
         }
     }
-
 }

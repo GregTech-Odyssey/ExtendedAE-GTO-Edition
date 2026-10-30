@@ -1,11 +1,8 @@
 package com.glodblock.github.extendedae.common.blocks;
 
-import appeng.api.orientation.IOrientationStrategy;
-import appeng.api.orientation.OrientationStrategies;
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocators;
 import com.glodblock.github.extendedae.common.tileentities.TileExInscriber;
 import com.glodblock.github.extendedae.container.ContainerExInscriber;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +17,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+
+import appeng.api.orientation.IOrientationStrategy;
+import appeng.api.orientation.OrientationStrategies;
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocators;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -62,9 +65,7 @@ public class BlockExInscriber extends BlockBaseGui<TileExInscriber> implements S
     @SuppressWarnings("deprecation")
     @Override
     public @NotNull FluidState getFluidState(BlockState blockState) {
-        return blockState.getValue(WATERLOGGED)
-                ? Fluids.WATER.getSource(false)
-                : super.getFluidState(blockState);
+        return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
     @SuppressWarnings("deprecation")
@@ -80,5 +81,4 @@ public class BlockExInscriber extends BlockBaseGui<TileExInscriber> implements S
     public void openGui(TileExInscriber tile, Player p) {
         MenuOpener.open(ContainerExInscriber.TYPE, p, MenuLocators.forBlockEntity(tile));
     }
-
 }

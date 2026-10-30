@@ -1,5 +1,18 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.common.me.Crankable;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+
 import appeng.api.config.Actionable;
 import appeng.api.config.PowerMultiplier;
 import appeng.api.config.PowerUnits;
@@ -23,18 +36,8 @@ import appeng.core.settings.TickRates;
 import appeng.util.Platform;
 import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.filter.IAEItemFilter;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.me.Crankable;
+
 import com.glodblock.github.glodium.util.GlodUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,7 +78,7 @@ public class TileExCharger extends AENetworkPowerBlockEntity implements IGridTic
     protected boolean readFromStream(FriendlyByteBuf data) {
         var changed = super.readFromStream(data);
         this.working = data.readBoolean();
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             if (data.readBoolean()) {
                 var item = AEItemKey.fromPacket(data);
                 this.inv.setItemDirect(x, item.toStack());
@@ -90,7 +93,7 @@ public class TileExCharger extends AENetworkPowerBlockEntity implements IGridTic
     protected void writeToStream(FriendlyByteBuf data) {
         super.writeToStream(data);
         data.writeBoolean(working);
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             var is = AEItemKey.of(this.inv.getStackInSlot(x));
             data.writeBoolean(is != null);
             if (is != null) {
@@ -138,7 +141,7 @@ public class TileExCharger extends AENetworkPowerBlockEntity implements IGridTic
         if (this.level == null) {
             return;
         }
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             var myItem = this.inv.getStackInSlot(x);
             if (!myItem.isEmpty()) {
                 if (Platform.isChargeable(myItem)) {
@@ -205,7 +208,7 @@ public class TileExCharger extends AENetworkPowerBlockEntity implements IGridTic
         if (!Platform.hasPermissions(new DimensionalBlockPos(this), player)) {
             return;
         }
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             var stored = this.inv.getStackInSlot(x);
             if (stored.isEmpty()) {
                 ItemStack held = player.getInventory().getSelected();
@@ -217,7 +220,7 @@ public class TileExCharger extends AENetworkPowerBlockEntity implements IGridTic
                 }
             }
         }
-        for (int x = 0; x < MAX_THREAD; x ++) {
+        for (int x = 0; x < MAX_THREAD; x++) {
             var stored = this.inv.getStackInSlot(x);
             if (!stored.isEmpty()) {
                 var drops = List.of(stored);
@@ -264,5 +267,4 @@ public class TileExCharger extends AENetworkPowerBlockEntity implements IGridTic
             return ChargerRecipes.allowExtract(chargerBlockEntity.level, extractedItem);
         }
     }
-
 }

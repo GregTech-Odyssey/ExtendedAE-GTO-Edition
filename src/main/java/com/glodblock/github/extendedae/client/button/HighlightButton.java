@@ -1,15 +1,18 @@
 package com.glodblock.github.extendedae.client.button;
 
-import appeng.client.gui.style.Blitter;
 import com.glodblock.github.extendedae.client.render.EAEHighlightHandler;
 import com.glodblock.github.extendedae.util.FCClientUtil;
-import com.glodblock.github.glodium.util.GlodUtil;
+
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+
+import appeng.client.gui.style.Blitter;
+
+import com.glodblock.github.glodium.util.GlodUtil;
 import org.jetbrains.annotations.Nullable;
 
 public class HighlightButton extends EPPButton {

@@ -1,18 +1,21 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
-import appeng.helpers.externalstorage.GenericStackInv;
-import appeng.menu.ISubMenu;
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocator;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.common.inventory.OversizeConfigInv;
 import com.glodblock.github.extendedae.container.ContainerExInterface;
 import com.glodblock.github.extendedae.util.Ae2Reflect;
-import com.glodblock.github.glodium.util.GlodUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+
+import appeng.helpers.externalstorage.GenericStackInv;
+import appeng.menu.ISubMenu;
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocator;
+
+import com.glodblock.github.glodium.util.GlodUtil;
 
 public class TileOversizeInterface extends TileExInterface {
 
@@ -39,5 +42,4 @@ public class TileOversizeInterface extends TileExInterface {
     public ItemStack getMainMenuIcon() {
         return new ItemStack(EPPItemAndBlock.OVERSIZE_INTERFACE);
     }
-
 }

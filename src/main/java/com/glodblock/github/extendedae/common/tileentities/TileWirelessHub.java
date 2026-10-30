@@ -1,5 +1,22 @@
 package com.glodblock.github.extendedae.common.tileentities;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.common.me.wireless.WirelessConnect;
+import com.glodblock.github.extendedae.common.me.wireless.WirelessNode;
+import com.glodblock.github.extendedae.config.EPPConfig;
+import com.glodblock.github.extendedae.util.CacheHolder;
+import com.glodblock.github.extendedae.xmod.jade.JadeDataProvider;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fml.ModList;
+
 import appeng.api.implementations.blockentities.IColorableBlockEntity;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.IGridNode;
@@ -12,30 +29,18 @@ import appeng.api.util.AEColor;
 import appeng.blockentity.ServerTickingBlockEntity;
 import appeng.blockentity.grid.AENetworkBlockEntity;
 import appeng.core.definitions.AEItems;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.me.wireless.WirelessConnect;
-import com.glodblock.github.extendedae.common.me.wireless.WirelessNode;
-import com.glodblock.github.extendedae.config.EPPConfig;
-import com.glodblock.github.extendedae.util.CacheHolder;
-import com.glodblock.github.extendedae.xmod.jade.JadeDataProvider;
+
 import com.glodblock.github.glodium.util.GlodUtil;
 import gripe._90.megacells.definition.MEGAItems;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fml.ModList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+
 public class TileWirelessHub extends AENetworkBlockEntity implements ServerTickingBlockEntity, IUpgradeableObject, IColorableBlockEntity, JadeDataProvider {
+
     public static final int MAX_PORT = 8;
     private final boolean[] updateStatus = new boolean[MAX_PORT];
     private final long[] freq = new long[MAX_PORT];
@@ -54,7 +59,7 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
         this.powerUse = 1.0;
         this.getMainNode().setIdlePowerUsage(this.powerUse);
         this.upgrades = UpgradeInventories.forMachine(EPPItemAndBlock.WIRELESS_HUB, 4, this::updatePowerUsage);
-        for (int i = 0; i < MAX_PORT; i ++) {
+        for (int i = 0; i < MAX_PORT; i++) {
             this.updateStatus[i] = true;
             this.connect[i] = new WirelessConnect(new Stock(this, i));
             this.other[i] = CacheHolder.empty();
@@ -62,7 +67,7 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
     }
 
     public int allocatePort() {
-        for (int i = 0; i < MAX_PORT; i ++) {
+        for (int i = 0; i < MAX_PORT; i++) {
             if (!this.connect[i].isConnected()) {
                 return i;
             }
@@ -85,7 +90,7 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
     @Override
     public void serverTick() {
         boolean changed = false;
-        for (int i = 0; i < MAX_PORT; i ++) {
+        for (int i = 0; i < MAX_PORT; i++) {
             if (this.updateStatus[i]) {
                 this.updateStatus[i] = false;
                 this.other[i].expired();
@@ -104,7 +109,7 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
         var disc = 1 - this.calculateDisc();
         this.powerUse = 0;
         boolean anyRunning = false;
-        for (int i = 0; i < MAX_PORT; i ++) {
+        for (int i = 0; i < MAX_PORT; i++) {
             if (this.connect[i].isConnected()) {
                 var dis = Math.max(this.connect[i].getDistance(), Math.E);
                 this.powerUse += Math.max(1.0, dis * Math.log(dis) * disc) * EPPConfig.wirelessPowerMultiplier;
@@ -171,7 +176,7 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
     public void loadTag(CompoundTag data) {
         super.loadTag(data);
         this.upgrades.readFromNBT(data, "upgrades");
-        for (int i = 0; i < MAX_PORT; i ++) {
+        for (int i = 0; i < MAX_PORT; i++) {
             this.freq[i] = data.getLong("freq" + i);
             WirelessConnect.G.markUsed(this.freq[i]);
         }
@@ -187,7 +192,7 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
     public void saveAdditional(CompoundTag data) {
         super.saveAdditional(data);
         this.upgrades.writeToNBT(data, "upgrades");
-        for (int i = 0; i < MAX_PORT; i ++) {
+        for (int i = 0; i < MAX_PORT; i++) {
             data.putLong("freq" + i, freq[i]);
             WirelessConnect.G.markUsed(this.freq[i]);
         }
@@ -205,13 +210,13 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
     }
 
     public void disconnectAll() {
-        for (int i = 0; i < MAX_PORT; i ++) {
+        for (int i = 0; i < MAX_PORT; i++) {
             this.connect[i].destroy();
         }
     }
 
     public boolean isConnected() {
-        for (int i = 0; i < MAX_PORT; i ++) {
+        for (int i = 0; i < MAX_PORT; i++) {
             if (this.connect[i].isConnected()) {
                 return true;
             }
@@ -225,7 +230,7 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
     }
 
     public void breakOnRemove() {
-        for (int i = 0; i < MAX_PORT; i ++) {
+        for (int i = 0; i < MAX_PORT; i++) {
             this.connect[i].destroy();
         }
     }
@@ -303,7 +308,5 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
         public BlockEntity getBlockEntity() {
             return this.hub;
         }
-
     }
-
 }

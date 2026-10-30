@@ -38,5 +38,4 @@ public class CacheHolder<T> {
         this.obj = obj;
         this.expired = false;
     }
-
 }

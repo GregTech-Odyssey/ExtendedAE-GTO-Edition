@@ -15,7 +15,6 @@ public enum WirelessStatus {
     }
 
     public MutableComponent getDesc() {
-        return Component.translatable("gui.wireless_connect.status."  + this.name().toLowerCase() + ".desc");
+        return Component.translatable("gui.wireless_connect.status." + this.name().toLowerCase() + ".desc");
     }
-
 }

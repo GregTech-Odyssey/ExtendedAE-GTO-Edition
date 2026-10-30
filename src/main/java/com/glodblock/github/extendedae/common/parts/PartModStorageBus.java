@@ -1,5 +1,15 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.common.me.modlist.ModPriorityList;
+import com.glodblock.github.extendedae.common.parts.base.PartSpecialStorageBus;
+import com.glodblock.github.extendedae.container.ContainerModStorageBus;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.parts.IPartItem;
 import appeng.api.parts.IPartModel;
 import appeng.core.AppEng;
@@ -7,14 +17,7 @@ import appeng.items.parts.PartModels;
 import appeng.parts.PartModel;
 import appeng.util.SettingsFrom;
 import appeng.util.prioritylist.IPartitionList;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.common.me.modlist.ModPriorityList;
-import com.glodblock.github.extendedae.common.parts.base.PartSpecialStorageBus;
-import com.glodblock.github.extendedae.container.ContainerModStorageBus;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.MenuType;
+
 import org.jetbrains.annotations.Nullable;
 
 public class PartModStorageBus extends PartSpecialStorageBus {
@@ -105,5 +108,4 @@ public class PartModStorageBus extends PartSpecialStorageBus {
             return MODELS_OFF;
         }
     }
-
 }

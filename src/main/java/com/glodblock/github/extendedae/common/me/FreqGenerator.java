@@ -1,15 +1,17 @@
 package com.glodblock.github.extendedae.common.me;
 
+import net.minecraft.util.RandomSource;
+
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
-import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
 
 public interface FreqGenerator<T> {
 
-    @NotNull T genFreq();
+    @NotNull
+    T genFreq();
 
     void markUsed(@NotNull T freq);
 
@@ -20,7 +22,6 @@ public interface FreqGenerator<T> {
     static FreqGenerator<Integer> createInt() {
         return new IntFreqGen();
     }
-
 }
 
 class LongFreqGen implements FreqGenerator<Long> {

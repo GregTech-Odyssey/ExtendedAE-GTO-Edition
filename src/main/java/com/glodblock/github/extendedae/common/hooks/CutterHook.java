@@ -1,13 +1,7 @@
 package com.glodblock.github.extendedae.common.hooks;
 
-import appeng.blockentity.AEBaseBlockEntity;
-import appeng.blockentity.networking.CableBusBlockEntity;
-import appeng.items.tools.quartz.QuartzCuttingKnifeItem;
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocators;
-import appeng.parts.AEBasePart;
-import appeng.util.InteractionUtil;
 import com.glodblock.github.extendedae.container.ContainerRenamer;
+
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -17,6 +11,14 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+import appeng.blockentity.AEBaseBlockEntity;
+import appeng.blockentity.networking.CableBusBlockEntity;
+import appeng.items.tools.quartz.QuartzCuttingKnifeItem;
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocators;
+import appeng.parts.AEBasePart;
+import appeng.util.InteractionUtil;
 
 public final class CutterHook {
 
@@ -67,5 +69,4 @@ public final class CutterHook {
         }
         return InteractionResult.PASS;
     }
-
 }

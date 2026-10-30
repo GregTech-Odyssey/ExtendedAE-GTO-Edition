@@ -1,7 +1,5 @@
 package com.glodblock.github.extendedae.recipe.util;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -9,6 +7,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,10 +125,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 
     }
 
-    public record TagValue(TagKey<Fluid> fluid) implements Value {
-    }
+    public record TagValue(TagKey<Fluid> fluid) implements Value {}
 
-    public record FluidValue(FluidStack fluid) implements Value {
-    }
-
+    public record FluidValue(FluidStack fluid) implements Value {}
 }

@@ -1,11 +1,7 @@
 package com.glodblock.github.extendedae.common.items;
 
-import appeng.api.parts.IPart;
-import appeng.api.parts.IPartItem;
-import appeng.blockentity.networking.CableBusBlockEntity;
-import appeng.parts.AEBasePart;
 import com.glodblock.github.extendedae.util.FCUtil;
-import com.glodblock.github.glodium.util.GlodUtil;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -16,8 +12,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nonnull;
+import appeng.api.parts.IPart;
+import appeng.api.parts.IPartItem;
+import appeng.blockentity.networking.CableBusBlockEntity;
+import appeng.parts.AEBasePart;
+
+import com.glodblock.github.glodium.util.GlodUtil;
+
 import java.util.HashMap;
+
+import javax.annotation.Nonnull;
 
 public abstract class ItemUpgrade extends Item {
 
@@ -28,7 +32,7 @@ public abstract class ItemUpgrade extends Item {
         super(properties);
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Nonnull
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
@@ -50,7 +54,7 @@ public abstract class ItemUpgrade extends Item {
                     var va = sp.getValue();
                     try {
                         if (state.hasProperty(pt)) {
-                            state = state.<Comparable, Comparable>setValue((Property)pt, va);
+                            state = state.<Comparable, Comparable>setValue((Property) pt, va);
                         }
                     } catch (Exception ignore) {
                         // NO-OP
@@ -97,5 +101,4 @@ public abstract class ItemUpgrade extends Item {
     private record TileEntityPair(Block block, Class<? extends BlockEntity> tile) {
 
     }
-
 }

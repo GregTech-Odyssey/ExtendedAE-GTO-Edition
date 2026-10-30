@@ -1,22 +1,5 @@
 package com.glodblock.github.extendedae.container;
 
-import appeng.api.config.Actionable;
-import appeng.api.inventories.InternalInventory;
-import appeng.api.stacks.AEFluidKey;
-import appeng.api.stacks.AEItemKey;
-import appeng.core.sync.network.NetworkHandler;
-import appeng.core.sync.packets.InventoryActionPacket;
-import appeng.helpers.IMenuCraftingPacket;
-import appeng.helpers.InventoryAction;
-import appeng.menu.SlotSemantics;
-import appeng.menu.guisync.GuiSync;
-import appeng.menu.guisync.PacketWritable;
-import appeng.menu.implementations.MenuTypeBuilder;
-import appeng.menu.me.common.MEStorageMenu;
-import appeng.menu.me.crafting.CraftConfirmMenu;
-import appeng.menu.me.items.CraftingTermMenu;
-import appeng.menu.slot.CraftingMatrixSlot;
-import appeng.util.inv.PlayerInternalInventory;
 import com.glodblock.github.extendedae.api.CraftingMode;
 import com.glodblock.github.extendedae.client.ExSemantics;
 import com.glodblock.github.extendedae.client.gui.widget.OutputResultSlot;
@@ -24,10 +7,7 @@ import com.glodblock.github.extendedae.common.parts.PartExCraftingTerminal;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 import com.glodblock.github.extendedae.util.EPPTags;
 import com.glodblock.github.extendedae.util.helper.ExtendedCraftingTerminal;
-import com.glodblock.github.glodium.network.packet.SGenericPacket;
-import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
-import com.glodblock.github.glodium.network.packet.sync.Paras;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -48,6 +28,30 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.material.Fluid;
+
+import appeng.api.config.Actionable;
+import appeng.api.inventories.InternalInventory;
+import appeng.api.stacks.AEFluidKey;
+import appeng.api.stacks.AEItemKey;
+import appeng.api.stacks.GenericStack;
+import appeng.core.sync.network.NetworkHandler;
+import appeng.core.sync.packets.InventoryActionPacket;
+import appeng.helpers.IMenuCraftingPacket;
+import appeng.helpers.InventoryAction;
+import appeng.menu.SlotSemantics;
+import appeng.menu.guisync.GuiSync;
+import appeng.menu.guisync.PacketWritable;
+import appeng.menu.implementations.MenuTypeBuilder;
+import appeng.menu.me.common.MEStorageMenu;
+import appeng.menu.me.crafting.CraftConfirmMenu;
+import appeng.menu.me.items.CraftingTermMenu;
+import appeng.menu.slot.CraftingMatrixSlot;
+import appeng.util.inv.PlayerInternalInventory;
+
+import com.glodblock.github.glodium.network.packet.SGenericPacket;
+import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
+import com.glodblock.github.glodium.network.packet.sync.Paras;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -158,7 +162,6 @@ public class ContainerExCraftingTerminal extends MEStorageMenu implements IMenuC
                         return ItemStack.EMPTY;
                     }
                 }
-
             }, ExSemantics.EX_4);
         }
     }
@@ -591,7 +594,7 @@ public class ContainerExCraftingTerminal extends MEStorageMenu implements IMenuC
     }
 
     @Override
-    public void startAutoCrafting(List<AutoCraftEntry> toCraft) {
+    public void startAutoCrafting(List<GenericStack> toCraft) {
         CraftConfirmMenu.openWithCraftingList(getActionHost(), (ServerPlayer) getPlayer(), getLocator(), toCraft);
     }
 
@@ -686,7 +689,6 @@ public class ContainerExCraftingTerminal extends MEStorageMenu implements IMenuC
     }
 
     public CraftingTermMenu.MissingIngredientSlots findMissingIngredients(Map<Integer, Ingredient> ingredients) {
-
         // Try to figure out if any slots have missing ingredients
         // Find every "slot" (in JEI parlance) that has no equivalent item in the item repo or player inventory
         Set<Integer> missingSlots = new HashSet<>(); // missing but not craftable
@@ -796,7 +798,5 @@ public class ContainerExCraftingTerminal extends MEStorageMenu implements IMenuC
             }
             return false;
         }
-
     }
-
 }

@@ -1,5 +1,11 @@
 package com.glodblock.github.extendedae.common.inventory;
 
+import com.glodblock.github.extendedae.common.items.InfinityCell;
+import com.glodblock.github.extendedae.config.EPPConfig;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.config.Actionable;
 import appeng.api.networking.security.IActionSource;
 import appeng.api.stacks.AEKey;
@@ -8,10 +14,7 @@ import appeng.api.storage.cells.CellState;
 import appeng.api.storage.cells.ICellHandler;
 import appeng.api.storage.cells.ISaveProvider;
 import appeng.api.storage.cells.StorageCell;
-import com.glodblock.github.extendedae.common.items.InfinityCell;
-import com.glodblock.github.extendedae.config.EPPConfig;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.Nullable;
 
 public class InfinityCellInventory implements StorageCell {
@@ -86,5 +89,4 @@ public class InfinityCellInventory implements StorageCell {
             return isCell(is) ? new InfinityCellInventory(is) : null;
         }
     }
-
 }

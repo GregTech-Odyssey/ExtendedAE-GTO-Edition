@@ -1,12 +1,11 @@
 package com.glodblock.github.extendedae.common.blocks;
 
-import appeng.menu.MenuOpener;
-import appeng.menu.locator.MenuLocators;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.common.tileentities.TileWirelessHub;
 import com.glodblock.github.extendedae.config.EPPConfig;
 import com.glodblock.github.extendedae.container.ContainerWirelessHub;
 import com.glodblock.github.extendedae.util.WirelessHelpers;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +22,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+
+import appeng.menu.MenuOpener;
+import appeng.menu.locator.MenuLocators;
+
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -54,7 +57,7 @@ public class BlockWirelessHub extends BlockBaseGui<TileWirelessHub> {
     public void neighborChanged(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
         var te = this.getBlockEntity(level, pos);
         if (te != null) {
-            for (int i = 0; i < TileWirelessHub.MAX_PORT; i ++) {
+            for (int i = 0; i < TileWirelessHub.MAX_PORT; i++) {
                 te.reactive(i);
             }
         }
@@ -140,5 +143,4 @@ public class BlockWirelessHub extends BlockBaseGui<TileWirelessHub> {
     public void openGui(TileWirelessHub tile, Player p) {
         MenuOpener.open(ContainerWirelessHub.TYPE, p, MenuLocators.forBlockEntity(tile));
     }
-
 }

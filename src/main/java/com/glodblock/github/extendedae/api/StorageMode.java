@@ -1,6 +1,7 @@
 package com.glodblock.github.extendedae.api;
 
 public enum StorageMode {
+
     DEFAULT((value, threshold) -> true),
     GREATER_EQUAL((value, threshold) -> value >= threshold),
     GREATER((value, threshold) -> value > threshold),
@@ -21,7 +22,5 @@ public enum StorageMode {
     interface AmountComparator {
 
         boolean compare(long value, long threshold);
-
     }
-
 }

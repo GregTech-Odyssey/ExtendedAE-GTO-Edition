@@ -3,6 +3,7 @@ package com.glodblock.github.extendedae.common.inventory;
 import appeng.api.stacks.AEFluidKey;
 import appeng.api.stacks.AEKeyType;
 import appeng.helpers.externalstorage.GenericStackInv;
+
 import org.jetbrains.annotations.Nullable;
 
 public class FluidInventory extends GenericStackInv {
@@ -18,5 +19,4 @@ public class FluidInventory extends GenericStackInv {
         this.setFilter(key -> key instanceof AEFluidKey);
         this.setCapacity(AEKeyType.fluids(), capacity);
     }
-
 }

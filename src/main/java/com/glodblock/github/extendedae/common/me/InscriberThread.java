@@ -1,5 +1,11 @@
 package com.glodblock.github.extendedae.common.me;
 
+import com.glodblock.github.extendedae.common.tileentities.TileExInscriber;
+
+import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.config.Actionable;
 import appeng.api.config.PowerMultiplier;
 import appeng.api.config.Settings;
@@ -8,6 +14,7 @@ import appeng.api.inventories.InternalInventory;
 import appeng.api.networking.energy.IEnergyService;
 import appeng.api.networking.energy.IEnergySource;
 import appeng.api.networking.ticking.TickRateModulation;
+import appeng.blockentity.misc.InscriberBlockEntity;
 import appeng.blockentity.misc.InscriberRecipes;
 import appeng.core.definitions.AEItems;
 import appeng.recipes.handlers.InscriberProcessType;
@@ -16,10 +23,7 @@ import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.CombinedInternalInventory;
 import appeng.util.inv.FilteredInternalInventory;
 import appeng.util.inv.filter.IAEItemFilter;
-import com.glodblock.github.extendedae.common.tileentities.TileExInscriber;
-import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,8 +61,7 @@ public class InscriberThread {
         this.inv = new CombinedInternalInventory(this.topItemHandler, this.bottomItemHandler, this.sideItemHandler);
         this.lastStacks = new IdentityHashMap<>(Map.of(
                 topItemHandler, ItemStack.EMPTY, bottomItemHandler, ItemStack.EMPTY,
-                sideItemHandler, ItemStack.EMPTY)
-        );
+                sideItemHandler, ItemStack.EMPTY));
         var automationFilter = new AutomationFilter();
         this.topItemHandlerExtern = new FilteredInternalInventory(this.topItemHandler, automationFilter);
         this.bottomItemHandlerExtern = new FilteredInternalInventory(this.bottomItemHandler, automationFilter);
@@ -196,13 +199,7 @@ public class InscriberThread {
             this.host.getMainNode().ifPresent(grid -> {
                 IEnergyService eg = grid.getEnergyService();
                 IEnergySource src = this.host;
-                final int speedFactor = switch (this.host.getUpgrades().getInstalledUpgrades(AEItems.SPEED_CARD)) {
-                    default -> 2; // 116 ticks
-                    case 1 -> 3; // 83 ticks
-                    case 2 -> 5; // 56 ticks
-                    case 3 -> 10; // 36 ticks
-                    case 4 -> 50; // 20 ticks
-                };
+                final int speedFactor = InscriberBlockEntity.getSpeedFactor(this.host.getUpgrades().getInstalledUpgrades(AEItems.SPEED_CARD));
                 final int powerConsumption = 10 * speedFactor;
                 final double powerThreshold = powerConsumption - 0.01;
                 double powerReq = this.host.extractAEPower(powerConsumption, Actionable.SIMULATE, PowerMultiplier.CONFIG);
@@ -234,8 +231,7 @@ public class InscriberThread {
         if (this.pushOutResult()) {
             return TickRateModulation.URGENT;
         }
-        return this.hasCraftWork() ? TickRateModulation.URGENT
-                : this.hasAutoExportWork() ? TickRateModulation.SLOWER : TickRateModulation.SLEEP;
+        return this.hasCraftWork() ? TickRateModulation.URGENT : this.hasAutoExportWork() ? TickRateModulation.SLOWER : TickRateModulation.SLEEP;
     }
 
     private boolean pushOutResult() {
@@ -282,6 +278,7 @@ public class InscriberThread {
     }
 
     public class BaseFilter implements IAEItemFilter {
+
         @Override
         public boolean allowInsert(InternalInventory inv, int slot, ItemStack stack) {
             // output slot
@@ -298,8 +295,7 @@ public class InscriberThread {
                 }
             }
 
-            if (inv == sideItemHandler && (AEItems.NAME_PRESS.isSameAs(topItemHandler.getStackInSlot(0))
-                    || AEItems.NAME_PRESS.isSameAs(bottomItemHandler.getStackInSlot(0)))) {
+            if (inv == sideItemHandler && (AEItems.NAME_PRESS.isSameAs(topItemHandler.getStackInSlot(0)) || AEItems.NAME_PRESS.isSameAs(bottomItemHandler.getStackInSlot(0)))) {
                 // can always rename anything
                 return true;
             }
@@ -333,8 +329,7 @@ public class InscriberThread {
                         return true;
                     }
                 } else {
-                    if ((recipe.getTopOptional().test(top) && recipe.getBottomOptional().test(bot))
-                            || (recipe.getBottomOptional().test(top) && recipe.getTopOptional().test(bot))) {
+                    if ((recipe.getTopOptional().test(top) && recipe.getBottomOptional().test(bot)) || (recipe.getBottomOptional().test(top) && recipe.getTopOptional().test(bot))) {
                         return true;
                     }
                 }
@@ -344,6 +339,7 @@ public class InscriberThread {
     }
 
     public class AutomationFilter implements IAEItemFilter {
+
         @Override
         public boolean allowExtract(InternalInventory inv, int slot, int amount) {
             if (slot == 1) {
@@ -366,5 +362,4 @@ public class InscriberThread {
             return !isSmash();
         }
     }
-
 }

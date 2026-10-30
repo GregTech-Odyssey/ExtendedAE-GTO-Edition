@@ -1,5 +1,16 @@
 package com.glodblock.github.extendedae.container;
 
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixBase;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+import com.glodblock.github.extendedae.network.packet.SAssemblerMatrixUpdate;
+
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
 import appeng.api.inventories.InternalInventory;
@@ -8,11 +19,7 @@ import appeng.menu.AEBaseMenu;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.FilteredInternalInventory;
-import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixBase;
-import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
-import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
-import com.glodblock.github.extendedae.network.packet.SAssemblerMatrixUpdate;
+
 import com.glodblock.github.glodium.network.packet.SGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
@@ -20,10 +27,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.Long2ReferenceMap;
 import it.unimi.dsi.fastutil.longs.Long2ReferenceOpenHashMap;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,8 +60,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
     private void setPatternShowMode(String mode) {
         try {
             this.host.getCluster().broadcastConfig(Settings.PATTERN_ACCESS_TERMINAL, YesNo.valueOf(mode), null);
-        } catch (Throwable ignored) {
-        }
+        } catch (Throwable ignored) {}
     }
 
     private void cancel() {
@@ -92,7 +94,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
     @Nullable
     private InternalInventory getAvailableSlot() {
         for (var tr : this.trackerMap.values()) {
-            for (int x = 0; x < tr.server.size(); x ++) {
+            for (int x = 0; x < tr.server.size(); x++) {
                 if (tr.server.getStackInSlot(x).isEmpty()) {
                     return new FilteredInternalInventory(tr.server.getSlotInv(x), new TileAssemblerMatrixPattern.Filter(() -> this.getHost().getLevel()));
                 }
@@ -255,7 +257,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
 
         private Int2ObjectMap<ItemStack> getChangedMap() {
             this.changedMap.clear();
-            for (int x = 0; x < server.size(); x ++) {
+            for (int x = 0; x < server.size(); x++) {
                 var ss = server.getStackInSlot(x);
                 var cs = client.getStackInSlot(x);
                 if (!ItemStack.isSameItemSameTags(ss, cs)) {
@@ -268,7 +270,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
 
         private Int2ObjectMap<ItemStack> getFullMap() {
             this.changedMap.clear();
-            for (int x = 0; x < server.size(); x ++) {
+            for (int x = 0; x < server.size(); x++) {
                 this.changedMap.put(x, server.getStackInSlot(x).copy());
             }
             return this.changedMap;
@@ -286,7 +288,5 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
         public SAssemblerMatrixUpdate fullPacket() {
             return new SAssemblerMatrixUpdate(invHost.getLocateID(), this.getFullMap());
         }
-
     }
-
 }

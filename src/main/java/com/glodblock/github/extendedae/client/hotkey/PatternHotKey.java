@@ -1,9 +1,8 @@
 package com.glodblock.github.extendedae.client.hotkey;
 
-import appeng.crafting.pattern.EncodedPatternItem;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 import com.glodblock.github.extendedae.network.packet.CPatternKey;
-import com.mojang.blaze3d.platform.InputConstants;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -12,6 +11,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+
+import appeng.crafting.pattern.EncodedPatternItem;
+
+import com.mojang.blaze3d.platform.InputConstants;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
@@ -50,5 +53,4 @@ public class PatternHotKey {
     public static KeyMapping getHotKey() {
         return VIEW_PATTERN;
     }
-
 }

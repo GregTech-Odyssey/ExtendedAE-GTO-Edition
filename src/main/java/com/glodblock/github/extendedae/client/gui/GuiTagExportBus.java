@@ -1,5 +1,12 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.client.gui.widget.MultilineTextFieldWidget;
+import com.glodblock.github.extendedae.container.ContainerTagExportBus;
+import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.api.config.RedstoneMode;
 import appeng.api.config.Settings;
 import appeng.client.gui.implementations.UpgradeableScreen;
@@ -7,12 +14,8 @@ import appeng.client.gui.style.ScreenStyle;
 import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
 import appeng.core.definitions.AEItems;
-import com.glodblock.github.extendedae.client.gui.widget.MultilineTextFieldWidget;
-import com.glodblock.github.extendedae.container.ContainerTagExportBus;
-import com.glodblock.github.extendedae.network.EPPNetworkHandler;
+
 import com.glodblock.github.glodium.network.packet.CGenericPacket;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 
 import java.util.regex.Pattern;
 
@@ -67,5 +70,4 @@ public class GuiTagExportBus extends UpgradeableScreen<ContainerTagExportBus> {
         }
         return super.mouseClicked(xCoord, yCoord, btn);
     }
-
 }

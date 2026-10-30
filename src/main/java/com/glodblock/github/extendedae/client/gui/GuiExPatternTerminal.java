@@ -1,5 +1,26 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.client.button.HighlightButton;
+import com.glodblock.github.extendedae.container.ContainerExPatternTerminal;
+import com.glodblock.github.extendedae.util.FCUtil;
+import com.glodblock.github.extendedae.util.MessageUtil;
+
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.locale.Language;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+
 import appeng.api.config.Settings;
 import appeng.api.config.ShowPatternProviders;
 import appeng.api.config.TerminalStyle;
@@ -23,29 +44,11 @@ import appeng.core.sync.network.NetworkHandler;
 import appeng.core.sync.packets.InventoryActionPacket;
 import appeng.crafting.pattern.EncodedPatternItem;
 import appeng.helpers.InventoryAction;
-import com.glodblock.github.extendedae.client.button.HighlightButton;
-import com.glodblock.github.extendedae.container.ContainerExPatternTerminal;
-import com.glodblock.github.extendedae.util.FCUtil;
-import com.glodblock.github.extendedae.util.MessageUtil;
+
 import com.google.common.collect.HashMultimap;
 import it.unimi.dsi.fastutil.Hash;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenCustomHashSet;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.renderer.Rect2i;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.locale.Language;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -55,6 +58,7 @@ import java.util.*;
 
 // 1.12holic
 public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends AEBaseScreen<T> {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GuiExPatternTerminal.class);
 
     private static final int GUI_WIDTH = 209;
@@ -125,6 +129,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     private final HashMap<Integer, PatternSearchData> patternSearchCache = new HashMap<>();
     private boolean needsRefresh = false;
     private final Set<ItemStack> matchedStack = new ObjectOpenCustomHashSet<>(new Hash.Strategy<>() {
+
         @Override
         public int hashCode(ItemStack o) {
             return o.getItem().hashCode() ^ (o.hasTag() ? o.getTag().hashCode() : 0xFFFFFFFF);
@@ -195,7 +200,10 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
 
         super.init();
         this.setInitialFocus(this.searchOutField);
-        this.highlightBtns.forEach((k, v) -> {v.setVisibility(false); addRenderableWidget(v);});
+        this.highlightBtns.forEach((k, v) -> {
+            v.setVisibility(false);
+            addRenderableWidget(v);
+        });
 
         // numLines may have changed, recalculate scroll bar.
         this.resetScrollbar();
@@ -204,7 +212,6 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     @Override
     public void drawFG(GuiGraphics guiGraphics, int offsetX, int offsetY, int mouseX,
                        int mouseY) {
-
         this.menu.slots.removeIf(slot -> slot instanceof PatternSlot);
         this.highlightBtns.forEach((key, value) -> value.setVisibility(false));
 
@@ -323,8 +330,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
 
             switch (clickType) {
                 case PICKUP: // pickup / set-down.
-                    action = mouseButton == 1 ? InventoryAction.SPLIT_OR_PLACE_SINGLE
-                            : InventoryAction.PICKUP_OR_SET_DOWN;
+                    action = mouseButton == 1 ? InventoryAction.SPLIT_OR_PLACE_SINGLE : InventoryAction.PICKUP_OR_SET_DOWN;
                     break;
                 case QUICK_MOVE:
                     action = mouseButton == 1 ? InventoryAction.PICKUP_SINGLE : InventoryAction.SHIFT_CLICK;
@@ -549,7 +555,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
             Collections.sort(containers);
             for (var container : containers) {
                 var inventory = container.getInventory();
-                //noinspection SizeReplaceableByIsEmpty
+                // noinspection SizeReplaceableByIsEmpty
                 if (inventory.size() > 0) {
                     var info = this.infoMap.get(container.getServerId());
                     if (info != null) {
@@ -723,23 +729,23 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
         guiGraphics.blit(texture, offsetX, offsetY, srcRect.getX(), srcRect.getY(), srcRect.getWidth(), srcRect.getHeight());
     }
 
-    sealed interface Row { }
+    sealed interface Row {}
 
     /**
      * A row containing a header for a group.
      */
-    record GroupHeaderRow(PatternContainerGroup group) implements Row { }
+    record GroupHeaderRow(PatternContainerGroup group) implements Row {}
 
     /**
      * A row containing slots for a subset of a pattern container inventory.
      */
-    record SlotsRow(PatternContainerRecord container, int offset, int slots) implements Row { }
+    record SlotsRow(PatternContainerRecord container, int offset, int slots) implements Row {}
 
-    public record PatternProviderInfo(@Nullable BlockPos pos, @Nullable Direction face, @Nullable ResourceKey<Level> world) { }
+    public record PatternProviderInfo(@Nullable BlockPos pos, @Nullable Direction face, @Nullable ResourceKey<Level> world) {}
 
     /**
      * Cached search data for a pattern, storing pre-tokenized output and input names.
      * This avoids expensive pattern.decode() calls on every search keystroke.
      */
-    record PatternSearchData(List<List<String>> outputTokens, List<List<String>> inputTokens) { }
+    record PatternSearchData(List<List<String>> outputTokens, List<List<String>> inputTokens) {}
 }

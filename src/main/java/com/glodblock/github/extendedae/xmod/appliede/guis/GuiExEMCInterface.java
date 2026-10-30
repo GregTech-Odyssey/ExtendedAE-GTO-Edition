@@ -1,26 +1,23 @@
 package com.glodblock.github.extendedae.xmod.appliede.guis;
 
-import appeng.api.config.FuzzyMode;
-import appeng.api.config.Settings;
-import appeng.client.gui.Icon;
-import appeng.client.gui.implementations.UpgradeableScreen;
-import appeng.client.gui.style.PaletteColor;
-import appeng.client.gui.style.ScreenStyle;
-import appeng.client.gui.widgets.IconButton;
-import appeng.client.gui.widgets.ServerSettingToggleButton;
-import appeng.client.gui.widgets.SettingToggleButton;
-import appeng.core.definitions.AEItems;
-import appeng.core.localization.ButtonToolTips;
 import com.glodblock.github.extendedae.client.ExSemantics;
 import com.glodblock.github.extendedae.client.button.ActionEPPButton;
 import com.glodblock.github.extendedae.client.button.EPPIcon;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 import com.glodblock.github.extendedae.network.packet.CUpdatePage;
 import com.glodblock.github.extendedae.xmod.appliede.containers.ContainerExEMCInterface;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import appeng.client.gui.Icon;
+import appeng.client.gui.implementations.UpgradeableScreen;
+import appeng.client.gui.style.PaletteColor;
+import appeng.client.gui.style.ScreenStyle;
+import appeng.client.gui.widgets.IconButton;
+import appeng.core.localization.ButtonToolTips;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +64,7 @@ public class GuiExEMCInterface extends UpgradeableScreen<ContainerExEMCInterface
                 8,
                 24,
                 style.getColor(PaletteColor.DEFAULT_TEXT_COLOR).toARGB(),
-                false
-        );
+                false);
     }
 
     @Override
@@ -94,6 +90,7 @@ public class GuiExEMCInterface extends UpgradeableScreen<ContainerExEMCInterface
     }
 
     static class SetAmountButton extends IconButton {
+
         public SetAmountButton(OnPress onPress) {
             super(onPress);
         }

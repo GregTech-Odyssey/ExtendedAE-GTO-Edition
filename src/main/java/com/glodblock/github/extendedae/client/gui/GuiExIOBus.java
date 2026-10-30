@@ -1,14 +1,16 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import com.glodblock.github.extendedae.container.ContainerExIOBus;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+
 import appeng.api.config.*;
 import appeng.client.gui.implementations.UpgradeableScreen;
 import appeng.client.gui.style.ScreenStyle;
 import appeng.client.gui.widgets.ServerSettingToggleButton;
 import appeng.client.gui.widgets.SettingToggleButton;
 import appeng.core.definitions.AEItems;
-import com.glodblock.github.extendedae.container.ContainerExIOBus;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 
 public class GuiExIOBus extends UpgradeableScreen<ContainerExIOBus> {
 
@@ -56,5 +58,4 @@ public class GuiExIOBus extends UpgradeableScreen<ContainerExIOBus> {
             this.schedulingMode.set(menu.getSchedulingMode());
         }
     }
-
 }

@@ -1,5 +1,24 @@
 package com.glodblock.github.extendedae.common.tileentities.matrix;
 
+import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixBase;
+import com.glodblock.github.extendedae.common.me.matrix.CalculatorAssemblerMatrix;
+import com.glodblock.github.extendedae.common.me.matrix.ClusterAssemblerMatrix;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.EmptyHandler;
+
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
 import appeng.api.implementations.IPowerChannelState;
@@ -15,24 +34,7 @@ import appeng.me.cluster.IAEMultiBlock;
 import appeng.util.ConfigManager;
 import appeng.util.inv.CombinedInternalInventory;
 import appeng.util.iterators.ChainedIterator;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixBase;
-import com.glodblock.github.extendedae.common.me.matrix.CalculatorAssemblerMatrix;
-import com.glodblock.github.extendedae.common.me.matrix.ClusterAssemblerMatrix;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.EmptyHandler;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -78,10 +80,7 @@ public abstract class TileAssemblerMatrixBase extends AENetworkBlockEntity imple
     }
 
     @Override
-    protected Item getItemFromBlockEntity() {
-        if (this.level == null) {
-            return Items.AIR;
-        }
+    public Item getItemFromBlockEntity() {
         return getMatrixBlock().getPresentItem();
     }
 
@@ -270,5 +269,4 @@ public abstract class TileAssemblerMatrixBase extends AENetworkBlockEntity imple
         }
         return nodes.iterator();
     }
-
 }

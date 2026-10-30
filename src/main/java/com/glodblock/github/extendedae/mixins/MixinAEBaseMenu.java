@@ -1,11 +1,14 @@
 package com.glodblock.github.extendedae.mixins;
 
+import com.glodblock.github.extendedae.client.ExSemantics;
+import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
+
+import net.minecraft.world.inventory.Slot;
+
 import appeng.menu.AEBaseMenu;
 import appeng.menu.SlotSemantic;
 import appeng.menu.SlotSemantics;
-import com.glodblock.github.extendedae.client.ExSemantics;
-import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
-import net.minecraft.world.inventory.Slot;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,22 +29,20 @@ public abstract class MixinAEBaseMenu {
             method = "isPlayerSideSlot",
             at = @At("HEAD"),
             remap = false,
-            cancellable = true
-    )
+            cancellable = true)
     private void checkPlayerSide(Slot slot, CallbackInfoReturnable<Boolean> cir) {
         if (((Object) this) instanceof ContainerExCraftingTerminal) {
             var sem = this.semanticBySlot.get(slot);
             if (sem == SlotSemantics.CRAFTING_GRID ||
-                sem == SlotSemantics.STONECUTTING_INPUT ||
-                sem == SlotSemantics.SMITHING_TABLE_TEMPLATE ||
-                sem == SlotSemantics.SMITHING_TABLE_BASE ||
-                sem == SlotSemantics.SMITHING_TABLE_ADDITION ||
-                sem == ExSemantics.EX_2 ||
-                sem == ExSemantics.EX_3) {
+                    sem == SlotSemantics.STONECUTTING_INPUT ||
+                    sem == SlotSemantics.SMITHING_TABLE_TEMPLATE ||
+                    sem == SlotSemantics.SMITHING_TABLE_BASE ||
+                    sem == SlotSemantics.SMITHING_TABLE_ADDITION ||
+                    sem == ExSemantics.EX_2 ||
+                    sem == ExSemantics.EX_3) {
                 cir.setReturnValue(true);
                 cir.cancel();
             }
         }
     }
-
 }

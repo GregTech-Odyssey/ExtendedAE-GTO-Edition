@@ -5,5 +5,4 @@ public interface MutableSlot {
     void setXPos(int x);
 
     void setYPos(int y);
-
 }

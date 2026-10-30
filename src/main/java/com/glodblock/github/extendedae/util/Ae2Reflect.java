@@ -1,5 +1,13 @@
 package com.glodblock.github.extendedae.util;
 
+import com.glodblock.github.extendedae.util.helper.CraftingRecipePattern;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.phys.BlockHitResult;
+
 import appeng.api.behaviors.StackTransferContext;
 import appeng.api.networking.IGrid;
 import appeng.api.networking.energy.IEnergyService;
@@ -18,13 +26,8 @@ import appeng.parts.automation.ExportBusPart;
 import appeng.parts.automation.IOBusPart;
 import appeng.util.ConfigInventory;
 import appeng.util.inv.AppEngInternalInventory;
-import com.glodblock.github.extendedae.util.helper.CraftingRecipePattern;
+
 import com.glodblock.github.glodium.reflect.ReflectKit;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.phys.BlockHitResult;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -167,5 +170,4 @@ public class Ae2Reflect {
     public static void onInterfaceStorageChange(InterfaceLogic owner) {
         ReflectKit.executeMethod(owner, mInterfaceLogic_onStorageChanged);
     }
-
 }

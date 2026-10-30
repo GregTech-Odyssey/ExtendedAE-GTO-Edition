@@ -8,5 +8,4 @@ public interface CraftingRecipePattern {
     ItemStack getOutput();
 
     CraftingRecipe getRecipeHolder();
-
 }

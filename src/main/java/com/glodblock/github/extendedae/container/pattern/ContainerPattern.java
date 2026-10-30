@@ -1,11 +1,5 @@
 package com.glodblock.github.extendedae.container.pattern;
 
-import appeng.api.crafting.IPatternDetails;
-import appeng.api.stacks.AEItemKey;
-import appeng.api.stacks.GenericStack;
-import appeng.crafting.pattern.EncodedPatternItem;
-import appeng.items.misc.WrappedGenericStack;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +8,14 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
+import appeng.api.crafting.IPatternDetails;
+import appeng.api.stacks.AEItemKey;
+import appeng.api.stacks.GenericStack;
+import appeng.crafting.pattern.EncodedPatternItem;
+import appeng.items.misc.WrappedGenericStack;
+
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,7 +72,7 @@ public abstract class ContainerPattern extends AbstractContainerMenu {
         int i = 0;
         for (var tmp : set) {
             c[i] = tmp;
-            i ++;
+            i++;
         }
         return c;
     }
@@ -91,7 +93,7 @@ public abstract class ContainerPattern extends AbstractContainerMenu {
                 var genStack = stacks.get(index);
                 this.displays = new ItemStack[genStack.length];
                 if (genStack.length > 0) {
-                    for (int i = 0; i < genStack.length; i ++) {
+                    for (int i = 0; i < genStack.length; i++) {
                         this.displays[i] = getAsItem(genStack[i]);
                     }
                 }
@@ -150,7 +152,5 @@ public abstract class ContainerPattern extends AbstractContainerMenu {
             }
             return GenericStack.wrapInItemStack(stack);
         }
-
     }
-
 }

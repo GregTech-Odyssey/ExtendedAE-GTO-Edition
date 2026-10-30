@@ -1,19 +1,22 @@
 package com.glodblock.github.extendedae.network.packet;
 
-import appeng.crafting.pattern.CraftingPatternItem;
-import appeng.crafting.pattern.ProcessingPatternItem;
-import appeng.crafting.pattern.SmithingTablePatternItem;
-import appeng.crafting.pattern.StonecuttingPatternItem;
 import com.glodblock.github.extendedae.container.pattern.ContainerCraftingPattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerProcessingPattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerSmithingTablePattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerStonecuttingPattern;
 import com.glodblock.github.extendedae.container.pattern.PatternGuiHandler;
-import com.glodblock.github.glodium.network.packet.IMessage;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+
+import appeng.crafting.pattern.CraftingPatternItem;
+import appeng.crafting.pattern.ProcessingPatternItem;
+import appeng.crafting.pattern.SmithingTablePatternItem;
+import appeng.crafting.pattern.StonecuttingPatternItem;
+
+import com.glodblock.github.glodium.network.packet.IMessage;
 
 public class CPatternKey implements IMessage<CPatternKey> {
 

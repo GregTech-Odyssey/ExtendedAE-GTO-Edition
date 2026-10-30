@@ -1,19 +1,22 @@
 package com.glodblock.github.extendedae.mixins;
 
-import appeng.api.networking.IGrid;
-import appeng.helpers.patternprovider.PatternContainer;
-import appeng.menu.AEBaseMenu;
-import appeng.menu.implementations.PatternAccessTermMenu;
-import appeng.parts.AEBasePart;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 import com.glodblock.github.extendedae.network.packet.SExPatternInfo;
 import com.glodblock.github.extendedae.util.Ae2Reflect;
 import com.glodblock.github.extendedae.xmod.LoadList;
 import com.glodblock.github.extendedae.xmod.gregtech.MetaTileResolver;
+
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
+import appeng.api.networking.IGrid;
+import appeng.helpers.patternprovider.PatternContainer;
+import appeng.menu.AEBaseMenu;
+import appeng.menu.implementations.PatternAccessTermMenu;
+import appeng.parts.AEBasePart;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,8 +37,7 @@ public abstract class MixinPatternAccessTermMenu extends AEBaseMenu {
     @Inject(
             method = "sendFullUpdate",
             at = @At("TAIL"),
-            remap = false
-    )
+            remap = false)
     private void sendTileInfo(IGrid grid, CallbackInfo ci) {
         if (this.getPlayer() instanceof ServerPlayer player) {
             for (var inv : diList.values()) {
@@ -55,5 +57,4 @@ public abstract class MixinPatternAccessTermMenu extends AEBaseMenu {
     public MixinPatternAccessTermMenu(MenuType<?> menuType, int id, Inventory playerInventory, Object host) {
         super(menuType, id, playerInventory, host);
     }
-
 }

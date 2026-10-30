@@ -2,6 +2,7 @@ package com.glodblock.github.extendedae.recipe;
 
 import com.glodblock.github.extendedae.recipe.util.FluidIngredient;
 import com.glodblock.github.extendedae.recipe.util.IngredientStack;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -87,5 +88,4 @@ public class CircuitCutterRecipeBuilder {
         var recipe = new CircuitCutterRecipe(id, this.output, this.input, this.fluid);
         consumer.accept(CircuitCutterRecipeSerializer.RESULT.result(id, recipe));
     }
-
 }

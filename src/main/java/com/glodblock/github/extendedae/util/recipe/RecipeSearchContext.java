@@ -1,12 +1,14 @@
 package com.glodblock.github.extendedae.util.recipe;
 
 import com.glodblock.github.extendedae.util.RecipeManagerAccessor;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -125,5 +127,4 @@ public abstract class RecipeSearchContext<C extends Container, T extends Recipe<
     private Map<ResourceLocation, T> getRecipeMap(Level world) {
         return ((RecipeManagerAccessor) world.getRecipeManager()).getByType(this.type);
     }
-
 }

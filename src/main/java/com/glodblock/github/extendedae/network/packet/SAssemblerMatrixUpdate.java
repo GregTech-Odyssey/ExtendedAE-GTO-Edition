@@ -1,13 +1,15 @@
 package com.glodblock.github.extendedae.network.packet;
 
 import com.glodblock.github.extendedae.client.gui.GuiAssemblerMatrix;
-import com.glodblock.github.glodium.network.packet.IMessage;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+
+import com.glodblock.github.glodium.network.packet.IMessage;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
 public class SAssemblerMatrixUpdate implements IMessage<SAssemblerMatrixUpdate> {
 
@@ -39,7 +41,7 @@ public class SAssemblerMatrixUpdate implements IMessage<SAssemblerMatrixUpdate> 
         this.patternID = buf.readLong();
         this.updateMap = new Int2ObjectOpenHashMap<>();
         int size = buf.readInt();
-        for (int i = 0; i < size; i ++) {
+        for (int i = 0; i < size; i++) {
             this.updateMap.put(buf.readInt(), buf.readItem());
         }
     }
@@ -60,5 +62,4 @@ public class SAssemblerMatrixUpdate implements IMessage<SAssemblerMatrixUpdate> 
     public Class<SAssemblerMatrixUpdate> getPacketClass() {
         return SAssemblerMatrixUpdate.class;
     }
-
 }

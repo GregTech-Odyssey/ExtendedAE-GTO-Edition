@@ -1,10 +1,13 @@
 package com.glodblock.github.extendedae.mixins;
 
-import appeng.util.inv.AppEngInternalInventory;
-import appeng.util.inv.InternalInventoryHost;
 import com.glodblock.github.extendedae.util.helper.IntruderInventory;
+
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
+
+import appeng.util.inv.AppEngInternalInventory;
+import appeng.util.inv.InternalInventoryHost;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -41,5 +44,4 @@ public class MixinAppEngInternalInventory implements IntruderInventory {
             this.stacks.set(x, ItemStack.EMPTY);
         }
     }
-
 }

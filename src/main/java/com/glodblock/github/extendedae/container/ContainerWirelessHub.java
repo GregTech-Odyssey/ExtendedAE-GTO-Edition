@@ -1,23 +1,28 @@
 package com.glodblock.github.extendedae.container;
 
-import appeng.menu.guisync.GuiSync;
-import appeng.menu.guisync.PacketWritable;
-import appeng.menu.implementations.MenuTypeBuilder;
-import appeng.menu.implementations.UpgradeableMenu;
 import com.glodblock.github.extendedae.common.me.wireless.WirelessStatus;
 import com.glodblock.github.extendedae.common.tileentities.TileWirelessHub;
-import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
-import com.glodblock.github.glodium.network.packet.sync.Paras;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.function.Consumer;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
+
+import appeng.menu.guisync.GuiSync;
+import appeng.menu.guisync.PacketWritable;
+import appeng.menu.implementations.MenuTypeBuilder;
+import appeng.menu.implementations.UpgradeableMenu;
+
+import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
+import com.glodblock.github.glodium.network.packet.sync.Paras;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Consumer;
+
 public class ContainerWirelessHub extends UpgradeableMenu<TileWirelessHub> implements IActionHolder {
+
     public static final MenuType<ContainerWirelessHub> TYPE = MenuTypeBuilder
             .create(ContainerWirelessHub::new, TileWirelessHub.class)
             .build("wireless_hub");
@@ -96,7 +101,7 @@ public class ContainerWirelessHub extends UpgradeableMenu<TileWirelessHub> imple
 
         public PortStatus(FriendlyByteBuf data) {
             this(new Status[TileWirelessHub.MAX_PORT]);
-            for (int i = 0; i < TileWirelessHub.MAX_PORT; i ++) {
+            for (int i = 0; i < TileWirelessHub.MAX_PORT; i++) {
                 this.statuses[i] = Status.readFromPacket(data);
             }
         }
@@ -111,7 +116,7 @@ public class ContainerWirelessHub extends UpgradeableMenu<TileWirelessHub> imple
 
         @Override
         public void writeToPacket(FriendlyByteBuf data) {
-            for (int i = 0; i < TileWirelessHub.MAX_PORT; i ++) {
+            for (int i = 0; i < TileWirelessHub.MAX_PORT; i++) {
                 this.statuses[i].writeToPacket(data);
             }
         }
@@ -143,8 +148,6 @@ public class ContainerWirelessHub extends UpgradeableMenu<TileWirelessHub> imple
                 data.writeLong(this.pos);
                 data.writeEnum(this.status);
             }
-
         }
-
     }
 }

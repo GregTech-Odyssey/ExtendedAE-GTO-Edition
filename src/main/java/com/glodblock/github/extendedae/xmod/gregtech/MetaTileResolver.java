@@ -1,8 +1,9 @@
 package com.glodblock.github.extendedae.xmod.gregtech;
 
-import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+
+import com.gregtechceu.gtceu.api.machine.MetaMachine;
 
 public class MetaTileResolver {
 
@@ -17,5 +18,4 @@ public class MetaTileResolver {
     public static Level getLevel(Object mte) {
         return ((MetaMachine) mte).getLevel();
     }
-
 }

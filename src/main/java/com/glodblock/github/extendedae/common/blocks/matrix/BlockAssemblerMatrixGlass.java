@@ -2,10 +2,12 @@ package com.glodblock.github.extendedae.common.blocks.matrix;
 
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixGlass;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 public class BlockAssemblerMatrixGlass extends BlockAssemblerMatrixBase<TileAssemblerMatrixGlass> {
@@ -28,5 +30,4 @@ public class BlockAssemblerMatrixGlass extends BlockAssemblerMatrixBase<TileAsse
     public Item getPresentItem() {
         return EPPItemAndBlock.ASSEMBLER_MATRIX_GLASS.asItem();
     }
-
 }

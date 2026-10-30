@@ -1,12 +1,15 @@
 package com.glodblock.github.extendedae.container.pattern;
 
-import appeng.api.stacks.GenericStack;
-import appeng.crafting.pattern.AEProcessingPattern;
 import com.glodblock.github.extendedae.ExtendedAE;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
+import appeng.api.stacks.GenericStack;
+import appeng.crafting.pattern.AEProcessingPattern;
+
 import org.jetbrains.annotations.Nullable;
 
 public class ContainerProcessingPattern extends ContainerPattern {
@@ -16,13 +19,13 @@ public class ContainerProcessingPattern extends ContainerPattern {
 
     public ContainerProcessingPattern(@Nullable MenuType<?> menuType, int id, Level world, ItemStack stack) {
         super(TYPE, world, id, stack);
-        for (int row = 0; row < 9; row ++) {
-            for (int col = 0; col < 9; col ++) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
                 this.addSlot(new DisplayOnlySlot(this, this.inputs, row * 9 + col, 8 + col * 18, 9 + row * 18));
             }
         }
-        for (int row = 0; row < 3; row ++) {
-            for (int col = 0; col < 9; col ++) {
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 9; col++) {
                 this.addSlot(new DisplayOnlySlot(this, this.outputs, row * 9 + col, 8 + col * 18, 189 + row * 18));
             }
         }
@@ -37,7 +40,7 @@ public class ContainerProcessingPattern extends ContainerPattern {
                     this.inputs.add(new GenericStack[0]);
                     continue;
                 }
-                var inStacks = new GenericStack[] {new GenericStack(in.what(), in.amount())};
+                var inStacks = new GenericStack[] { new GenericStack(in.what(), in.amount()) };
                 this.inputs.add(inStacks);
             }
             var rawOutputs = pattern.getSparseOutputs();
@@ -46,12 +49,11 @@ public class ContainerProcessingPattern extends ContainerPattern {
                     this.outputs.add(new GenericStack[0]);
                     continue;
                 }
-                var outStacks = new GenericStack[] {new GenericStack(out.what(), out.amount())};
+                var outStacks = new GenericStack[] { new GenericStack(out.what(), out.amount()) };
                 this.outputs.add(outStacks);
             }
         } else {
             this.invalidate();
         }
     }
-
 }

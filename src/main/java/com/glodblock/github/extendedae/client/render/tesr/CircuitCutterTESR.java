@@ -1,13 +1,16 @@
 package com.glodblock.github.extendedae.client.render.tesr;
 
-import appeng.client.render.renderable.ItemRenderable;
-import appeng.client.render.tesr.ModularTESR;
 import com.glodblock.github.extendedae.common.tileentities.TileCircuitCutter;
-import com.glodblock.github.glodium.util.GlodUtil;
-import com.mojang.math.Transformation;
+
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+
+import appeng.client.render.renderable.ItemRenderable;
+import appeng.client.render.tesr.ModularTESR;
+
+import com.glodblock.github.glodium.util.GlodUtil;
+import com.mojang.math.Transformation;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Quaternionf;
@@ -38,5 +41,4 @@ public class CircuitCutterTESR extends ModularTESR<TileCircuitCutter> {
                         new Quaternionf().rotateYXZ(0, -HALF_PI, 0),
                         null, null);
     }
-
 }

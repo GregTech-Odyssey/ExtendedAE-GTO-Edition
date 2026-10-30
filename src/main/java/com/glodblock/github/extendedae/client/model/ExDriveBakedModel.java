@@ -1,10 +1,5 @@
 package com.glodblock.github.extendedae.client.model;
 
-import appeng.client.render.DelegateBakedModel;
-import appeng.client.render.model.DriveModelData;
-import appeng.thirdparty.fabric.MutableQuadView;
-import appeng.thirdparty.fabric.RenderContext;
-import com.mojang.math.Transformation;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
@@ -14,16 +9,25 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
+
+import appeng.client.render.DelegateBakedModel;
+import appeng.client.render.model.DriveModelData;
+import appeng.thirdparty.fabric.MutableQuadView;
+import appeng.thirdparty.fabric.RenderContext;
+
+import com.mojang.math.Transformation;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 public class ExDriveBakedModel extends DelegateBakedModel {
+
     private final Map<Item, BakedModel> cellModels;
     private final Map<Item, BakedModel> invertCellModels;
     private final BakedModel defaultCellModel;
@@ -130,6 +134,7 @@ public class ExDriveBakedModel extends DelegateBakedModel {
     }
 
     private static class QuadTranslator implements RenderContext.QuadTransform {
+
         private final float x;
         private final float y;
         private final float z;

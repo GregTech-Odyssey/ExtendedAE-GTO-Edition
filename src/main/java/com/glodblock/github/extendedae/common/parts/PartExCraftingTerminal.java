@@ -1,21 +1,24 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.api.CraftingMode;
+import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
+import com.glodblock.github.extendedae.util.FCUtil;
+import com.glodblock.github.extendedae.util.helper.ExtendedCraftingTerminal;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.inventories.InternalInventory;
 import appeng.api.parts.IPartItem;
 import appeng.api.parts.IPartModel;
 import appeng.parts.PartModel;
 import appeng.parts.reporting.AbstractTerminalPart;
 import appeng.util.inv.AppEngInternalInventory;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.api.CraftingMode;
-import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
-import com.glodblock.github.extendedae.util.FCUtil;
-import com.glodblock.github.extendedae.util.helper.ExtendedCraftingTerminal;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -25,8 +28,7 @@ public class PartExCraftingTerminal extends AbstractTerminalPart implements Exte
 
     public static List<ResourceLocation> MODELS = Arrays.asList(
             new ResourceLocation(ExtendedAE.MODID, "part/ex_crafting_terminal_off"),
-            new ResourceLocation(ExtendedAE.MODID, "part/ex_crafting_terminal_on")
-    );
+            new ResourceLocation(ExtendedAE.MODID, "part/ex_crafting_terminal_on"));
 
     public static final IPartModel MODELS_OFF = new PartModel(MODEL_BASE, MODELS.get(0), MODEL_STATUS_OFF);
     public static final IPartModel MODELS_ON = new PartModel(MODEL_BASE, MODELS.get(1), MODEL_STATUS_ON);
@@ -140,5 +142,4 @@ public class PartExCraftingTerminal extends AbstractTerminalPart implements Exte
         }
         return super.getSubInventory(id);
     }
-
 }

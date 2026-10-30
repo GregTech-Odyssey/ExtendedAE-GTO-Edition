@@ -1,5 +1,16 @@
 package com.glodblock.github.extendedae.common.parts.base;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.phys.Vec3;
+
 import appeng.api.behaviors.ExternalStorageStrategy;
 import appeng.api.config.AccessRestriction;
 import appeng.api.config.IncludeExclude;
@@ -42,16 +53,7 @@ import appeng.parts.automation.StackWorldBehaviors;
 import appeng.parts.automation.UpgradeablePart;
 import appeng.util.Platform;
 import appeng.util.prioritylist.IPartitionList;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -230,8 +232,7 @@ public abstract class PartSpecialStorageBus extends UpgradeablePart implements I
             this.updateStatus = PendingUpdateStatus.SLOW_UPDATE;
         }
 
-        if (!forceFullUpdate && this.handler.getDelegate() instanceof CompositeStorage compositeStorage
-                && !foundExternalApi.isEmpty()) {
+        if (!forceFullUpdate && this.handler.getDelegate() instanceof CompositeStorage compositeStorage && !foundExternalApi.isEmpty()) {
             // Just update the inventory reference, the ticking monitor will take care of the rest.
             compositeStorage.setStorages(foundExternalApi);
             handlerDescription = compositeStorage.getDescription();
@@ -261,8 +262,7 @@ public abstract class PartSpecialStorageBus extends UpgradeablePart implements I
 
         // Apply other settings.
         this.handler.setAccessRestriction(this.getConfigManager().getSetting(Settings.ACCESS));
-        this.handler.setWhitelist(isUpgradedWith(AEItems.INVERTER_CARD) ? IncludeExclude.BLACKLIST
-                : IncludeExclude.WHITELIST);
+        this.handler.setWhitelist(isUpgradedWith(AEItems.INVERTER_CARD) ? IncludeExclude.BLACKLIST : IncludeExclude.WHITELIST);
 
         this.handler.setPartitionList(createFilter());
         this.handler.setVoidOverflow(this.isUpgradedWith(AEItems.VOID_CARD));
@@ -383,6 +383,7 @@ public abstract class PartSpecialStorageBus extends UpgradeablePart implements I
     }
 
     public static class StorageBusInventory extends MEInventoryHandler {
+
         public StorageBusInventory(MEStorage inventory) {
             super(inventory);
         }
@@ -408,5 +409,4 @@ public abstract class PartSpecialStorageBus extends UpgradeablePart implements I
         SLOW_UPDATE,
         NO_UPDATE
     }
-
 }

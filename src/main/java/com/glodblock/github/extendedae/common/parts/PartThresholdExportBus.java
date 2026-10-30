@@ -1,5 +1,15 @@
 package com.glodblock.github.extendedae.common.parts;
 
+import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.api.ThresholdMode;
+import com.glodblock.github.extendedae.container.ContainerThresholdExportBus;
+import com.glodblock.github.extendedae.util.Ae2Reflect;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+
 import appeng.api.config.Settings;
 import appeng.api.networking.IGrid;
 import appeng.api.networking.storage.IStorageService;
@@ -12,14 +22,7 @@ import appeng.parts.automation.ExportBusPart;
 import appeng.parts.automation.StackWorldBehaviors;
 import appeng.util.ConfigInventory;
 import appeng.util.SettingsFrom;
-import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.api.ThresholdMode;
-import com.glodblock.github.extendedae.container.ContainerThresholdExportBus;
-import com.glodblock.github.extendedae.util.Ae2Reflect;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.MenuType;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,8 +35,7 @@ public class PartThresholdExportBus extends ExportBusPart {
             new ResourceLocation(ExtendedAE.MODID, "part/threshold_export_bus_base"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/export_bus_on"),
             new ResourceLocation(AppEngBase.MOD_ID, "part/export_bus_off"),
-            new ResourceLocation(AppEngBase.MOD_ID, "part/export_bus_has_channel")
-    );
+            new ResourceLocation(AppEngBase.MOD_ID, "part/export_bus_has_channel"));
 
     public static final PartModel MODELS_OFF = new PartModel(MODELS.get(0), MODELS.get(2));
     public static final PartModel MODELS_ON = new PartModel(MODELS.get(0), MODELS.get(1));
@@ -146,5 +148,4 @@ public class PartThresholdExportBus extends ExportBusPart {
     protected MenuType<?> getMenuType() {
         return ContainerThresholdExportBus.TYPE;
     }
-
 }
