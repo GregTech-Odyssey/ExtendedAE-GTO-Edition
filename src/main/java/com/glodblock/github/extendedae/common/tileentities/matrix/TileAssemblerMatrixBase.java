@@ -78,7 +78,7 @@ public abstract class TileAssemblerMatrixBase extends AENetworkBlockEntity imple
     }
 
     @Override
-    protected Item getItemFromBlockEntity() {
+    public Item getItemFromBlockEntity() {
         if (this.level == null) {
             return Items.AIR;
         }

@@ -9,6 +9,7 @@ import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKey;
 import appeng.api.stacks.AEKeyType;
 import appeng.util.prioritylist.IPartitionList;
+import gto_ae.helpers.facility_management.ThroughputCounter;
 
 @SuppressWarnings({"UnstableApiUsage", "NonExtendableApiUsage"})
 public class ModStackTransferContext implements StackTransferContext {
@@ -101,5 +102,14 @@ public class ModStackTransferContext implements StackTransferContext {
     @Override
     public void reduceOperationsRemaining(long inserted) {
         operationsRemaining -= inserted;
+    }
+
+    /**
+     * Added to {@link StackTransferContext} by the GT Odyssey AE2 fork. The actual throughput counter is
+     * supplied at runtime by the fork's EAE compat layer (gto_ae.compat.extendedae.EAEStackTransferContext).
+     */
+    @Override
+    public ThroughputCounter getStats() {
+        return null;
     }
 }

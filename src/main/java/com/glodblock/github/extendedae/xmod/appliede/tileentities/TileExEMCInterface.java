@@ -29,7 +29,7 @@ public class TileExEMCInterface extends EMCInterfaceBlockEntity implements IPage
     }
 
     @Override
-    protected Item getItemFromBlockEntity() {
+    public Item getItemFromBlockEntity() {
         return EPPItemAndBlock.EX_EMC_INTERFACE.asItem();
     }
 

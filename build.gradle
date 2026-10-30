@@ -17,7 +17,8 @@ base {
     archivesName = mod_name
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+// The GT Odyssey AE2 fork is built for Java 21, so this mod has to target it as well.
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 legacyForge {
 
@@ -65,6 +66,10 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
+        name = "GT Odyssey"
+        url = "https://gtodyssey.com/maven/releases"
+    }
+    maven {
         url = "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -99,7 +104,7 @@ repositories {
 
 dependencies {
     modImplementation "curse.maven:glodium-957920:5006780"
-    modImplementation "appeng:appliedenergistics2-forge:15.4.2"
+    modImplementation "appeng:appliedenergistics2-forge-1.20.1:${ae2_version}"
     modImplementation "org.appliedenergistics:guideme:20.1.7"
     modCompileOnly "curse.maven:applied-energistics-2-wireless-terminals-459929:5162352"
     modCompileOnly "mezz.jei:jei-1.20.1-forge:15.0.0.12"
@@ -159,6 +164,7 @@ tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
             forge_version       : forge_version, forge_version_range: forge_version_range,
+            ae2_version_range   : ae2_version_range,
             loader_version_range: loader_version_range,
             mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
             mod_authors         : mod_authors, mod_description: mod_description

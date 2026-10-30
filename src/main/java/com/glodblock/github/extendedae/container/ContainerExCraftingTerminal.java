@@ -4,6 +4,7 @@ import appeng.api.config.Actionable;
 import appeng.api.inventories.InternalInventory;
 import appeng.api.stacks.AEFluidKey;
 import appeng.api.stacks.AEItemKey;
+import appeng.api.stacks.GenericStack;
 import appeng.core.sync.network.NetworkHandler;
 import appeng.core.sync.packets.InventoryActionPacket;
 import appeng.helpers.IMenuCraftingPacket;
@@ -591,7 +592,7 @@ public class ContainerExCraftingTerminal extends MEStorageMenu implements IMenuC
     }
 
     @Override
-    public void startAutoCrafting(List<AutoCraftEntry> toCraft) {
+    public void startAutoCrafting(List<GenericStack> toCraft) {
         CraftConfirmMenu.openWithCraftingList(getActionHost(), (ServerPlayer) getPlayer(), getLocator(), toCraft);
     }
 

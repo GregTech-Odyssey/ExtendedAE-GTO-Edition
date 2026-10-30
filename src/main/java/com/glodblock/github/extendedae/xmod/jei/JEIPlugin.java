@@ -3,8 +3,6 @@ package com.glodblock.github.extendedae.xmod.jei;
 import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.GenericStack;
 import appeng.client.gui.AEBaseScreen;
-import appeng.integration.modules.jei.ChargerCategory;
-import appeng.integration.modules.jei.GenericEntryStackHelper;
 import appeng.items.misc.WrappedGenericStack;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.client.gui.GuiCircuitCutter;
@@ -18,9 +16,9 @@ import com.glodblock.github.extendedae.recipe.CircuitCutterRecipe;
 import com.glodblock.github.extendedae.util.Ae2ReflectClient;
 import com.glodblock.github.extendedae.util.RecipeManagerAccessor;
 import com.glodblock.github.extendedae.xmod.jei.recipe.CircuitCutterCategory;
-import com.glodblock.github.extendedae.xmod.jei.transfer.ExCraftingTransferHandler;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGuiClickableArea;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;
@@ -28,7 +26,6 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IClickableIngredient;
 import mezz.jei.api.runtime.IJeiRuntime;
@@ -37,6 +34,7 @@ import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -71,12 +69,6 @@ public class JEIPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addUniversalRecipeTransferHandler(new ExCraftingTransferHandler<>(ContainerWirelessExCT.TYPE, ContainerWirelessExCT.class, registration.getTransferHelper()));
-        registration.addUniversalRecipeTransferHandler(new ExCraftingTransferHandler<>(ContainerExCraftingTerminal.TYPE, ContainerExCraftingTerminal.class, registration.getTransferHelper()));
-    }
-
-    @Override
     public void registerGuiHandlers(@NotNull IGuiHandlerRegistration registration) {
         registration.addGenericGuiContainerHandler(GuiPattern.class,
                 new IGuiContainerHandler<GuiPattern<?>>() {
@@ -92,7 +84,7 @@ public class JEIPlugin implements IModPlugin {
                                 var amount = item instanceof WrappedGenericStack wgs
                                         ? wgs.unwrapAmount(genStack) : dpSlot.getActualAmount();
                                 if (key != null && amount > 0) {
-                                    var ing = GenericEntryStackHelper.stackToIngredient(jeiRuntime.getIngredientManager(), new GenericStack(key, amount));
+                                    var ing = toTypedIngredient(new GenericStack(key, amount));
                                     var area = new Rect2i(screen.getGuiLeft() + dpSlot.x, screen.getGuiTop() + dpSlot.y, 16, 16);
                                     if (ing != null) {
                                         return Optional.of(new IClickableIngredient<>() {
@@ -138,13 +130,28 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(EPPItemAndBlock.EX_INSCRIBER), Ae2ReflectClient.getInscribeRecipe());
-        registration.addRecipeCatalyst(new ItemStack(EPPItemAndBlock.EX_CHARGER), ChargerCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPPItemAndBlock.CIRCUIT_CUTTER), CircuitCutterCategory.RECIPE_TYPE);
     }
 
     @Override
     public void registerItemSubtypes(@NotNull ISubtypeRegistration registration) {
         registration.useNbtForSubtypes(EPPItemAndBlock.INFINITY_CELL);
+    }
+
+    /**
+     * The AE2 fork dropped JEI's generic-stack helper along with most of its JEI integration, so
+     * convert the keys we can represent ourselves. Fluid pattern slots are not clickable anymore.
+     */
+    private @Nullable ITypedIngredient<?> toTypedIngredient(GenericStack stack) {
+        if (this.jeiRuntime == null) {
+            return null;
+        }
+        if (stack.what() instanceof AEItemKey itemKey) {
+            return this.jeiRuntime.getIngredientManager()
+                    .createTypedIngredient(VanillaTypes.ITEM_STACK, itemKey.toStack())
+                    .orElse(null);
+        }
+        return null;
     }
 
 }

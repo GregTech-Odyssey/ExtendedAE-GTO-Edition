@@ -4,7 +4,6 @@ import appeng.client.gui.widgets.NumberEntryWidget;
 import appeng.recipes.handlers.InscriberRecipe;
 import com.glodblock.github.extendedae.xmod.LoadList;
 import com.glodblock.github.glodium.reflect.ReflectKit;
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -17,7 +16,6 @@ import java.util.List;
 public class Ae2ReflectClient {
 
     private static final Field fInscriberRecipeCategory_RECIPE_TYPE;
-    private static final Field fInscriberRecipeCategory_ID;
     private static final Field fNumberEntryWidget_buttons;
     private static final Method mAbstractContainerScreen_findSlot;
 
@@ -31,14 +29,6 @@ public class Ae2ReflectClient {
             } else {
                 fInscriberRecipeCategory_RECIPE_TYPE = null;
             }
-            if (LoadList.REI) {
-                fInscriberRecipeCategory_ID = ReflectKit.reflectField(
-                        Class.forName("appeng.integration.modules.rei.InscriberRecipeCategory"),
-                        "ID"
-                );
-            } else {
-                fInscriberRecipeCategory_ID = null;
-            }
             fNumberEntryWidget_buttons = ReflectKit.reflectField(NumberEntryWidget.class, "buttons");
             mAbstractContainerScreen_findSlot = ReflectKit.reflectMethod(AbstractContainerScreen.class, new String[] {"findSlot", "m_97744_"}, double.class, double.class);
         } catch (Exception e) {
@@ -48,10 +38,6 @@ public class Ae2ReflectClient {
 
     public static RecipeType<InscriberRecipe> getInscribeRecipe() {
         return ReflectKit.readField(null, fInscriberRecipeCategory_RECIPE_TYPE);
-    }
-
-    public static CategoryIdentifier<?> getInscribeRecipeREI() {
-        return ReflectKit.readField(null, fInscriberRecipeCategory_ID);
     }
 
     public static List<Button> getButton(NumberEntryWidget owner) {
