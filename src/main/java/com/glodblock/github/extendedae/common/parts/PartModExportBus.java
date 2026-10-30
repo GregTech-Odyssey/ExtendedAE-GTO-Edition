@@ -94,13 +94,15 @@ public class PartModExportBus extends PartSpecialExportBus {
 
     @NotNull
     protected StackTransferContext createTransferContext(IStorageService storageService, IEnergyService energyService) {
-        return new ModStackTransferContext(
+        var context = new ModStackTransferContext(
                 storageService,
                 energyService,
                 this.source,
                 getOperationsPerTick(),
                 createFilter()
         );
+        context.setStats(this.throughputCounter);
+        return context;
     }
 
     @Override

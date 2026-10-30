@@ -20,6 +20,7 @@ public class ModStackTransferContext implements StackTransferContext {
     private final int initialOperations;
     private int operationsRemaining;
     private boolean isInverted;
+    private ThroughputCounter stats;
 
     public ModStackTransferContext(IStorageService internalStorage, IEnergySource energySource, IActionSource actionSource, int operationsRemaining, IPartitionList filter) {
         this.internalStorage = internalStorage;
@@ -105,11 +106,15 @@ public class ModStackTransferContext implements StackTransferContext {
     }
 
     /**
-     * Added to {@link StackTransferContext} by the GT Odyssey AE2 fork. The actual throughput counter is
-     * supplied at runtime by the fork's EAE compat layer (gto_ae.compat.extendedae.EAEStackTransferContext).
+     * Added to {@link StackTransferContext} by the GT Odyssey AE2 fork, which uses it to track throughput
+     * of the parts that drive this context.
      */
     @Override
     public ThroughputCounter getStats() {
-        return null;
+        return this.stats;
+    }
+
+    public void setStats(ThroughputCounter stats) {
+        this.stats = stats;
     }
 }

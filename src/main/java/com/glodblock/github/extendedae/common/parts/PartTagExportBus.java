@@ -113,13 +113,15 @@ public class PartTagExportBus extends PartSpecialExportBus {
 
     @NotNull
     protected StackTransferContext createTransferContext(IStorageService storageService, IEnergyService energyService) {
-        return new TagStackTransferContext(
+        var context = new TagStackTransferContext(
                 storageService,
                 energyService,
                 this.source,
                 getOperationsPerTick(),
                 createFilter()
         );
+        context.setStats(this.throughputCounter);
+        return context;
     }
 
     @Override
