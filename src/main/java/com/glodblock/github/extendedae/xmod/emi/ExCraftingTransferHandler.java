@@ -43,7 +43,16 @@ public class ExCraftingTransferHandler<T extends ContainerExCraftingTerminal> ex
         CraftingMode mode;
         int recipeSize;
         Int2ObjectOpenHashMap<Ingredient> ingredients;
-        if (isCraftingRecipe(recipe, display)) {
+        // AE2's generic crafting predicate also accepts stonecutting and smithing recipes.
+        if (recipe != null && (recipe.getType() == RecipeType.STONECUTTING || recipe.getType() == RecipeType.SMITHING)) {
+            mode = recipe.getType() == RecipeType.STONECUTTING ? CraftingMode.STONECUTTER : CraftingMode.SMITHING;
+            recipeSize = mode == CraftingMode.STONECUTTER ? 1 : 3;
+            var inputs = CraftingRecipeUtil.getIngredients(recipe);
+            ingredients = new Int2ObjectOpenHashMap<>(inputs.size());
+            for (int i = 0; i < inputs.size(); i++) {
+                ingredients.put(i, inputs.get(i));
+            }
+        } else if (isCraftingRecipe(recipe, display)) {
             if (!fitsIn3x3Grid(recipe, display)) {
                 return Result.createFailed(ItemModText.RECIPE_TOO_LARGE.text());
             }
@@ -53,14 +62,6 @@ public class ExCraftingTransferHandler<T extends ContainerExCraftingTerminal> ex
             mode = CraftingMode.CRAFTING;
             recipeSize = 9;
             ingredients = EmiUseCraftingRecipeHandler.getGuiSlotToIngredientMap(recipe);
-        } else if (recipe != null && (recipe.getType() == RecipeType.STONECUTTING || recipe.getType() == RecipeType.SMITHING)) {
-            mode = recipe.getType() == RecipeType.STONECUTTING ? CraftingMode.STONECUTTER : CraftingMode.SMITHING;
-            recipeSize = mode == CraftingMode.STONECUTTER ? 1 : 3;
-            var inputs = CraftingRecipeUtil.getIngredients(recipe);
-            ingredients = new Int2ObjectOpenHashMap<>(inputs.size());
-            for (int i = 0; i < inputs.size(); i++) {
-                ingredients.put(i, inputs.get(i));
-            }
         } else {
             return Result.createNotApplicable();
         }
