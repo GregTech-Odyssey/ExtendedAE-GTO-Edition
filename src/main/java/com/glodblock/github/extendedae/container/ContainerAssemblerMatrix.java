@@ -23,7 +23,6 @@ import appeng.util.inv.FilteredInternalInventory;
 import com.glodblock.github.glodium.network.packet.SGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.Long2ReferenceMap;
 import it.unimi.dsi.fastutil.longs.Long2ReferenceOpenHashMap;
@@ -246,7 +245,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
         private final TileAssemblerMatrixPattern invHost;
         private final InternalInventory client;
         private final InternalInventory server;
-        private final Int2ObjectMap<ItemStack> changedMap = new Int2ObjectOpenHashMap<>();
+        private final Int2ObjectOpenHashMap<ItemStack> changedMap = new Int2ObjectOpenHashMap<>();
         private boolean init = false;
 
         public PatternSlotTracker(TileAssemblerMatrixPattern host) {
@@ -255,7 +254,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
             this.server = host.getPatternInventory();
         }
 
-        private Int2ObjectMap<ItemStack> getChangedMap() {
+        private Int2ObjectOpenHashMap<ItemStack> getChangedMap() {
             this.changedMap.clear();
             for (int x = 0; x < server.size(); x++) {
                 var ss = server.getStackInSlot(x);
@@ -268,7 +267,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
             return this.changedMap;
         }
 
-        private Int2ObjectMap<ItemStack> getFullMap() {
+        private Int2ObjectOpenHashMap<ItemStack> getFullMap() {
             this.changedMap.clear();
             for (int x = 0; x < server.size(); x++) {
                 this.changedMap.put(x, server.getStackInSlot(x).copy());

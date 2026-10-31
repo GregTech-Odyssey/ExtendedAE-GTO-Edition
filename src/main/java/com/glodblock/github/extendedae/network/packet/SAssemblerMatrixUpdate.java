@@ -14,7 +14,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 public class SAssemblerMatrixUpdate implements IMessage<SAssemblerMatrixUpdate> {
 
     private long patternID;
-    private Int2ObjectMap<ItemStack> updateMap;
+    private Int2ObjectOpenHashMap<ItemStack> updateMap;
 
     public SAssemblerMatrixUpdate() {
         // NO-OP
@@ -22,15 +22,16 @@ public class SAssemblerMatrixUpdate implements IMessage<SAssemblerMatrixUpdate> 
 
     public SAssemblerMatrixUpdate(long id, Int2ObjectMap<ItemStack> updateMap) {
         this.patternID = id;
-        // deep clone to prevent CME
-        this.updateMap = new Int2ObjectOpenHashMap<>(updateMap);
+        // Snapshot the map before the tracker reuses it.
+        this.updateMap = updateMap instanceof Int2ObjectOpenHashMap<ItemStack> concrete ? concrete.clone() : new Int2ObjectOpenHashMap<>(updateMap);
     }
 
     @Override
     public void toBytes(FriendlyByteBuf buf) {
         buf.writeLong(this.patternID);
         buf.writeInt(this.updateMap.size());
-        for (var entry : this.updateMap.int2ObjectEntrySet()) {
+        for (var it = this.updateMap.int2ObjectEntrySet().fastIterator(); it.hasNext();) {
+            var entry = it.next();
             buf.writeInt(entry.getIntKey());
             buf.writeItemStack(entry.getValue(), false);
         }
@@ -39,8 +40,8 @@ public class SAssemblerMatrixUpdate implements IMessage<SAssemblerMatrixUpdate> 
     @Override
     public void fromBytes(FriendlyByteBuf buf) {
         this.patternID = buf.readLong();
-        this.updateMap = new Int2ObjectOpenHashMap<>();
         int size = buf.readInt();
+        this.updateMap = new Int2ObjectOpenHashMap<>(size);
         for (int i = 0; i < size; i++) {
             this.updateMap.put(buf.readInt(), buf.readItem());
         }

@@ -12,12 +12,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import appeng.api.stacks.AEKeyType;
 
 import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import com.gto.fastcollection.fastutil.O2IOpenCacheHashMap;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -100,7 +99,7 @@ public class EPPConfig {
     public static Set<ResourceLocation> tapeWhitelist;
     public static boolean disableInscriberRender;
     private static int oversizeMultiplier;
-    private static Map<ResourceLocation, Integer> customOversizeMultiplier;
+    private static O2IOpenCacheHashMap<ResourceLocation> customOversizeMultiplier;
     public static int assemblerMatrixSize;
     public static boolean debugMode;
     public static int wirelessMaxQueueSize;
@@ -131,11 +130,11 @@ public class EPPConfig {
         tapeWhitelist = PACKABLE_AE_DEVICE.get().stream().map(ResourceLocation::new).collect(Collectors.toSet());
         disableInscriberRender = INSCRIBER_RENDER.get();
         oversizeMultiplier = OVERSIZE_MULTIPLIER.get();
-        customOversizeMultiplier = new Object2IntOpenHashMap<>();
+        customOversizeMultiplier = new O2IOpenCacheHashMap<>();
         CUSTOM_OVERSIZE_MULTIPLIER.get().stream()
                 .map(EPPConfig::parseOversizeMultiplier)
                 .filter(Objects::nonNull)
-                .forEach(p -> customOversizeMultiplier.put(p.getKey(), p.getValue()));
+                .forEach(p -> customOversizeMultiplier.put(p.getKey(), p.getValue().intValue()));
         assemblerMatrixSize = ASSEMBLER_MATRIX_SIZE.get();
         debugMode = DEBUG_MODE.get();
         wirelessMaxQueueSize = MAX_WIRELESS_QUENE.get();

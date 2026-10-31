@@ -6,15 +6,13 @@ import appeng.api.stacks.AEKey;
 import appeng.util.Platform;
 import appeng.util.prioritylist.IPartitionList;
 
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import it.unimi.dsi.fastutil.objects.ObjectSet;
+import com.gto.fastcollection.fastutil.OpenCacheHashSet;
 
 import java.util.Collections;
-import java.util.List;
 
 public class ModPriorityList implements IPartitionList {
 
-    private final ObjectSet<String> modids = new ObjectOpenHashSet<>();
+    private final OpenCacheHashSet<String> modids = new OpenCacheHashSet<>();
 
     public ModPriorityList(String modid) {
         Collections.addAll(this.modids, FCUtil.trimSplit(modid));
@@ -32,6 +30,6 @@ public class ModPriorityList implements IPartitionList {
 
     @Override
     public Iterable<AEKey> getItems() {
-        return List.of();
+        return Collections.emptyList();
     }
 }

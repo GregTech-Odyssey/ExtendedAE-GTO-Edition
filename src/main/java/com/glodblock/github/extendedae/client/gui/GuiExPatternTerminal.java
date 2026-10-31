@@ -48,7 +48,10 @@ import appeng.helpers.InventoryAction;
 import com.google.common.collect.HashMultimap;
 import it.unimi.dsi.fastutil.Hash;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenCustomHashSet;
+import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -115,9 +118,9 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     private static String lastInputSearch = "";
     private static String lastOutputSearch = "";
 
-    private final HashMap<Long, PatternContainerRecord> byId = new HashMap<>();
-    private final HashMap<Integer, HighlightButton> highlightBtns = new HashMap<>();
-    private final HashMap<Long, PatternProviderInfo> infoMap = new HashMap<>();
+    private final Long2ObjectOpenHashMap<PatternContainerRecord> byId = new Long2ObjectOpenHashMap<>();
+    private final Int2ObjectOpenHashMap<HighlightButton> highlightBtns = new Int2ObjectOpenHashMap<>();
+    private final Long2ObjectOpenHashMap<PatternProviderInfo> infoMap = new Long2ObjectOpenHashMap<>();
     // Used to show multiple pattern providers with the same name under a single header
     private final HashMultimap<PatternContainerGroup, PatternContainerRecord> byGroup = HashMultimap.create();
     private final ArrayList<PatternContainerGroup> groups = new ArrayList<>();
@@ -126,7 +129,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     private final Map<String, Set<Object>> cachedSearches = new WeakHashMap<>();
     // Cache for decoded pattern search data to avoid repeated pattern.decode() calls
     // Key is computed from ItemStack item + NBT hash
-    private final HashMap<Integer, PatternSearchData> patternSearchCache = new HashMap<>();
+    private final Int2ObjectOpenHashMap<PatternSearchData> patternSearchCache = new Int2ObjectOpenHashMap<>();
     private boolean needsRefresh = false;
     private final Set<ItemStack> matchedStack = new ObjectOpenCustomHashSet<>(new Hash.Strategy<>() {
 
@@ -140,7 +143,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
             return a == b || (a != null && b != null && ItemStack.isSameItemSameTags(a, b));
         }
     });
-    private final Set<PatternContainerRecord> matchedProvider = new HashSet<>();
+    private final ReferenceOpenHashSet<PatternContainerRecord> matchedProvider = new ReferenceOpenHashSet<>();
     private final Scrollbar scrollbar;
     private final AETextField searchOutField;
     private final AETextField searchInField;

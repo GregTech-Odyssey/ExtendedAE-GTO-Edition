@@ -7,7 +7,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import com.glodblock.github.glodium.util.GlodClientUtil;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import com.gto.fastcollection.fastutil.OpenCacheHashSet;
 
 public class FCClientUtil {
 
@@ -23,7 +23,7 @@ public class FCClientUtil {
             return "";
         }
         var ids = FCUtil.trimSplit(inputText);
-        var set = new ObjectOpenHashSet<>(ids);
+        var set = new OpenCacheHashSet<>(ids);
         for (String mod : LoadList.MOD_NAME) {
             if (set.contains(mod)) {
                 continue;

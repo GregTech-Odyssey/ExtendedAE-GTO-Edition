@@ -13,6 +13,7 @@ import appeng.api.networking.security.IActionSource;
 import appeng.api.networking.ticking.TickRateModulation;
 import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKey;
+import appeng.api.stacks.AEKeyObjectMap;
 import appeng.api.stacks.GenericStack;
 import appeng.api.stacks.KeyCounter;
 import appeng.blockentity.AEBaseBlockEntity;
@@ -21,7 +22,6 @@ import appeng.crafting.pattern.AECraftingPattern;
 import appeng.items.misc.WrappedGenericStack;
 
 import it.unimi.dsi.fastutil.Pair;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 
 public class CraftingMatrixThread extends CraftingThread {
 
-    private static final SingleThreadLRU<AEItemKey, SearchResult> LRU = new SingleThreadLRU<>(new Object2ObjectOpenHashMap<>(100), 100);
+    private static final SingleThreadLRU<AEItemKey, SearchResult> LRU = new SingleThreadLRU<>(new AEKeyObjectMap<>(100), 100);
     private final BiConsumer<AEKey, Long> pusher;
 
     public CraftingMatrixThread(@NotNull AEBaseBlockEntity host, @NotNull Supplier<IActionSource> sourceGetter, SignalAccepter accepter) {

@@ -51,15 +51,15 @@ import appeng.util.inv.PlayerInternalInventory;
 import com.glodblock.github.glodium.network.packet.SGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
+import com.gto.fastcollection.fastutil.O2IOpenCacheHashMap;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 
 public class ContainerExCraftingTerminal extends MEStorageMenu implements IMenuCraftingPacket, IActionHolder {
@@ -691,12 +691,12 @@ public class ContainerExCraftingTerminal extends MEStorageMenu implements IMenuC
     public CraftingTermMenu.MissingIngredientSlots findMissingIngredients(Map<Integer, Ingredient> ingredients) {
         // Try to figure out if any slots have missing ingredients
         // Find every "slot" (in JEI parlance) that has no equivalent item in the item repo or player inventory
-        Set<Integer> missingSlots = new HashSet<>(); // missing but not craftable
-        Set<Integer> craftableSlots = new HashSet<>(); // missing but craftable
+        IntOpenHashSet missingSlots = new IntOpenHashSet(); // missing but not craftable
+        IntOpenHashSet craftableSlots = new IntOpenHashSet(); // missing but craftable
         // We need to track how many of a given item stack we've already used for other slots in the recipe.
         // Otherwise, recipes that need 4x<item> will not correctly show missing items if at least 1 of <item> is in
         // the grid.
-        var reservedGridAmounts = new Object2IntOpenHashMap<>();
+        var reservedGridAmounts = new O2IOpenCacheHashMap<>();
         var playerItems = this.getPlayerInventory().items;
         var reservedPlayerItems = new int[playerItems.size()];
 

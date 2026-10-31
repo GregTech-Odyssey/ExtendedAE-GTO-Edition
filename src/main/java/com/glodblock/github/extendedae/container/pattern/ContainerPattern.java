@@ -15,14 +15,13 @@ import appeng.api.stacks.GenericStack;
 import appeng.crafting.pattern.EncodedPatternItem;
 import appeng.items.misc.WrappedGenericStack;
 
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import com.gto.fastcollection.fastutil.OpenCacheHashSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public abstract class ContainerPattern extends AbstractContainerMenu {
 
@@ -66,7 +65,7 @@ public abstract class ContainerPattern extends AbstractContainerMenu {
     }
 
     protected GenericStack[] clean(GenericStack[] in) {
-        Set<GenericStack> set = new ObjectOpenHashSet<>();
+        OpenCacheHashSet<GenericStack> set = new OpenCacheHashSet<>(in.length);
         set.addAll(Arrays.asList(in));
         var c = new GenericStack[set.size()];
         int i = 0;

@@ -24,13 +24,13 @@ import appeng.api.networking.ticking.IGridTickable;
 import appeng.api.networking.ticking.TickRateModulation;
 import appeng.api.networking.ticking.TickingRequest;
 import appeng.api.stacks.AEKey;
+import appeng.api.stacks.AEKeyLongMap;
 import appeng.api.stacks.GenericStack;
 import appeng.api.stacks.KeyCounter;
 import appeng.util.inv.CombinedInternalInventory;
 import appeng.util.inv.InternalInventoryHost;
 
 import com.glodblock.github.glodium.util.GlodUtil;
-import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -242,7 +242,7 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
                 drops.add(stack);
             }
         }
-        for (var entry : this.outputBuffer.buffer.object2LongEntrySet()) {
+        for (var entry : this.outputBuffer.buffer) {
             if (entry.getLongValue() > 0) {
                 entry.getKey().addDrops(entry.getLongValue(), drops, level, pos);
             }
@@ -258,11 +258,11 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
 
     private static class OutputBuffer {
 
-        private final Object2LongOpenHashMap<AEKey> buffer;
+        private final AEKeyLongMap<AEKey> buffer;
         private long size = 0;
 
         private OutputBuffer() {
-            this.buffer = new Object2LongOpenHashMap<>();
+            this.buffer = new AEKeyLongMap<>();
         }
 
         public void clear() {
@@ -279,7 +279,7 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
         public void flush(BiFunction<AEKey, Long, Long> pusher) {
             this.size = 0;
             List<GenericStack> result = new ArrayList<>(this.buffer.size());
-            for (var entry : this.buffer.object2LongEntrySet()) {
+            for (var entry : this.buffer) {
                 var key = entry.getKey();
                 var amount = entry.getLongValue();
                 var stored = pusher.apply(key, amount);
@@ -298,7 +298,7 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
 
         public void save(CompoundTag tag, String name) {
             var tagList = new ListTag();
-            for (var entry : buffer.object2LongEntrySet()) {
+            for (var entry : buffer) {
                 var key = entry.getKey();
                 var value = entry.getLongValue();
                 if (key != null && value > 0) {

@@ -16,15 +16,12 @@ import net.minecraftforge.network.NetworkHooks;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.objects.Object2ReferenceMap;
-import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
+import com.gto.fastcollection.fastutil.O2OOpenCacheHashMap;
 
 public class PatternGuiHandler {
 
-    private static final Object2ObjectMap<String, IContainerPattern> factory = new Object2ObjectOpenHashMap<>();
-    private static final Object2ReferenceMap<String, MenuType<?>> types = new Object2ReferenceOpenHashMap<>();
+    private static final O2OOpenCacheHashMap<String, IContainerPattern> factory = new O2OOpenCacheHashMap<>();
+    private static final O2OOpenCacheHashMap<String, MenuType<?>> types = new O2OOpenCacheHashMap<>();
     private static final BiMap<Integer, String> internal = HashBiMap.create();
     private static int IDZ = 0;
 
