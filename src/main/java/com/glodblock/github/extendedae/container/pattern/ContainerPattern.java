@@ -16,6 +16,7 @@ import appeng.crafting.pattern.EncodedPatternItem;
 import appeng.items.misc.WrappedGenericStack;
 
 import com.gto.fastcollection.fastutil.OpenCacheHashSet;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

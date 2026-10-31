@@ -1,6 +1,7 @@
 package com.glodblock.github.extendedae.client;
 
 import com.glodblock.github.extendedae.ExtendedAE;
+import com.glodblock.github.extendedae.client.button.FacilityHighlightButton;
 import com.glodblock.github.extendedae.client.gui.*;
 import com.glodblock.github.extendedae.client.gui.GuiExCraftingTerminal;
 import com.glodblock.github.extendedae.client.gui.pattern.GuiCraftingPattern;
@@ -51,6 +52,8 @@ import appeng.hotkeys.HotkeyActions;
 import appeng.hotkeys.InventoryHotkeyAction;
 import appeng.init.client.InitScreens;
 
+import com.gto.ae.client.gui.me.facility_management.FacilityHighlightProvider;
+
 import com.glodblock.github.glodium.util.GlodUtil;
 
 import static appeng.api.features.HotkeyAction.WIRELESS_TERMINAL;
@@ -80,6 +83,7 @@ public class ClientRegistryHandler {
     }
 
     public void registerGui() {
+        FacilityHighlightProvider.register(FacilityHighlightButton::create);
         InitScreens.register(ContainerExPatternProvider.TYPE, GuiExPatternProvider::new, "/screens/ex_pattern_provider.json");
         InitScreens.register(ContainerExInterface.TYPE, GuiExInterface::new, "/screens/ex_interface.json");
         InitScreens.register(ContainerExIOBus.EXPORT_TYPE, GuiExIOBus::new, "/screens/ex_export_bus.json");

@@ -1,6 +1,7 @@
 package com.glodblock.github.extendedae.client.gui;
 
 import com.glodblock.github.extendedae.client.gui.widget.MultilineTextFieldWidget;
+import com.glodblock.github.extendedae.client.gui.widget.TagSelectionWidget;
 import com.glodblock.github.extendedae.container.ContainerTagStorageBus;
 import com.glodblock.github.extendedae.network.EPPNetworkHandler;
 
@@ -64,6 +65,7 @@ public class GuiTagStorageBus extends UpgradeableScreen<ContainerTagStorageBus> 
 
         this.widgets.add("filter_input", this.filterInputs);
         this.widgets.add("filter_input_2", this.filterInputs2);
+        TagSelectionWidget.install(this, menu.tagSelection, filterInputs, filterInputs2, 30);
 
         setInitialFocus(this.filterInputs);
     }

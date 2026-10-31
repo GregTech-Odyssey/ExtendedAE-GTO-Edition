@@ -48,10 +48,11 @@ import appeng.menu.me.items.CraftingTermMenu;
 import appeng.menu.slot.CraftingMatrixSlot;
 import appeng.util.inv.PlayerInternalInventory;
 
+import com.gto.fastcollection.fastutil.O2IOpenCacheHashMap;
+
 import com.glodblock.github.glodium.network.packet.SGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import com.gto.fastcollection.fastutil.O2IOpenCacheHashMap;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import org.jetbrains.annotations.NotNull;

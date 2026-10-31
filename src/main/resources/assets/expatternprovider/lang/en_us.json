@@ -1,4 +1,7 @@
 {
+  "gui.expatternprovider.tag_selection.whitelist": "Place an item or fluid to select a whitelist tag",
+  "gui.expatternprovider.tag_selection.blacklist": "Place an item or fluid to select a blacklist tag",
+  "gui.expatternprovider.tag_selection.entry": "Left-click to select; right-click to copy",
   "itemGroup.epp": "Extended AE2",
   "block.expatternprovider.ex_pattern_provider": "ME Extended Pattern Provider",
   "block.expatternprovider.ex_interface": "ME Extended Interface",

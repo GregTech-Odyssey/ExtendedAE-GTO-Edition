@@ -26,6 +26,8 @@ import java.util.function.Consumer;
 
 public class ContainerTagStorageBus extends UpgradeableMenu<PartTagStorageBus> implements IActionHolder {
 
+    public final TagSelectionSlots tagSelection;
+
     private final Map<String, Consumer<Paras>> actions = createHolder();
     private static final String ACTION_PARTITION = "partition";
 
@@ -58,6 +60,7 @@ public class ContainerTagStorageBus extends UpgradeableMenu<PartTagStorageBus> i
 
     public ContainerTagStorageBus(int id, Inventory ip, PartTagStorageBus te) {
         super(TYPE, id, ip, te);
+        this.tagSelection = new TagSelectionSlots(this::addSlot);
         registerClientAction(ACTION_PARTITION, this::partition);
         this.actions.put("set", o -> this.setExp(o.get(0), o.get(1)));
         this.connectedTo = te.getConnectedToDescription();

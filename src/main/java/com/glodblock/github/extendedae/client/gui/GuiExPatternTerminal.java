@@ -5,6 +5,7 @@ import com.glodblock.github.extendedae.container.ContainerExPatternTerminal;
 import com.glodblock.github.extendedae.util.FCUtil;
 import com.glodblock.github.extendedae.util.MessageUtil;
 
+import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.renderer.Rect2i;
@@ -44,6 +45,8 @@ import appeng.core.sync.network.NetworkHandler;
 import appeng.core.sync.packets.InventoryActionPacket;
 import appeng.crafting.pattern.EncodedPatternItem;
 import appeng.helpers.InventoryAction;
+
+import com.gto.fastcollection.fastutil.OpenCacheHashSet;
 
 import com.google.common.collect.HashMultimap;
 import it.unimi.dsi.fastutil.Hash;
@@ -149,6 +152,8 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     private final AETextField searchInField;
 
     private int visibleRows = 0;
+    private PatternContainerGroup scrollingGroup;
+    private long scrollingGroupHoverStart;
 
     private final ServerSettingToggleButton<ShowPatternProviders> showPatternProviders;
 
@@ -271,14 +276,40 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
                         displayName = group.name();
                     }
 
-                    var text = Language.getInstance().getVisualOrder(
-                            this.font.substrByWidth(displayName, TEXT_MAX_WIDTH - 10));
-
-                    guiGraphics.drawString(font, text, GUI_PADDING_X + PATTERN_PROVIDER_NAME_MARGIN_X + 10,
-                            GUI_PADDING_Y + GUI_HEADER_HEIGHT + i * ROW_HEIGHT, textColor, false);
+                    drawGroupName(guiGraphics, group, displayName, i, mouseX, mouseY, textColor);
                 }
             }
         }
+    }
+
+    private void drawGroupName(GuiGraphics graphics, PatternContainerGroup group, FormattedText name,
+                               int row, int mouseX, int mouseY, int color) {
+        int x = GUI_PADDING_X + PATTERN_PROVIDER_NAME_MARGIN_X + 10;
+        int y = GUI_PADDING_Y + GUI_HEADER_HEIGHT + row * ROW_HEIGHT;
+        int width = TEXT_MAX_WIDTH - 10;
+        int fullWidth = font.width(name);
+        boolean hovered = mouseX >= leftPos + GUI_PADDING_X && mouseX < leftPos + GUI_PADDING_X + COLUMNS * ROW_HEIGHT &&
+                mouseY >= topPos + GUI_HEADER_HEIGHT + row * ROW_HEIGHT && mouseY < topPos + GUI_HEADER_HEIGHT + (row + 1) * ROW_HEIGHT;
+        if (fullWidth <= width || !hovered) {
+            if (group.equals(scrollingGroup)) scrollingGroup = null;
+            graphics.drawString(font, Language.getInstance().getVisualOrder(font.substrByWidth(name, width)), x, y, color, false);
+            return;
+        }
+        if (!group.equals(scrollingGroup)) {
+            scrollingGroup = group;
+            scrollingGroupHoverStart = Util.getMillis();
+        }
+        int maxOffset = fullWidth - width;
+        long travel = Math.max(1, maxOffset * 1000L / 30);
+        long elapsed = (Util.getMillis() - scrollingGroupHoverStart) % (1000 + 2 * travel);
+        int offset;
+        if (elapsed < 500) offset = 0;
+        else if ((elapsed -= 500) < travel) offset = (int) (maxOffset * elapsed / travel);
+        else if ((elapsed -= travel) < 500) offset = maxOffset;
+        else offset = maxOffset - (int) (maxOffset * (elapsed - 500) / travel);
+        graphics.enableScissor(leftPos + x, topPos + y, leftPos + x + width, topPos + y + font.lineHeight);
+        graphics.drawString(font, Language.getInstance().getVisualOrder(name), x - offset, y, color, false);
+        graphics.disableScissor();
     }
 
     @Override
@@ -687,11 +718,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
      * @return a Set matching a superset of the search term
      */
     private Set<Object> getCacheForSearchTerm(String searchTerm) {
-        if (!this.cachedSearches.containsKey(searchTerm)) {
-            this.cachedSearches.put(searchTerm, new HashSet<>());
-        }
-
-        final Set<Object> cache = this.cachedSearches.get(searchTerm);
+        Set<Object> cache = this.cachedSearches.computeIfAbsent(searchTerm, k -> new OpenCacheHashSet<>());
 
         if (cache.isEmpty() && searchTerm.length() > 1) {
             cache.addAll(this.getCacheForSearchTerm(searchTerm.substring(0, searchTerm.length() - 1)));

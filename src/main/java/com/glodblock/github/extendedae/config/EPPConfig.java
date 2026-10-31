@@ -11,8 +11,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import appeng.api.stacks.AEKeyType;
 
-import com.google.common.collect.Lists;
 import com.gto.fastcollection.fastutil.O2IOpenCacheHashMap;
+
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;

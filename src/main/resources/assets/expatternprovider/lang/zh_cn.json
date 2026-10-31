@@ -1,4 +1,7 @@
 {
+  "gui.expatternprovider.tag_selection.whitelist": "放入物品或流体以选择白名单标签",
+  "gui.expatternprovider.tag_selection.blacklist": "放入物品或流体以选择黑名单标签",
+  "gui.expatternprovider.tag_selection.entry": "左键选择，右键复制",
   "itemGroup.epp": "AE2扩展",
   "block.expatternprovider.ex_pattern_provider": "ME扩展样板供应器",
   "block.expatternprovider.ex_interface": "ME扩展接口",

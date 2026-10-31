@@ -6,8 +6,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import com.glodblock.github.glodium.util.GlodClientUtil;
 import com.gto.fastcollection.fastutil.OpenCacheHashSet;
+
+import com.glodblock.github.glodium.util.GlodClientUtil;
 
 public class FCClientUtil {
 

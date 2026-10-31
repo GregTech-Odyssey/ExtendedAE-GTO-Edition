@@ -14,9 +14,10 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.network.NetworkHooks;
 
+import com.gto.fastcollection.fastutil.O2OOpenCacheHashMap;
+
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.gto.fastcollection.fastutil.O2OOpenCacheHashMap;
 
 public class PatternGuiHandler {
 

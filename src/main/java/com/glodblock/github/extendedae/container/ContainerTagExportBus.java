@@ -18,6 +18,8 @@ import java.util.function.Consumer;
 
 public class ContainerTagExportBus extends UpgradeableMenu<PartTagExportBus> implements IActionHolder {
 
+    public final TagSelectionSlots tagSelection;
+
     private final Map<String, Consumer<Paras>> actions = createHolder();
 
     public static final MenuType<ContainerTagExportBus> TYPE = MenuTypeBuilder
@@ -36,6 +38,7 @@ public class ContainerTagExportBus extends UpgradeableMenu<PartTagExportBus> imp
 
     public ContainerTagExportBus(int id, Inventory ip, PartTagExportBus host) {
         super(TYPE, id, ip, host);
+        this.tagSelection = new TagSelectionSlots(this::addSlot);
         this.exp = host.getTagFilter(true);
         this.exp2 = host.getTagFilter(false);
         this.actions.put("set", o -> this.setExp(o.get(0), o.get(1)));

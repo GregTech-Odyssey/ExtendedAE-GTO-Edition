@@ -21,8 +21,8 @@ import appeng.parts.PartModel;
 import appeng.parts.reporting.AbstractDisplayPart;
 import appeng.util.ConfigManager;
 
-import gto_ae.api.config.ExtendedSettings;
-import gto_ae.menu.ShowMolecularAssembler;
+import com.gto.ae.api.config.ExtendedSettings;
+import com.gto.ae.menu.ShowMolecularAssembler;
 
 import java.util.Arrays;
 import java.util.List;
