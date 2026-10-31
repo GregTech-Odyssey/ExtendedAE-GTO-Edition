@@ -46,6 +46,8 @@ import appeng.core.sync.packets.InventoryActionPacket;
 import appeng.crafting.pattern.EncodedPatternItem;
 import appeng.helpers.InventoryAction;
 
+import com.gto.ae.api.config.ExtendedSettings;
+import com.gto.ae.menu.ShowMolecularAssembler;
 import com.gto.fastcollection.fastutil.OpenCacheHashSet;
 
 import com.google.common.collect.HashMultimap;
@@ -61,21 +63,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 // 1.12holic
 public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends AEBaseScreen<T> {
 
+    private static Consumer<GuiExPatternTerminal<?>> screenInitializer = screen -> {};
+    private static boolean sortProviderGroups = true;
+
+    public static void setScreenInitializer(Consumer<GuiExPatternTerminal<?>> initializer) {
+        screenInitializer = initializer;
+    }
+
+    public static void setSortProviderGroups(boolean sort) {
+        sortProviderGroups = sort;
+    }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GuiExPatternTerminal.class);
 
     private static final int GUI_WIDTH = 209;
-    private static final int MAGIC_NUMBER = 50;
-    private static final int GUI_TOP_AND_BOTTOM_PADDING = 54;
+    protected static final int MAGIC_NUMBER = 50;
+    protected static final int GUI_TOP_AND_BOTTOM_PADDING = 54;
 
     private static final int GUI_PADDING_X = 22;
     private static final int GUI_PADDING_Y = 6;
 
-    private static final int GUI_HEADER_HEIGHT = 51;
-    private static final int GUI_FOOTER_HEIGHT = 97;
+    protected static final int GUI_HEADER_HEIGHT = 51;
+    protected static final int GUI_FOOTER_HEIGHT = 97;
     private static final int COLUMNS = 9;
 
     /**
@@ -91,7 +105,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     /**
      * Height of a table-row in pixels.
      */
-    private static final int ROW_HEIGHT = 18;
+    protected static final int ROW_HEIGHT = 18;
 
     /**
      * Size of a slot in both x and y dimensions in pixel, most likely always the same as ROW_HEIGHT.
@@ -121,20 +135,20 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     private static String lastInputSearch = "";
     private static String lastOutputSearch = "";
 
-    private final Long2ObjectOpenHashMap<PatternContainerRecord> byId = new Long2ObjectOpenHashMap<>();
-    private final Int2ObjectOpenHashMap<HighlightButton> highlightBtns = new Int2ObjectOpenHashMap<>();
-    private final Long2ObjectOpenHashMap<PatternProviderInfo> infoMap = new Long2ObjectOpenHashMap<>();
+    protected final Long2ObjectOpenHashMap<PatternContainerRecord> byId = new Long2ObjectOpenHashMap<>();
+    protected final Int2ObjectOpenHashMap<HighlightButton> highlightBtns = new Int2ObjectOpenHashMap<>();
+    protected final Long2ObjectOpenHashMap<PatternProviderInfo> infoMap = new Long2ObjectOpenHashMap<>();
     // Used to show multiple pattern providers with the same name under a single header
-    private final HashMultimap<PatternContainerGroup, PatternContainerRecord> byGroup = HashMultimap.create();
+    protected final HashMultimap<PatternContainerGroup, PatternContainerRecord> byGroup = HashMultimap.create();
     private final ArrayList<PatternContainerGroup> groups = new ArrayList<>();
     private final ArrayList<Row> rows = new ArrayList<>();
 
-    private final Map<String, Set<Object>> cachedSearches = new WeakHashMap<>();
+    protected final Map<String, Set<Object>> cachedSearches = new WeakHashMap<>();
     // Cache for decoded pattern search data to avoid repeated pattern.decode() calls
     // Key is computed from ItemStack item + NBT hash
     private final Int2ObjectOpenHashMap<PatternSearchData> patternSearchCache = new Int2ObjectOpenHashMap<>();
     private boolean needsRefresh = false;
-    private final Set<ItemStack> matchedStack = new ObjectOpenCustomHashSet<>(new Hash.Strategy<>() {
+    protected final Set<ItemStack> matchedStack = new ObjectOpenCustomHashSet<>(new Hash.Strategy<>() {
 
         @Override
         public int hashCode(ItemStack o) {
@@ -146,16 +160,17 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
             return a == b || (a != null && b != null && ItemStack.isSameItemSameTags(a, b));
         }
     });
-    private final ReferenceOpenHashSet<PatternContainerRecord> matchedProvider = new ReferenceOpenHashSet<>();
-    private final Scrollbar scrollbar;
-    private final AETextField searchOutField;
-    private final AETextField searchInField;
+    protected final ReferenceOpenHashSet<PatternContainerRecord> matchedProvider = new ReferenceOpenHashSet<>();
+    protected final Scrollbar scrollbar;
+    protected final AETextField searchOutField;
+    protected final AETextField searchInField;
 
     private int visibleRows = 0;
     private PatternContainerGroup scrollingGroup;
     private long scrollingGroupHoverStart;
 
     private final ServerSettingToggleButton<ShowPatternProviders> showPatternProviders;
+    private final ServerSettingToggleButton<ShowMolecularAssembler> showMolecularAssembler;
 
     public GuiExPatternTerminal(T menu, Inventory playerInventory, Component title, ScreenStyle style) {
         super(menu, playerInventory, title, style);
@@ -170,6 +185,8 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
                 ShowPatternProviders.VISIBLE);
 
         this.addToLeftToolbar(showPatternProviders);
+        this.showMolecularAssembler = this.addToLeftToolbar(new ServerSettingToggleButton<>(
+                ExtendedSettings.TERMINAL_SHOW_MOLECULAR_ASSEMBLERS, ShowMolecularAssembler.ALL));
 
         this.searchOutField = widgets.addTextField("search_out");
         this.searchOutField.setResponder(str -> {
@@ -194,6 +211,19 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
                 this.searchOutField.setValue(lastOutputSearch);
             }
         }
+        screenInitializer.accept(this);
+    }
+
+    public Long2ObjectOpenHashMap<PatternContainerRecord> getPatternRecords() {
+        return byId;
+    }
+
+    protected int getTerminalImageHeight(int rows) {
+        return GUI_HEADER_HEIGHT + GUI_FOOTER_HEIGHT + rows * ROW_HEIGHT;
+    }
+
+    protected boolean focusSearchOnInit() {
+        return true;
     }
 
     @Override
@@ -204,10 +234,10 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
             this.visibleRows = 2;
         }
         // Render inventory in correct place.
-        this.imageHeight = GUI_HEADER_HEIGHT + GUI_FOOTER_HEIGHT + this.visibleRows * ROW_HEIGHT;
+        this.imageHeight = getTerminalImageHeight(this.visibleRows);
 
         super.init();
-        this.setInitialFocus(this.searchOutField);
+        if (focusSearchOnInit()) this.setInitialFocus(this.searchOutField);
         this.highlightBtns.forEach((k, v) -> {
             v.setVisibility(false);
             addRenderableWidget(v);
@@ -506,6 +536,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     public void updateBeforeRender() {
         super.updateBeforeRender();
         this.showPatternProviders.set(this.menu.getShownProviders());
+        this.showMolecularAssembler.set(this.menu.gtolib$showMolecularAssembler);
         // Perform deferred refresh - batches multiple updates into a single refresh per frame
         if (this.needsRefresh) {
             this.needsRefresh = false;
@@ -518,7 +549,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
      * <p>
      * Respects a search term if present (ignores case) and adding only matching patterns.
      */
-    private void refreshList() {
+    protected void refreshList() {
         this.byGroup.clear();
         this.highlightBtns.forEach((k, v) -> this.removeWidget(v));
         this.highlightBtns.clear();
@@ -577,7 +608,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
         this.groups.clear();
         this.groups.addAll(this.byGroup.keySet());
 
-        this.groups.sort(GROUP_COMPARATOR);
+        if (sortProviderGroups) this.groups.sort(GROUP_COMPARATOR);
 
         this.rows.clear();
         this.rows.ensureCapacity(this.getMaxRows());
@@ -630,13 +661,13 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     /**
      * Should be called whenever this.lines.size() or this.numLines changes.
      */
-    private void resetScrollbar() {
+    protected void resetScrollbar() {
         // Needs to take the border into account, so offset for 1 px on the top and bottom.
         scrollbar.setHeight(this.visibleRows * ROW_HEIGHT - 2);
         scrollbar.setRange(0, this.rows.size() - this.visibleRows, 2);
     }
 
-    private boolean itemStackMatchesSearchTerm(ItemStack itemStack, List<String> filterTokens, boolean checkOut) {
+    protected boolean itemStackMatchesSearchTerm(ItemStack itemStack, List<String> filterTokens, boolean checkOut) {
         if (itemStack.isEmpty()) {
             return false;
         }
