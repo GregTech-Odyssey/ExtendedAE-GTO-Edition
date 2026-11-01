@@ -1,0 +1,24 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "ae2wtlib"
+        }
+      ],
+      "recipe": {
+        "type": "ae2wtlib:combine",
+        "terminalA": {
+          "item": "expatternprovider:wireless_ex_ct"
+        },
+        "terminalB": {
+          "item": "expatternprovider:wireless_ex_pat"
+        },
+        "terminalAName": "ex_crafting",
+        "terminalBName": "ex_pattern_access"
+      }
+    }
+  ]
+}
