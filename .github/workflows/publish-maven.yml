@@ -15,4 +15,8 @@ permissions:
 jobs:
   publish:
     uses: GregTech-Odyssey/GradlePublishPlugin/.github/workflows/maven-publish.yml@main
+    with:
+      # src/generated/resources 是 gitignore 的 datagen 产物，干净检出必须先跑 runData，
+      # 否则打出的 jar 不含配方、掉落表与标签。
+      build-tasks: 'runData assemble'
     secrets: inherit
