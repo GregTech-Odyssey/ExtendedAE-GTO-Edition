@@ -7,10 +7,8 @@ import net.minecraft.world.inventory.MenuType;
 
 import appeng.api.networking.IGridNode;
 import appeng.api.upgrades.IUpgradeInventory;
-import appeng.menu.SlotSemantics;
 import appeng.menu.ToolboxMenu;
 import appeng.menu.implementations.MenuTypeBuilder;
-import appeng.menu.slot.RestrictedInputSlot;
 
 public class ContainerWirelessExCT extends ContainerExCraftingTerminal {
 
@@ -23,16 +21,7 @@ public class ContainerWirelessExCT extends ContainerExCraftingTerminal {
     public ContainerWirelessExCT(int id, Inventory playerInventory, HostWirelessExCT host) {
         super(TYPE, id, playerInventory, host, true);
         this.toolbox = new ToolboxMenu(this);
-        this.setupUpgrades();
-    }
-
-    protected void setupUpgrades() {
-        var upgrades = this.getHost().getUpgrades();
-        for (int i = 0; i < upgrades.size(); i++) {
-            var slot = new RestrictedInputSlot(RestrictedInputSlot.PlacableItemType.UPGRADES, upgrades, i);
-            slot.setNotDraggable();
-            this.addSlot(slot, SlotSemantics.UPGRADE);
-        }
+        // MEStorageMenu already adds one slot per host upgrade slot.
     }
 
     @Override
