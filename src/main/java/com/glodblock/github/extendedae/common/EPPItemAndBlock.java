@@ -194,18 +194,22 @@ public class EPPItemAndBlock {
         CIRCUIT_CUTTER = new BlockCircuitCutter();
         SILICON_BLOCK = new Block(metalProps().requiresCorrectToolForDrops());
         EX_CRAFTING_TERMINAL = new PartItem<>(new Item.Properties(), PartExCraftingTerminal.class, PartExCraftingTerminal::new);
-        WIRELESS_EX_CT = new ItemWirelessExCT();
         if (ModList.get().isLoaded("ae2wtlib")) {
             try {
                 // To prevent classloader issue
                 WIRELESS_EX_PAT = (WirelessTerminalItem) Class.forName("com.glodblock.github.extendedae.xmod.wt.ItemUWirelessExPAT")
                         .getDeclaredConstructor()
                         .newInstance();
+                WIRELESS_EX_CT = (WirelessTerminalItem) Class.forName("com.glodblock.github.extendedae.xmod.wt.ItemUWirelessExCT")
+                        .getDeclaredConstructor()
+                        .newInstance();
             } catch (Exception e) {
                 WIRELESS_EX_PAT = new ItemWirelessExPAT();
+                WIRELESS_EX_CT = new ItemWirelessExCT();
             }
         } else {
             WIRELESS_EX_PAT = new ItemWirelessExPAT();
+            WIRELESS_EX_CT = new ItemWirelessExCT();
         }
         regHandler.block("ex_pattern_provider", EX_PATTERN_PROVIDER, TileExPatternProvider.class, TileExPatternProvider::new);
         regHandler.block("ex_interface", EX_INTERFACE, TileExInterface.class, TileExInterface::new);

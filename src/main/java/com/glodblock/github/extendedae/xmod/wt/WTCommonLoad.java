@@ -16,6 +16,7 @@ public class WTCommonLoad {
 
     public static void container() {
         ForgeRegistries.MENU_TYPES.register(AppEng.makeId("u_wireless_ex_pattern_access_terminal"), ContainerUWirelessExPAT.TYPE);
+        ForgeRegistries.MENU_TYPES.register(AppEng.makeId("u_wireless_ex_crafting_terminal"), ContainerUWirelessExCT.TYPE);
     }
 
     public static void init() {
@@ -28,5 +29,14 @@ public class WTCommonLoad {
                 "wireless_pattern_access_terminal",
                 "item.expatternprovider.wireless_ex_pat");
         Upgrades.add(AE2wtlib.QUANTUM_BRIDGE_CARD, EPPItemAndBlock.WIRELESS_EX_PAT, 1, GuiText.WirelessTerminals.getTranslationKey());
+        WUTHandler.addTerminal(
+                "ex_crafting",
+                ((IUniversalWirelessTerminalItem) EPPItemAndBlock.WIRELESS_EX_CT)::tryOpen,
+                HostUWirelessExCT::new,
+                ContainerUWirelessExCT.TYPE,
+                (IUniversalWirelessTerminalItem) EPPItemAndBlock.WIRELESS_EX_CT,
+                "wireless_ex_crafting_terminal",
+                "item.expatternprovider.wireless_ex_ct");
+        Upgrades.add(AE2wtlib.QUANTUM_BRIDGE_CARD, EPPItemAndBlock.WIRELESS_EX_CT, 1, GuiText.WirelessTerminals.getTranslationKey());
     }
 }

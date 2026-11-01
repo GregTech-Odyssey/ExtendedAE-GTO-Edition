@@ -6,5 +6,6 @@ public class WTClientLoad {
 
     public static void init() {
         InitScreens.register(ContainerUWirelessExPAT.TYPE, GuiUWirelessExPAT::new, "/screens/u_ex_pat.json");
+        InitScreens.register(ContainerUWirelessExCT.TYPE, GuiUWirelessExCT::new, "/screens/u_ex_ct.json");
     }
 }
