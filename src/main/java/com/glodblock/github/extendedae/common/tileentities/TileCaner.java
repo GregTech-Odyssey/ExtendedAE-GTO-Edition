@@ -37,6 +37,8 @@ import appeng.api.stacks.AEKey;
 import appeng.api.stacks.AEKeyType;
 import appeng.api.stacks.GenericStack;
 import appeng.api.stacks.KeyCounter;
+import appeng.api.storage.MEStorage;
+import appeng.api.storage.MEStorageHost;
 import appeng.blockentity.grid.AENetworkPowerBlockEntity;
 import appeng.crafting.pattern.AEProcessingPattern;
 import appeng.helpers.externalstorage.GenericStackFluidStorage;
@@ -54,7 +56,7 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("UnstableApiUsage")
-public class TileCaner extends AENetworkPowerBlockEntity implements IGridTickable, ICraftingMachine {
+public class TileCaner extends AENetworkPowerBlockEntity implements IGridTickable, ICraftingMachine, MEStorageHost {
 
     public static final int POWER_MAXIMUM_AMOUNT = 3200;
     public static final int POWER_USAGE = 80;
@@ -83,6 +85,11 @@ public class TileCaner extends AENetworkPowerBlockEntity implements IGridTickabl
     }
 
     public GenericStackInv getStuff() {
+        return this.stuff;
+    }
+
+    @Override
+    public MEStorage getMEStorage(@Nullable Direction side) {
         return this.stuff;
     }
 
@@ -151,6 +158,8 @@ public class TileCaner extends AENetworkPowerBlockEntity implements IGridTickabl
         if (appeng.capabilities.Capabilities.CRAFTING_MACHINE == capability) {
             return appeng.capabilities.Capabilities.CRAFTING_MACHINE.orEmpty(capability, LazyOptional.of(() -> this));
         } else if (capability == appeng.capabilities.Capabilities.GENERIC_INTERNAL_INV) {
+            return LazyOptional.of(this::getStuff).cast();
+        } else if (capability == appeng.capabilities.Capabilities.STORAGE) {
             return LazyOptional.of(this::getStuff).cast();
         } else if (capability == ForgeCapabilities.FLUID_HANDLER) {
             return LazyOptional.of(this::getStuff).lazyMap(GenericStackFluidStorage::new).cast();
