@@ -14,6 +14,8 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 
 import appeng.api.stacks.AEKeyType;
+import appeng.api.storage.MEStorage;
+import appeng.api.storage.MEStorageHost;
 import appeng.blockentity.AEBaseBlockEntity;
 import appeng.capabilities.Capabilities;
 import appeng.helpers.externalstorage.GenericStackFluidStorage;
@@ -25,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class TileIngredientBuffer extends AEBaseBlockEntity {
+public class TileIngredientBuffer extends AEBaseBlockEntity implements MEStorageHost {
 
     private final GenericStackInv buffer;
 
@@ -82,10 +84,17 @@ public class TileIngredientBuffer extends AEBaseBlockEntity {
     public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
         if (capability == Capabilities.GENERIC_INTERNAL_INV) {
             return LazyOptional.of(this::getInventory).cast();
+        } else if (capability == Capabilities.STORAGE) {
+            return LazyOptional.of(this::getInventory).cast();
         } else if (capability == ForgeCapabilities.FLUID_HANDLER) {
             return LazyOptional.of(this::getInventory).lazyMap(GenericStackFluidStorage::new).cast();
         }
         return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public MEStorage getMEStorage(@Nullable Direction side) {
+        return this.buffer;
     }
 
     public GenericStackInv getInventory() {

@@ -22,7 +22,10 @@ import appeng.api.parts.IPartCollisionHelper;
 import appeng.api.parts.IPartItem;
 import appeng.api.parts.IPartModel;
 import appeng.api.stacks.AEItemKey;
+import appeng.api.storage.MEStorage;
+import appeng.api.storage.MEStorageHost;
 import appeng.api.util.AECableType;
+import appeng.capabilities.Capabilities;
 import appeng.core.AppEngBase;
 import appeng.helpers.patternprovider.PatternProviderLogic;
 import appeng.helpers.patternprovider.PatternProviderLogicHost;
@@ -40,7 +43,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-public class PartExPatternProvider extends AEBasePart implements PatternProviderLogicHost {
+public class PartExPatternProvider extends AEBasePart implements PatternProviderLogicHost, MEStorageHost {
 
     public static List<ResourceLocation> MODELS = Arrays.asList(
             new ResourceLocation(ExtendedAE.MODID, "part/ex_pattern_provider_base"),
@@ -148,6 +151,13 @@ public class PartExPatternProvider extends AEBasePart implements PatternProvider
     }
 
     @Override
+    @Nullable
+    public MEStorage getMEStorage(@Nullable Direction side) {
+        var grid = this.logic.getGrid();
+        return grid == null ? null : grid.getStorageService().getInventory();
+    }
+
+    @Override
     public EnumSet<Direction> getTargets() {
         return EnumSet.of(this.getSide());
     }
@@ -173,6 +183,10 @@ public class PartExPatternProvider extends AEBasePart implements PatternProvider
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capabilityClass) {
+        if (capabilityClass == Capabilities.STORAGE) {
+            var storage = this.getMEStorage(null);
+            return storage == null ? LazyOptional.empty() : LazyOptional.of(() -> storage).cast();
+        }
         return this.logic.getCapability(capabilityClass);
     }
 

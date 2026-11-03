@@ -36,6 +36,8 @@ import appeng.api.orientation.BlockOrientation;
 import appeng.api.orientation.RelativeSide;
 import appeng.api.stacks.AEFluidKey;
 import appeng.api.stacks.GenericStack;
+import appeng.api.storage.MEStorage;
+import appeng.api.storage.MEStorageHost;
 import appeng.api.upgrades.IUpgradeInventory;
 import appeng.api.upgrades.IUpgradeableObject;
 import appeng.api.upgrades.UpgradeInventories;
@@ -63,7 +65,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGridTickable, IUpgradeableObject, IConfigurableObject, IRecipeMachine<Container, CircuitCutterRecipe> {
+public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGridTickable, IUpgradeableObject, IConfigurableObject, IRecipeMachine<Container, CircuitCutterRecipe>, MEStorageHost {
 
     public static final int POWER_MAXIMUM_AMOUNT = 8000;
     public static final int MAX_PROGRESS = 200;
@@ -151,6 +153,11 @@ public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGri
     }
 
     @Override
+    public MEStorage getMEStorage(@Nullable Direction side) {
+        return this.tank;
+    }
+
+    @Override
     public AppEngInternalInventory getOutput() {
         return this.output;
     }
@@ -190,6 +197,8 @@ public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGri
     public <T> @NotNull LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
         if (capability == Capabilities.GENERIC_INTERNAL_INV) {
             return LazyOptional.of(this::getTank).cast();
+        } else if (capability == Capabilities.STORAGE) {
+            return LazyOptional.of(this::getTank).cast();
         } else if (capability == ForgeCapabilities.FLUID_HANDLER) {
             return LazyOptional.of(this::getTank).lazyMap(GenericStackFluidStorage::new).cast();
         }
@@ -200,6 +209,8 @@ public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGri
     @Override
     public <T> @NotNull LazyOptional<T> getCapability(Capability<T> capability) {
         if (capability == Capabilities.GENERIC_INTERNAL_INV) {
+            return LazyOptional.of(() -> this.tank).cast();
+        } else if (capability == Capabilities.STORAGE) {
             return LazyOptional.of(() -> this.tank).cast();
         } else if (capability == ForgeCapabilities.FLUID_HANDLER) {
             return LazyOptional.of(this::getTank).lazyMap(GenericStackFluidStorage::new).cast();
