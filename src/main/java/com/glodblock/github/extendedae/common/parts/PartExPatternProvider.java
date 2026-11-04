@@ -151,10 +151,8 @@ public class PartExPatternProvider extends AEBasePart implements PatternProvider
     }
 
     @Override
-    @Nullable
     public MEStorage getMEStorage(@Nullable Direction side) {
-        var grid = this.logic.getGrid();
-        return grid == null ? null : grid.getStorageService().getInventory();
+        return this.logic.getReturnInv();
     }
 
     @Override
@@ -184,8 +182,7 @@ public class PartExPatternProvider extends AEBasePart implements PatternProvider
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capabilityClass) {
         if (capabilityClass == Capabilities.STORAGE) {
-            var storage = this.getMEStorage(null);
-            return storage == null ? LazyOptional.empty() : LazyOptional.of(() -> storage).cast();
+            return LazyOptional.of(() -> this.getMEStorage(null)).cast();
         }
         return this.logic.getCapability(capabilityClass);
     }
