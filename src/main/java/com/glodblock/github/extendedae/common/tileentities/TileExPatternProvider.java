@@ -56,17 +56,14 @@ public class TileExPatternProvider extends PatternProviderBlockEntity implements
     }
 
     @Override
-    @Nullable
     public MEStorage getMEStorage(@Nullable Direction side) {
-        var grid = this.getLogic().getGrid();
-        return grid == null ? null : grid.getStorageService().getInventory();
+        return this.getLogic().getReturnInv();
     }
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
         if (capability == Capabilities.STORAGE) {
-            var storage = this.getMEStorage(facing);
-            return storage == null ? LazyOptional.empty() : LazyOptional.of(() -> storage).cast();
+            return LazyOptional.of(() -> this.getMEStorage(facing)).cast();
         }
         return super.getCapability(capability, facing);
     }
