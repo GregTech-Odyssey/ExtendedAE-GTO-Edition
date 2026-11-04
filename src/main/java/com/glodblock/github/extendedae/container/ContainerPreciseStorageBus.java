@@ -25,7 +25,6 @@ import appeng.menu.implementations.UpgradeableMenu;
 import com.glodblock.github.glodium.network.packet.SGenericPacket;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import com.glodblock.github.glodium.network.packet.sync.Paras;
-import com.google.common.collect.Iterators;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -123,7 +122,7 @@ public class ContainerPreciseStorageBus extends UpgradeableMenu<PartPreciseStora
 
         Iterator<GenericStack> i = Collections.emptyIterator();
         if (cellInv != null) {
-            i = Iterators.transform(cellInv.getAvailableStacks().iterator(), e -> new GenericStack(e.getKey(), e.getLongValue()));
+            i = cellInv.getAvailableStacks().genericStackSet().iterator();
         }
 
         inv.beginBatch();

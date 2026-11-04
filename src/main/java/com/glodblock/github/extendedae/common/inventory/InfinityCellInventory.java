@@ -10,6 +10,7 @@ import appeng.api.config.Actionable;
 import appeng.api.networking.security.IActionSource;
 import appeng.api.stacks.AEKey;
 import appeng.api.stacks.KeyCounter;
+import appeng.api.stacks.KeyVisitor;
 import appeng.api.storage.cells.CellState;
 import appeng.api.storage.cells.ICellHandler;
 import appeng.api.storage.cells.ISaveProvider;
@@ -21,6 +22,7 @@ public class InfinityCellInventory implements StorageCell {
 
     private final ItemStack stack;
     private final AEKey record;
+    private final KeyCounter cache = new KeyCounter();
     public static final ICellHandler HANDLER = new Handler();
 
     public InfinityCellInventory(ItemStack stack) {
@@ -29,6 +31,7 @@ public class InfinityCellInventory implements StorageCell {
         }
         this.stack = stack;
         this.record = cell.getRecord(stack);
+        cache.add(record, InfinityCell.getAsIntMax(this.record));
     }
 
     @Override
@@ -43,7 +46,7 @@ public class InfinityCellInventory implements StorageCell {
 
     @Override
     public long insert(AEKey what, long amount, Actionable mode, IActionSource source) {
-        if (this.record.equals(what)) {
+        if (this.record == what) {
             return amount;
         }
         return 0;
@@ -51,7 +54,7 @@ public class InfinityCellInventory implements StorageCell {
 
     @Override
     public long extract(AEKey what, long amount, Actionable mode, IActionSource source) {
-        if (this.record.equals(what)) {
+        if (this.record == what) {
             return amount;
         }
         return 0;
@@ -73,8 +76,18 @@ public class InfinityCellInventory implements StorageCell {
     }
 
     @Override
+    public boolean forEachKey(KeyVisitor visitor) {
+        return visitor.visit(record, InfinityCell.getAsIntMax(this.record));
+    }
+
+    @Override
+    public KeyCounter getAvailableStacks() {
+        return cache;
+    }
+
+    @Override
     public boolean isPreferredStorageFor(AEKey what, IActionSource source) {
-        return this.record.equals(what);
+        return this.record == what;
     }
 
     private static class Handler implements ICellHandler {

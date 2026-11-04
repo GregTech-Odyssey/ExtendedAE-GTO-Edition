@@ -16,7 +16,9 @@ import appeng.api.networking.security.IActionSource;
 import appeng.api.parts.IPartItem;
 import appeng.api.parts.IPartModel;
 import appeng.api.stacks.AEKey;
+import appeng.api.stacks.AEKeyLongMap;
 import appeng.api.stacks.KeyCounter;
+import appeng.api.stacks.KeyVisitor;
 import appeng.api.storage.MEStorage;
 import appeng.api.util.IConfigManager;
 import appeng.core.AppEng;
@@ -186,19 +188,34 @@ public class PartPreciseStorageBus extends PartSpecialStorageBus implements ICon
                 }
             }
         }
+
+        @Override
+        public boolean forEachKey(KeyVisitor visitor) {
+            if (storageMode == StorageMode.DEFAULT || storageMode == null) {
+                return super.forEachKey(visitor);
+            }
+            var filter = (PreciseFilter) this.getPartitionList();
+            return super.forEachKey((k, v) -> {
+                long threshold = filter.getAmount(k);
+                if (storageMode.test(v, threshold)) {
+                    return visitor.visit(k, v);
+                }
+                return false;
+            });
+        }
     }
 
     public static class PreciseFilter implements IPartitionList {
 
-        private final KeyCounter filter;
+        private final AEKeyLongMap<AEKey> filter;
 
         public PreciseFilter(KeyCounter counter) {
-            this.filter = counter;
+            this.filter = counter.getMap();
         }
 
         @Override
         public boolean isListed(AEKey input) {
-            return this.filter.get(input) > 0;
+            return this.filter.getAmount(input) > 0;
         }
 
         @Override
@@ -212,7 +229,7 @@ public class PartPreciseStorageBus extends PartSpecialStorageBus implements ICon
         }
 
         public long getAmount(AEKey input) {
-            return this.filter.get(input);
+            return this.filter.getAmount(input);
         }
     }
 
