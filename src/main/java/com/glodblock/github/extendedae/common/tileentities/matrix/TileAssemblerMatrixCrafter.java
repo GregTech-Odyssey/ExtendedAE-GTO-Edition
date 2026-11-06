@@ -271,8 +271,7 @@ public class TileAssemblerMatrixCrafter extends TileAssemblerMatrixFunction impl
         }
 
         public void add(AEKey key, long amount) {
-            var stored = this.buffer.getLong(key);
-            this.buffer.put(key, stored + amount);
+            this.buffer.insert(key, amount);
             this.size += amount;
         }
 

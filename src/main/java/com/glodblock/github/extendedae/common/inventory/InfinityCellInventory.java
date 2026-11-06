@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import appeng.api.config.Actionable;
 import appeng.api.networking.security.IActionSource;
 import appeng.api.stacks.AEKey;
+import appeng.api.stacks.AEKeyType;
 import appeng.api.stacks.KeyCounter;
 import appeng.api.stacks.KeyVisitor;
 import appeng.api.storage.cells.CellState;
@@ -42,6 +43,11 @@ public class InfinityCellInventory implements StorageCell {
     @Override
     public double getIdleDrain() {
         return EPPConfig.infCellCost;
+    }
+
+    @Override
+    public boolean supportsKeyType(AEKeyType<?> aeKeyType) {
+        return aeKeyType == record.getType();
     }
 
     @Override
@@ -83,11 +89,6 @@ public class InfinityCellInventory implements StorageCell {
     @Override
     public KeyCounter getAvailableStacks() {
         return cache;
-    }
-
-    @Override
-    public boolean isPreferredStorageFor(AEKey what, IActionSource source) {
-        return this.record == what;
     }
 
     private static class Handler implements ICellHandler {

@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import com.mojang.datafixers.util.Pair;
 
-import java.util.function.Consumer;
+import java.util.function.LongConsumer;
 
 public class WirelessHelpers {
 
@@ -40,11 +40,11 @@ public class WirelessHelpers {
                 .ifPresent(tag -> nbt.put("bind", tag));
     }
 
-    public static InteractionResult connectWireless(Consumer<Long> setThisFreq, CompoundTag nbt, Level world, BlockPos thisPos, Player player, Runnable onSuccess) {
+    public static InteractionResult connectWireless(LongConsumer setThisFreq, CompoundTag nbt, Level world, BlockPos thisPos, Player player, Runnable onSuccess) {
         return connectWireless(setThisFreq, nbt, world, thisPos, player, onSuccess, () -> {});
     }
 
-    public static InteractionResult connectWireless(Consumer<Long> setThisFreq, CompoundTag nbt, Level world, BlockPos thisPos, Player player, Runnable onSuccess, Runnable onBroken) {
+    public static InteractionResult connectWireless(LongConsumer setThisFreq, CompoundTag nbt, Level world, BlockPos thisPos, Player player, Runnable onSuccess, Runnable onBroken) {
         if (!nbt.contains("bind")) {
             player.displayClientMessage(WirelessFail.MISSING.getTranslation(), true);
 

@@ -26,13 +26,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.function.ObjLongConsumer;
 import java.util.function.Supplier;
 
 public class CraftingMatrixThread extends CraftingThread {
 
     private static final SingleThreadLRU<AEItemKey, SearchResult> LRU = new SingleThreadLRU<>(new AEKeyObjectMap<>(100), 100);
-    private final BiConsumer<AEKey, Long> pusher;
+    private final ObjLongConsumer<AEKey> pusher;
 
     public CraftingMatrixThread(@NotNull AEBaseBlockEntity host, @NotNull Supplier<IActionSource> sourceGetter, SignalAccepter accepter) {
         super(host, accepter);
@@ -59,7 +59,7 @@ public class CraftingMatrixThread extends CraftingThread {
                         this.pusher.accept(generic.what(), generic.amount());
                     }
                 } else {
-                    this.pusher.accept(AEItemKey.of(stack), (long) stack.getCount());
+                    this.pusher.accept(AEItemKey.of(stack), stack.getCount());
                 }
                 changed = true;
                 // The buffer can hold anything
@@ -82,7 +82,7 @@ public class CraftingMatrixThread extends CraftingThread {
                     this.progress = 0;
                     ((IntruderInventory) this.gridInv).silentClear();
                     this.output = cache.output;
-                    this.pusher.accept(cache.outputKey, (long) cache.amount);
+                    this.pusher.accept(cache.outputKey, cache.amount);
                     for (var stack : cache.remains) {
                         this.pusher.accept(stack.what(), stack.amount());
                     }
@@ -112,7 +112,7 @@ public class CraftingMatrixThread extends CraftingThread {
     @Override
     protected void pushOut(ItemStack output) {
         if (!output.isEmpty()) {
-            this.pusher.accept(AEItemKey.of(output), (long) output.getCount());
+            this.pusher.accept(AEItemKey.of(output), output.getCount());
         }
         if (this.forcePlan) {
             this.forcePlan = false;
