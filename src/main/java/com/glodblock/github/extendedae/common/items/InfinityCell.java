@@ -1,7 +1,6 @@
 package com.glodblock.github.extendedae.common.items;
 
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.config.EPPConfig;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -16,7 +15,6 @@ import net.minecraft.world.level.material.Fluids;
 
 import appeng.api.config.FuzzyMode;
 import appeng.api.stacks.AEFluidKey;
-import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKey;
 import appeng.api.stacks.GenericStack;
 import appeng.api.storage.cells.ICellWorkbenchItem;
@@ -61,10 +59,7 @@ public class InfinityCell extends AEBaseItem implements ICellWorkbenchItem {
     }
 
     @Override
-    public void addToMainCreativeTab(CreativeModeTab.Output output) {
-        EPPConfig.infCellFluid.forEach(f -> output.accept(getRecordCell(AEFluidKey.of(f))));
-        EPPConfig.infCellItem.forEach(i -> output.accept(getRecordCell(AEItemKey.of(i))));
-    }
+    public void addToMainCreativeTab(CreativeModeTab.Output output) {}
 
     @Override
     public void appendHoverText(@NotNull ItemStack is, Level world, @NotNull List<Component> lines, @NotNull TooltipFlag adv) {

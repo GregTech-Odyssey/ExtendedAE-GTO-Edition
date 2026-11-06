@@ -3,8 +3,6 @@ package com.glodblock.github.extendedae.config;
 import com.glodblock.github.extendedae.util.FCUtil;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -16,7 +14,6 @@ import com.gto.fastcollection.fastutil.O2IOpenCacheHashMap;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -40,10 +37,6 @@ public class EPPConfig {
     private static final ForgeConfigSpec.DoubleValue WIRELESS_CONNECTOR_POWER_MULTIPLIER = BUILDER
             .comment("Power usage multiplier for wireless connectors")
             .defineInRange("device.wireless_connector_power_multiplier", 1.0, 0.0, 100.0);
-
-    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> INFINITY_CELL_TYPES = BUILDER
-            .comment("ME Infinity Cell types (item or fluid's id)")
-            .defineList("types", Lists.newArrayList("minecraft:water", "minecraft:cobblestone"), EPPConfig::checkRL);
 
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> PACKABLE_AE_DEVICE = BUILDER
             .comment("The AE device/part that can be packed by ME Packing Tape")
@@ -95,8 +88,6 @@ public class EPPConfig {
     public static double infCellCost;
     public static double wirelessMaxRange;
     public static double wirelessPowerMultiplier;
-    public static List<Fluid> infCellFluid;
-    public static List<Item> infCellItem;
     public static Set<ResourceLocation> tapeWhitelist;
     public static boolean disableInscriberRender;
     private static int oversizeMultiplier;
@@ -117,17 +108,6 @@ public class EPPConfig {
         infCellCost = INFINITY_CELL_ENERGY.get();
         wirelessMaxRange = WIRELESS_CONNECTOR_RANGE.get();
         wirelessPowerMultiplier = WIRELESS_CONNECTOR_POWER_MULTIPLIER.get();
-        infCellFluid = new ArrayList<>();
-        infCellItem = new ArrayList<>();
-        INFINITY_CELL_TYPES.get()
-                .forEach(s -> {
-                    if (FCUtil.checkInvalidRL(s, ForgeRegistries.ITEMS)) {
-                        infCellItem.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(s)));
-                    }
-                    if (FCUtil.checkInvalidRL(s, ForgeRegistries.FLUIDS)) {
-                        infCellFluid.add(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(s)));
-                    }
-                });
         tapeWhitelist = PACKABLE_AE_DEVICE.get().stream().map(ResourceLocation::new).collect(Collectors.toSet());
         disableInscriberRender = INSCRIBER_RENDER.get();
         oversizeMultiplier = OVERSIZE_MULTIPLIER.get();
