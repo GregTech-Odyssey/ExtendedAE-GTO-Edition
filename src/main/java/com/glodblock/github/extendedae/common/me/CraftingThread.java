@@ -72,13 +72,27 @@ public class CraftingThread {
     public boolean acceptJob(IPatternDetails patternDetails, KeyCounter[] table, Direction where) {
         if (this.myPattern.isEmpty()) {
             if (this.gridInv.isEmpty() && patternDetails instanceof IMolecularAssemblerSupportedPattern pattern) {
+                // Snapshot the pushed ingredients so a rejected push can hand them back untouched.
+                var backup = copyTable(table);
+
                 this.forcePlan = true;
                 this.myPlan = pattern;
                 this.pushDirection = where;
                 this.fillGrid(table, pattern);
-                this.updateSleepiness();
-                this.saveChanges();
-                return true;
+
+                // A push the grid cannot assemble must be refused here. Accepting it fills the grid while
+                // hasMats() stays false, so the thread sleeps with a stored plan and no later push can get in.
+                if (this.hasMats()) {
+                    this.updateSleepiness();
+                    this.saveChanges();
+                    return true;
+                }
+
+                clearGrid();
+                restoreTable(table, backup);
+                this.forcePlan = false;
+                this.myPlan = null;
+                this.pushDirection = null;
             }
         }
         return false;
@@ -192,6 +206,37 @@ public class CraftingThread {
         this.updateSleepiness();
     }
 
+    /**
+     * Drops a plan that can no longer be assembled. The grid keeps its items: with the plan gone they all count as
+     * invalid, so ejectHeldItems() hands one back per tick and none are lost.
+     */
+    private void abortPlan() {
+        this.progress = 0;
+        this.reset();
+    }
+
+    private void clearGrid() {
+        for (int i = 0; i < 9; i++) {
+            this.gridInv.setItemDirect(i, ItemStack.EMPTY);
+        }
+    }
+
+    private static KeyCounter[] copyTable(KeyCounter[] table) {
+        var backup = new KeyCounter[table.length];
+        for (int i = 0; i < table.length; i++) {
+            backup[i] = table[i].copy();
+        }
+        return backup;
+    }
+
+    private static void restoreTable(KeyCounter[] table, KeyCounter[] backup) {
+        for (int i = 0; i < table.length; i++) {
+            table[i].clear();
+            table[i].addAll(backup[i]);
+            backup[i].clear();
+        }
+    }
+
     protected ItemStack assemblePattern(CraftingContainer input) {
         return this.myPlan.assemble(input, this.host.getLevel());
     }
@@ -209,6 +254,10 @@ public class CraftingThread {
                 if (myPlan == null) {
                     AELog.warn("Unable to restore auto-crafting pattern after load: %s", myPattern);
                     this.forcePlan = false;
+                } else if (!this.gridInv.isEmpty() && !this.hasMats()) {
+                    // The restored plan no longer matches the restored grid. Nothing would wake the thread again
+                    // and acceptJob() refuses new work while the grid is occupied, so drop the plan here.
+                    this.abortPlan();
                 }
             }
             return;
