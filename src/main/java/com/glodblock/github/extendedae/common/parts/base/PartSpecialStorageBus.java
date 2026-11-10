@@ -388,16 +388,6 @@ public abstract class PartSpecialStorageBus extends UpgradeablePart implements I
             super(inventory);
         }
 
-        @Override
-        public MEStorage getDelegate() {
-            return super.getDelegate();
-        }
-
-        @Override
-        public void setDelegate(MEStorage delegate) {
-            super.setDelegate(delegate);
-        }
-
         public void setAccessRestriction(AccessRestriction setting) {
             setAllowExtraction(setting.isAllowExtraction());
             setAllowInsertion(setting.isAllowInsertion());

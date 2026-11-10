@@ -56,7 +56,6 @@ import appeng.util.ConfigInventory;
 import appeng.util.Platform;
 import appeng.util.prioritylist.IPartitionList;
 
-import com.google.common.collect.ImmutableList;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -283,8 +282,8 @@ public class PartActiveFormationPlane extends UpgradeablePart implements IGridTi
                     continue;
                 }
                 if (isUpgradedWith(AEItems.FUZZY_CARD)) {
-                    for (var fuzzyWhat : ImmutableList.copyOf(storageService.getCachedInventory().findFuzzy(what, fzMode))) {
-                        if (isSuccess(storageService, fuzzyWhat.getKey())) {
+                    for (var fuzzyWhat : storageService.getCachedInventory().findFuzzyKey(what, fzMode)) {
+                        if (isSuccess(storageService, fuzzyWhat)) {
                             return true;
                         }
                     }

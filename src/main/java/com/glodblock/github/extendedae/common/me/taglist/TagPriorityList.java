@@ -1,24 +1,20 @@
 package com.glodblock.github.extendedae.common.me.taglist;
 
-import net.minecraft.Util;
-import net.minecraftforge.registries.ForgeRegistries;
-
 import appeng.api.stacks.AEKey;
-import appeng.hooks.IUnique;
 import appeng.util.prioritylist.IPartitionList;
 
 import com.gto.fastcollection.cache.WeakValueHashCache;
 
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.Int2BooleanFunction;
+import it.unimi.dsi.fastutil.ints.Int2BooleanOpenHashMap;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class TagPriorityList implements IPartitionList {
+public class TagPriorityList implements IPartitionList, Int2BooleanFunction {
 
     private static final TagPriorityList EMPTY = new TagPriorityList("", "");
     private static final WeakValueHashCache<Expressions, TagPriorityList> CACHE = new WeakValueHashCache<>();
@@ -33,7 +29,8 @@ public class TagPriorityList implements IPartitionList {
     private final boolean isWhitelistActive;
 
     private final boolean empty;
-    private volatile IntOpenHashSet matchingIds;
+    private final Int2BooleanOpenHashMap matchingIds = new Int2BooleanOpenHashMap();
+    private AEKey input;
 
     /**
      * Creates a tag-based partition list using complex filter expressions.
@@ -55,18 +52,6 @@ public class TagPriorityList implements IPartitionList {
         this.isWhitelistActive = !this.rawWhiteListExpression.isBlank();
 
         this.empty = this.rawWhiteListExpression.isBlank() && this.rawBlackListExpression.isBlank();
-        if (!this.empty) {
-            CompletableFuture.runAsync(() -> {
-                var ids = new IntOpenHashSet();
-                ForgeRegistries.ITEMS.forEach(item -> {
-                    if (eval(item)) ids.add(((IUnique) item).ae2$getUid());
-                });
-                ForgeRegistries.FLUIDS.forEach(fluid -> {
-                    if (eval(fluid)) ids.add(((IUnique) fluid).ae2$getUid());
-                });
-                this.matchingIds = ids;
-            }, Util.backgroundExecutor());
-        }
     }
 
     private String removeBlank(String raw) {
@@ -79,7 +64,12 @@ public class TagPriorityList implements IPartitionList {
     }
 
     public boolean isReady() {
-        return this.empty || this.matchingIds != null;
+        return this.empty;
+    }
+
+    @Override
+    public boolean get(int key) {
+        return eval(input.getPrimaryKey());
     }
 
     private record Expressions(String whiteList, String blackList) {}
@@ -87,8 +77,10 @@ public class TagPriorityList implements IPartitionList {
     @Override
     public boolean isListed(AEKey input) {
         if (this.empty) return true;
-        var ids = this.matchingIds;
-        return ids != null && ids.contains(input.getUid());
+        this.input = input;
+        var r = matchingIds.computeIfAbsent(input.getUid(), this);
+        this.input = null;
+        return r;
     }
 
     @Override
@@ -101,6 +93,11 @@ public class TagPriorityList implements IPartitionList {
     public Iterable<AEKey> getItems() {
         // This partition list dynamically evaluates tags, it doesn't hold a predefined list of items.
         return Collections.emptyList();
+    }
+
+    @Override
+    public int size() {
+        return 0;
     }
 
     /**

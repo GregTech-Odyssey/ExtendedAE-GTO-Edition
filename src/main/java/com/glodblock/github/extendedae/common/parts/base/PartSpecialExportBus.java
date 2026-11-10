@@ -42,12 +42,13 @@ public abstract class PartSpecialExportBus extends IOBusPart {
         var storageService = grid.getStorageService();
         var filter = this.createFilter();
         var context = createTransferContext(storageService, grid.getEnergyService());
-        for (var what : storageService.getCachedInventory().keySet()) {
+        for (var e : storageService.getCachedInventory()) {
+            var what = e.getKey();
             if (!filter.isListed(what)) {
                 continue;
             }
             var transferFactory = what.getAmountPerOperation();
-            long amount = (long) context.getOperationsRemaining() * transferFactory;
+            long amount = Math.min(e.getLongValue(), (long) context.getOperationsRemaining() * transferFactory);
             amount = getExportStrategy().transfer(context, what, amount);
             if (amount > 0) {
                 context.reduceOperationsRemaining(Math.max(1, amount / transferFactory));
