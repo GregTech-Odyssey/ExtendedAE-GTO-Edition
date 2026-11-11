@@ -28,24 +28,25 @@ public class WirelessConnect implements IActionHost {
     private ConnectionWrapper connection;
     private long thisSide;
     private long otherSide;
-    private boolean shutdown;
+    private boolean shutdown = true;
     private double dis;
-    private WirelessNode host;
+    private final WirelessNode host;
 
     public WirelessConnect(WirelessNode connector) {
         this.host = connector;
-        this.registered = true;
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @SubscribeEvent
     public void onUnload(final LevelEvent.Unload e) {
-        if (this.host != null && this.host.getLevel() == e.getLevel()) {
+        if (this.host.getLevel() == e.getLevel()) {
             this.destroy();
         }
     }
 
     public void active() {
+        // The host has a level here; client neighbors must never enter the global event bus.
+        if (this.host.getLevel().isClientSide() || this.registered) return;
+        this.isDestroyed = false;
         MinecraftForge.EVENT_BUS.register(this);
         this.registered = true;
     }
@@ -175,18 +176,21 @@ public class WirelessConnect implements IActionHost {
         }
         this.isDestroyed = true;
         this.shutdown = true;
-        try {
-            if (this.registered) {
-                MinecraftForge.EVENT_BUS.unregister(this);
-                this.registered = false;
-            }
-
-            if (this.thisSide != 0) {
-                this.updateStatus();
-                CONNECTORS.unregister(host.getLevel(), getLocatableKey());
-            }
-            this.host = null;
-        } catch (Exception ignore) {}
+        if (this.registered) {
+            MinecraftForge.EVENT_BUS.unregister(this);
+            this.registered = false;
+        }
+        if (this.connection != null && this.connection.getConnection() != null) {
+            this.connection.getConnection().destroy();
+            this.connection.setConnection(null);
+        }
+        this.connection = null;
+        if (this.thisSide != 0) {
+            CONNECTORS.unregister(this.host.getLevel(), getLocatableKey());
+        }
+        this.thisSide = 0;
+        this.otherSide = 0;
+        this.dis = 0;
     }
 
     private long getLocatableKey() {

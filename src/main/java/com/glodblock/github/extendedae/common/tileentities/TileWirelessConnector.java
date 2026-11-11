@@ -64,10 +64,10 @@ public class TileWirelessConnector extends AENetworkBlockEntity implements Serve
         if (this.updateStatus) {
             this.updateStatus = false;
             this.other.expired();
+            this.reactive();
             this.connect.updateStatus();
             this.updatePowerUsage();
             this.markForUpdate();
-            this.reactive();
         }
     }
 
