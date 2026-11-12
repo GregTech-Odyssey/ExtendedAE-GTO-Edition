@@ -305,6 +305,11 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
         }
 
         @Override
+        public void onConnectionChanged() {
+            this.hub.updateStatus[this.port] = true;
+        }
+
+        @Override
         public BlockEntity getBlockEntity() {
             return this.hub;
         }

@@ -185,12 +185,18 @@ public class WirelessConnect implements IActionHost {
             this.connection.setConnection(null);
         }
         this.connection = null;
+        var other = this.otherSide == 0 ? null : CONNECTORS.get(this.host.getLevel(), this.otherSide);
         if (this.thisSide != 0) {
             CONNECTORS.unregister(this.host.getLevel(), getLocatableKey());
         }
         this.thisSide = 0;
         this.otherSide = 0;
         this.dis = 0;
+        if (other != null) {
+            // 共享连接已清空；保留对端注册以便重连，并刷新其状态、位置缓存和功耗。
+            other.updateStatus();
+            other.host.onConnectionChanged();
+        }
     }
 
     private long getLocatableKey() {

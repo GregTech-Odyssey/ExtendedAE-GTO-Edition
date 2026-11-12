@@ -116,6 +116,11 @@ public class TileWirelessConnector extends AENetworkBlockEntity implements Serve
         this.updateStatus = true;
     }
 
+    @Override
+    public void onConnectionChanged() {
+        this.updateStatus = true;
+    }
+
     public void reactive() {
         this.connect.active();
     }
