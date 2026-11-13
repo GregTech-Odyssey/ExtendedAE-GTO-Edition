@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "ae2:calculation_processor"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "W": {
+      "item": "ae2:wireless_receiver"
+    }
+  },
+  "pattern": [
+    " W ",
+    "ICI",
+    " I "
+  ],
+  "result": {
+    "item": "expatternprovider:wireless_tool"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,26 @@
+{
+  "values": [
+    "expatternprovider:ex_pattern_provider",
+    "expatternprovider:ex_interface",
+    "expatternprovider:wireless_connect",
+    "expatternprovider:wireless_hub",
+    "expatternprovider:ingredient_buffer",
+    "expatternprovider:ex_drive",
+    "expatternprovider:ex_molecular_assembler",
+    "expatternprovider:ex_inscriber",
+    "expatternprovider:ex_charger",
+    "expatternprovider:crystal_fixer",
+    "expatternprovider:caner",
+    "expatternprovider:ex_io_port",
+    "expatternprovider:circuit_cutter",
+    "expatternprovider:silicon_block",
+    "expatternprovider:fishbig",
+    "expatternprovider:oversize_interface",
+    "expatternprovider:assembler_matrix_frame",
+    "expatternprovider:assembler_matrix_wall",
+    "expatternprovider:assembler_matrix_pattern",
+    "expatternprovider:assembler_matrix_crafter",
+    "expatternprovider:assembler_matrix_speed",
+    "expatternprovider:assembler_matrix_glass"
+  ]
+}

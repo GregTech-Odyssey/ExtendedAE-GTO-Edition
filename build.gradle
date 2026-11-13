@@ -161,6 +161,15 @@ jar {
     }
 }
 
+tasks.named('jar') {
+    var generatedMarker = file('src/generated/resources/data/expatternprovider/recipes/ex_drive.json')
+    doFirst {
+        if (!generatedMarker.exists()) {
+            throw new GradleException('src/generated/resources is missing, run runData first')
+        }
+    }
+}
+
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,

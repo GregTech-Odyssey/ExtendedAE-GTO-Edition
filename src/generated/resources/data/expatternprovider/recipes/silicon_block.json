@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "forge:silicon"
+    },
+    "S": {
+      "item": "ae2:silicon"
+    }
+  },
+  "pattern": [
+    "###",
+    "#S#",
+    "###"
+  ],
+  "result": {
+    "item": "expatternprovider:silicon_block"
+  },
+  "show_notification": true
+}

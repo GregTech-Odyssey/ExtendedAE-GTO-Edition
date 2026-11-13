@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "megacells"
+        }
+      ],
+      "recipe": {
+        "type": "expatternprovider:circuit_cutter",
+        "fluid_input": {
+          "amount": 100,
+          "ingredient": {
+            "fluid": "minecraft:lava"
+          }
+        },
+        "item_input": {
+          "amount": 1,
+          "ingredient": {
+            "tag": "forge:storage_blocks/sky_steel"
+          }
+        },
+        "output": {
+          "count": 9,
+          "item": "megacells:printed_accumulation_processor"
+        }
+      }
+    }
+  ]
+}

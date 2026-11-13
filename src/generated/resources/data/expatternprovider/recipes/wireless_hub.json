@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "ae2:engineering_processor"
+    },
+    "Q": {
+      "item": "ae2:quantum_link"
+    },
+    "S": {
+      "tag": "ae2:smart_cable"
+    },
+    "W": {
+      "item": "expatternprovider:wireless_connect"
+    }
+  },
+  "pattern": [
+    "SQS",
+    "EWE",
+    "SES"
+  ],
+  "result": {
+    "item": "expatternprovider:wireless_hub"
+  },
+  "show_notification": true
+}

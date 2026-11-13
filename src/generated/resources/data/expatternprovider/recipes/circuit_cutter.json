@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "ae2:calculation_processor_press"
+    },
+    "2": {
+      "item": "ae2:engineering_processor_press"
+    },
+    "3": {
+      "item": "ae2:logic_processor_press"
+    },
+    "4": {
+      "item": "ae2:silicon_press"
+    },
+    "C": {
+      "item": "minecraft:stonecutter"
+    },
+    "G": {
+      "item": "ae2:quartz_glass"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "T": {
+      "item": "ae2:sky_stone_tank"
+    }
+  },
+  "pattern": [
+    "IGI",
+    "1C2",
+    "3T4"
+  ],
+  "result": {
+    "item": "expatternprovider:circuit_cutter"
+  },
+  "show_notification": true
+}

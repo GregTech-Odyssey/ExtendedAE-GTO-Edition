@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "ae2:annihilation_core"
+    },
+    "B": {
+      "item": "expatternprovider:ingredient_buffer"
+    },
+    "C": {
+      "item": "ae2:calculation_processor"
+    },
+    "E": {
+      "item": "ae2:engineering_processor"
+    },
+    "F": {
+      "item": "ae2:formation_core"
+    },
+    "I": {
+      "tag": "expatternprovider:extended_interface"
+    },
+    "L": {
+      "item": "ae2:logic_processor"
+    }
+  },
+  "pattern": [
+    "ABF",
+    "LCE",
+    "AIF"
+  ],
+  "result": {
+    "item": "expatternprovider:oversize_interface"
+  },
+  "show_notification": true
+}

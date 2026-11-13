@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "W": {
+      "item": "expatternprovider:wireless_tool"
+    }
+  },
+  "pattern": [
+    " N ",
+    "NWN",
+    " N "
+  ],
+  "result": {
+    "item": "expatternprovider:wireless_advanced_tool"
+  },
+  "show_notification": true
+}

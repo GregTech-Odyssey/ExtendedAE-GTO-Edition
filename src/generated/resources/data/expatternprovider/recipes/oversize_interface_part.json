@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "expatternprovider:oversize_interface"
+    }
+  ],
+  "result": {
+    "item": "expatternprovider:oversize_interface_part"
+  }
+}

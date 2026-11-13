@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "G": {
+      "item": "ae2:quartz_glass"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "BIB",
+    "IGI",
+    "BIB"
+  ],
+  "result": {
+    "item": "expatternprovider:assembler_matrix_frame"
+  },
+  "show_notification": true
+}

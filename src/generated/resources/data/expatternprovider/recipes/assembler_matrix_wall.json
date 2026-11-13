@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "ae2:smart_cable"
+    },
+    "G": {
+      "item": "ae2:logic_processor"
+    },
+    "I": {
+      "tag": "forge:gems/quartz"
+    }
+  },
+  "pattern": [
+    "BIB",
+    "IGI",
+    "BIB"
+  ],
+  "result": {
+    "item": "expatternprovider:assembler_matrix_wall"
+  },
+  "show_notification": true
+}
