@@ -105,6 +105,9 @@ repositories {
         name = "Modmaven"
         url = "https://modmaven.dev/"
     }
+    maven {
+        url = "https://maven.firstdarkdev.xyz/snapshots/"
+    }
 }
 
 dependencies {
