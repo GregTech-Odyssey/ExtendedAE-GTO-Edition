@@ -16,5 +16,7 @@ public interface WirelessNode {
 
     IGridNode getGridNode();
 
+    void onConnectionChanged();
+
     BlockEntity getBlockEntity();
 }

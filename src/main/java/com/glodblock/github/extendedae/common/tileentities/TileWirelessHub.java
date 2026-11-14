@@ -94,8 +94,8 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
             if (this.updateStatus[i]) {
                 this.updateStatus[i] = false;
                 this.other[i].expired();
-                this.connect[i].updateStatus();
                 this.reactive(i);
+                this.connect[i].updateStatus();
                 changed = true;
             }
         }
@@ -302,6 +302,11 @@ public class TileWirelessHub extends AENetworkBlockEntity implements ServerTicki
         @Override
         public IGridNode getGridNode() {
             return this.hub.getGridNode();
+        }
+
+        @Override
+        public void onConnectionChanged() {
+            this.hub.updateStatus[this.port] = true;
         }
 
         @Override
