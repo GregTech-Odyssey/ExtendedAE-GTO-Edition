@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import appeng.client.gui.AEBaseScreen;
+import appeng.hooks.VisualStateSaving;
 
 import com.gregtechceu.gtceu.uipro.UIInput;
 import com.gregtechceu.gtceu.uiwidgets.structure.StructureScene;
@@ -55,9 +56,11 @@ final class GTWorldDisplay extends WorldDisplay {
         for (var direction : Direction.values()) {
             positions[direction.ordinal() + 1] = pos.relative(direction);
         }
-        var snapshot = new TrackedDummyWorld(level);
+        var snapshot = new TrackedDummyWorld();
         var blocks = new Long2ObjectOpenHashMap<BlockState>(positions.length);
         var entities = new Long2ObjectOpenHashMap<BlockEntity>(positions.length);
+        // 假世界不会重算 AE 网络状态，快照必须保留客户端的连接、供电和频道状态。
+        VisualStateSaving.setEnabled(true);
         for (var blockPos : positions) {
             var state = level.getBlockState(blockPos);
             if (state.isAir()) continue;
@@ -67,6 +70,7 @@ final class GTWorldDisplay extends WorldDisplay {
             if (entity != null) info.setTag(entity.saveWithFullMetadata());
             snapshot.addBlock(blockPos, info);
         }
+        VisualStateSaving.setEnabled(false);
         for (var blockPos : positions) {
             var entity = snapshot.getBlockEntity(blockPos);
             if (entity != null) entities.put(blockPos.asLong(), entity);
