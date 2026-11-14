@@ -112,7 +112,6 @@ dependencies {
     modImplementation "appeng:appliedenergistics2-forge-1.20.1:${ae2_version}"
     modImplementation "dev.emi:emi-forge-1.20.1:${emi_version}"
     implementation "com.gto.fastcollection:FastCollection:26.8.7"
-    modImplementation "org.appliedenergistics:guideme:20.1.7"
     modCompileOnly "curse.maven:applied-energistics-2-wireless-terminals-459929:5162352"
     modCompileOnly "curse.maven:applied-flux-965012:5329825"
     modCompileOnly "curse.maven:mega-cells-622112:5320730"
@@ -122,8 +121,9 @@ dependencies {
     // Legacy AppliedE overrides AEKey identity methods and is incompatible at runtime with the GTO AE2 fork.
     modCompileOnly "curse.maven:appliede-1009940:5364294"
     // gregtech
-    modCompileOnly "curse.maven:gregtechceu-modern-890405:5369020"
-    modCompileOnly "curse.maven:ldlib-626676:5394816"
+    modCompileOnly("com.gregtechceu.gtceu:gtceu-1.20.1-forge-1.20.1:${gtceu_version}") { transitive = false }
+    modCompileOnly "com.gto:datasynclib-forge-1.20.1:26.11.2"
+    modCompileOnly "com.lowdragmc.ldlib:ldlib-forge-1.20.1:1.0.50"
     // immersive engineering
     modCompileOnly "curse.maven:immersive-engineering-231951:5224387"
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
@@ -174,7 +174,7 @@ tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
             forge_version       : forge_version, forge_version_range: forge_version_range,
-            loader_version_range: loader_version_range, ae2_version: ae2_version,
+            loader_version_range: loader_version_range, ae2_version: ae2_version, gtceu_version: gtceu_version,
             mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
             mod_authors         : mod_authors, mod_description: mod_description
     ]

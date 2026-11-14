@@ -30,7 +30,7 @@ public class GuiWirelessConnector extends UpgradeableScreen<ContainerWirelessCon
 
     public GuiWirelessConnector(ContainerWirelessConnector menu, Inventory playerInventory, Component title, ScreenStyle style) {
         super(menu, playerInventory, title, style);
-        this.remote = new WorldDisplay(this, 0, 0, 129, 63);
+        this.remote = WorldDisplay.create(this, 0, 0, 129, 63);
         this.highlight = new HighlightButton();
         this.highlight.setTooltip(Tooltip.create(Component.translatable("gui.wireless_connect.highlight.tooltip")));
     }
@@ -67,6 +67,7 @@ public class GuiWirelessConnector extends UpgradeableScreen<ContainerWirelessCon
             this.highlight.setVisibility(true);
         } else {
             this.remote.unload();
+            this.lastPos = null;
             this.highlight.setVisibility(false);
         }
     }
@@ -77,6 +78,12 @@ public class GuiWirelessConnector extends UpgradeableScreen<ContainerWirelessCon
         }
         var ps = this.getPlayer().getOnPos();
         return pos.distSqr(ps);
+    }
+
+    @Override
+    public void removed() {
+        this.remote.unload();
+        super.removed();
     }
 
     @Override

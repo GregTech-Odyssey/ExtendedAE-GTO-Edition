@@ -31,9 +31,9 @@ description='''${mod_description}'''
     ordering="AFTER"
     side="BOTH"
 [[dependencies.expatternprovider]]
-    modId="guideme"
-    mandatory=true
-    versionRange="[20.1.7,20.2.0)"
+    modId="gtceu"
+    mandatory=false
+    versionRange="[${gtceu_version},)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.expatternprovider]]
