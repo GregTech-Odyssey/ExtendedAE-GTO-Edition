@@ -34,7 +34,7 @@ Spotless 使用 `gradle/spotless/` 中的 Eclipse 4.31 格式规则和导入顺�
 ## 依赖与实现位置
 
 - `ae2_version` 指向 [AE2 GTO fork](https://github.com/GregTech-Odyssey/Applied-Energistics-2-gto)，`emi_version` 指向 [EMI GTO fork](https://github.com/GregTech-Odyssey/EMI-gto)，不要替换为同名上游依赖。
-- 保留 GuideME、Glodium 前置与既有可选联动。FastCollection 不内嵌到本模组，运行环境需提供它；GTO 整合包由 LeanObject 提供。
+- 保留 Glodium 前置与既有可选联动，不再依赖 GuideME。无线连接器预览复用 GTM GTO fork 的 UIPro `StructureScene`，只在安装对应 GTM 版本时启用；GTM、LDLib 仅为编译期依赖，不能因此成为必需前置。FastCollection 不内嵌到本模组，运行环境需提供它；GTO 整合包由 LeanObject 提供。
 - `xmod/emi` 维护电路切割器配方分类、终端配方填充和样板槽交互。AE2 的 EMI 接口由 AE2 fork 提供，不在本仓复制另一份实现。
 - 输出总线复用 AE2 的吞吐统计与传输上下文；标签过滤共用物品、流体索引，精确存储复用查询容器，发信器使用 fork 的模糊数量查询。修改这些逻辑时核对对应 fork 当前 API，不恢复逐次全表扫描或无谓分配。
 - GTOCore、AE2 中原有的通用 ExtendedAE 补丁已迁入本仓。通用行为在这里维护；Core 专属机器、分级规则与界面仍由 Core 负责。

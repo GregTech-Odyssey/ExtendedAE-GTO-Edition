@@ -10,7 +10,8 @@ ExtendedAE 的原作者为 [GlodBlock](https://github.com/GlodBlock)，原项目
 
 - 显示名为 **ExtendedAE GTO Edition**，模组 ID 保持 `expatternprovider`，Java 包名与资源命名空间保持不变。
 - 只维护 Forge 1.20.1 版，需要 Java 21，配套使用 [Applied Energistics 2 GTO Edition](https://github.com/GregTech-Odyssey/Applied-Energistics-2-gto) 与 [EMI GTO Edition](https://github.com/GregTech-Odyssey/EMI-gto)。
-- 保留 GuideME、Glodium 前置；运行环境还需提供 FastCollection，GTO 整合包中由 LeanObject 提供。
+- 需要 Glodium 前置；运行环境还需提供 FastCollection，GTO 整合包中由 LeanObject 提供。
+- 无线连接器的方块预览可选联动 GTM GTO fork 的 UIPro；未安装 GTM 时隐藏预览，连接与高亮功能可正常使用。
 - 本分支替换原版 ExtendedAE，不能同时安装两份。配方查看与填充使用原生 EMI 集成，已移除原版 JEI、REI 集成。
 
 ## 原版功能示例
