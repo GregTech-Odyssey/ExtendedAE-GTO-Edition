@@ -6,6 +6,9 @@ import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
 import com.glodblock.github.extendedae.container.ContainerWirelessExCT;
 import com.glodblock.github.extendedae.container.pattern.ContainerPattern;
 import com.glodblock.github.extendedae.recipe.CircuitCutterRecipe;
+import com.glodblock.github.extendedae.xmod.wt.ContainerUWirelessExCT;
+
+import net.minecraftforge.fml.ModList;
 
 import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.GenericStack;
@@ -25,6 +28,9 @@ public class ExtendedAEEmiPlugin implements EmiPlugin {
     public void register(EmiRegistry registry) {
         registry.addRecipeHandler(ContainerExCraftingTerminal.TYPE, new ExCraftingTransferHandler<>(ContainerExCraftingTerminal.class));
         registry.addRecipeHandler(ContainerWirelessExCT.TYPE, new ExCraftingTransferHandler<>(ContainerWirelessExCT.class));
+        if (ModList.get().isLoaded("ae2wtlib")) {
+            registry.addRecipeHandler(ContainerUWirelessExCT.TYPE, new ExCraftingTransferHandler<>(ContainerUWirelessExCT.class));
+        }
         registry.addCategory(CircuitCutterEmiRecipe.CATEGORY);
         registry.addWorkstation(CircuitCutterEmiRecipe.CATEGORY, EmiStack.of(EPPItemAndBlock.CIRCUIT_CUTTER));
         for (var recipe : registry.getRecipeManager().getAllRecipesFor(CircuitCutterRecipe.TYPE)) {

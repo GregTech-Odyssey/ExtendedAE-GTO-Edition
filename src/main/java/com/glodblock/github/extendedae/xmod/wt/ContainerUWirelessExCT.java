@@ -5,6 +5,7 @@ import com.glodblock.github.extendedae.container.ContainerExCraftingTerminal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 
+import appeng.api.networking.IGridNode;
 import appeng.api.storage.ITerminalHost;
 import appeng.menu.ToolboxMenu;
 import appeng.menu.implementations.MenuTypeBuilder;
@@ -42,6 +43,11 @@ public class ContainerUWirelessExCT extends ContainerExCraftingTerminal {
 
     public ITerminalHost getHost() {
         return this.host;
+    }
+
+    @Override
+    public IGridNode getNetworkNode() {
+        return this.host.getActionableNode();
     }
 
     public ToolboxMenu getToolbox() {
