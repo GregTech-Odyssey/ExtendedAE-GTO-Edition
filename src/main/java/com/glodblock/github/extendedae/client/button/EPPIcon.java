@@ -4,6 +4,7 @@ import com.glodblock.github.extendedae.ExtendedAE;
 
 import net.minecraft.resources.ResourceLocation;
 
+import appeng.client.gui.Icon;
 import appeng.client.gui.style.Blitter;
 
 public class EPPIcon {
@@ -13,16 +14,16 @@ public class EPPIcon {
 
     public static final Blitter INFO = Blitter.texture(TEXTURE, 64, 64).src(0, 0, 16, 16);
     public static final Blitter HIGHLIGHT_BLOCK = Blitter.texture(TEXTURE, 64, 64).src(16, 0, 16, 16);
-    public static final Blitter LEFT = Blitter.texture(TEXTURE, 64, 64).src(32, 0, 16, 16);
-    public static final Blitter RIGHT = Blitter.texture(TEXTURE, 64, 64).src(48, 0, 16, 16);
-    public static final Blitter STACK_1 = Blitter.texture(TEXTURE, 64, 64).src(0, 16, 16, 16);
-    public static final Blitter STACK_64 = Blitter.texture(TEXTURE, 64, 64).src(16, 16, 16, 16);
-    public static final Blitter FILLED = Blitter.texture(TEXTURE, 64, 64).src(32, 16, 16, 16);
-    public static final Blitter BUCKET = Blitter.texture(TEXTURE, 64, 64).src(48, 16, 16, 16);
+    public static final Blitter LEFT = Icon.ARROW_LEFT.getBlitter();
+    public static final Blitter RIGHT = Icon.ARROW_RIGHT.getBlitter();
+    public static final Blitter STACK_1 = Icon.INSCRIBER_BUFFER_LOW.getBlitter();
+    public static final Blitter STACK_64 = Icon.INSCRIBER_BUFFER_HIGH.getBlitter();
+    public static final Blitter FILLED = Blitter.texture(TEXTURE, 64, 64).src(32, 0, 16, 16);
+    public static final Blitter BUCKET = Blitter.texture(TEXTURE, 64, 64).src(48, 0, 16, 16);
     public static final Blitter OVER_STACK = Blitter.texture(TEXTURE, 64, 64).src(0, 32, 16, 16);
     public static final Blitter BELOW_STACK = Blitter.texture(TEXTURE, 64, 64).src(16, 32, 16, 16);
-    public static final Blitter EXACT = Blitter.texture(TEXTURE, 64, 64).src(32, 32, 16, 16);
-    public static final Blitter BATCH = Blitter.texture(TEXTURE, 64, 64).src(48, 32, 16, 16);
+    public static final Blitter EXACT = Icon.VALID.getBlitter();
+    public static final Blitter BATCH = Blitter.texture(TEXTURE, 64, 64).src(32, 32, 16, 16);
 
     public static final Blitter DEFAULT = Blitter.texture(SYMBOL_TEXTURE, 64, 64).src(0, 0, 16, 16);
     public static final Blitter GREATER_EQUAL = Blitter.texture(SYMBOL_TEXTURE, 64, 64).src(16, 16, 16, 16);
