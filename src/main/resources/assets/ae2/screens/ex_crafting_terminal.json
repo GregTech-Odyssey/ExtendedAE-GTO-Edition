@@ -99,12 +99,12 @@
       "bottom": 164
     },
     "clearCraftingGrid": {
-      "left": 153,
-      "bottom": 156
+      "left": 145,
+      "bottom": 158
     },
     "clearToPlayerInv": {
-      "left": 153,
-      "bottom": 120
+      "left": 155,
+      "bottom": 158
     }
   }
 }
