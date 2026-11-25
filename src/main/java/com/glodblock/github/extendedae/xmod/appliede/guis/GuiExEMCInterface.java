@@ -97,7 +97,7 @@ public class GuiExEMCInterface extends UpgradeableScreen<ContainerExEMCInterface
 
         @Override
         protected Icon getIcon() {
-            return isHoveredOrFocused() ? Icon.WRENCH : Icon.WRENCH_DISABLED;
+            return isHoveredOrFocused() ? Icon.COG : Icon.COG_DISABLED;
         }
     }
 }
