@@ -6,12 +6,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 import appeng.client.gui.style.ScreenStyle;
-import appeng.client.gui.widgets.BackgroundPanel;
-import appeng.client.gui.widgets.UpgradesPanel;
+import appeng.client.gui.widgets.ScrollableUpgradesPanel;
+import appeng.core.definitions.AEItems;
 import appeng.menu.SlotSemantics;
 
+import de.mari_023.ae2wtlib.AE2wtlibSlotSemantics;
 import de.mari_023.ae2wtlib.wut.CycleTerminalButton;
 import de.mari_023.ae2wtlib.wut.IUniversalTerminalCapable;
+
+import java.util.List;
 
 public class GuiUWirelessExPAT extends GuiExPatternTerminal<ContainerUWirelessExPAT> implements IUniversalTerminalCapable {
 
@@ -21,9 +24,11 @@ public class GuiUWirelessExPAT extends GuiExPatternTerminal<ContainerUWirelessEx
             this.addToLeftToolbar(new CycleTerminalButton((btn) -> this.cycleTerminal()));
         }
 
-        this.widgets.add("upgrades", new UpgradesPanel(this.getMenu().getSlots(SlotSemantics.UPGRADE), this.getMenu().getHost()));
-
-        this.widgets.add("singularityBackground", new BackgroundPanel(style.getImage("singularityBackground")));
+        this.widgets.add("upgrades", new ScrollableUpgradesPanel(List.of(
+                ScrollableUpgradesPanel.SlotGroup.ofUpgrades(this.getMenu().getSlots(SlotSemantics.UPGRADE), this.getMenu().getHost()),
+                new ScrollableUpgradesPanel.SlotGroup(
+                        this.getMenu().getSlots(AE2wtlibSlotSemantics.SINGULARITY),
+                        () -> List.of(AEItems.QUANTUM_ENTANGLED_SINGULARITY.asItem().getDescription())))));
     }
 
     public void storeState() {}

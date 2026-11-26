@@ -82,7 +82,7 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
 
     public GuiAssemblerMatrix(ContainerAssemblerMatrix menu, Inventory playerInventory, Component title, ScreenStyle style) {
         super(menu, playerInventory, title, style);
-        this.scrollbar = widgets.addScrollBar("scrollbar");
+        this.scrollbar = widgets.addScrollBar("scrollbar", Scrollbar.BIG);
         this.searchField = widgets.addTextField("search");
         this.searchField.setResponder(str -> this.refreshList());
         this.searchField.setPlaceholder(GuiText.SearchPlaceholder.text());

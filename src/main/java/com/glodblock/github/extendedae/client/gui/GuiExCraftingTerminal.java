@@ -70,8 +70,12 @@ public class GuiExCraftingTerminal<T extends ContainerExCraftingTerminal> extend
             this.modeTabButtons.put(mode, tabButton);
             this.modePanels.put(mode, panel);
         }
-        var clearCraftingGrid = new ActionButton(ActionItems.STASH, b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("clearCraftingGrid")));
-        var clearToPlayerInv = new ActionButton(ActionItems.STASH_TO_PLAYER_INV, b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("clearToPlayerInv")));
+        var clearCraftingGrid = new ActionButton(ActionItems.S_STASH, b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("clearCraftingGrid")));
+        clearCraftingGrid.setHalfSize(true);
+        clearCraftingGrid.setDisableBackground(true);
+        var clearToPlayerInv = new ActionButton(ActionItems.S_STASH_TO_PLAYER_INV, b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("clearToPlayerInv")));
+        clearToPlayerInv.setHalfSize(true);
+        clearToPlayerInv.setDisableBackground(true);
         this.widgets.add("clearCraftingGrid", clearCraftingGrid);
         this.widgets.add("clearToPlayerInv", clearToPlayerInv);
         this.actions.put("play_sound", o -> this.playSound(o.get(0)));

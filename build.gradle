@@ -115,7 +115,6 @@ dependencies {
     modImplementation "appeng:appliedenergistics2-forge-1.20.1:${ae2_version}"
     modImplementation "dev.emi:emi-forge-1.20.1:${emi_version}"
     implementation "com.gto.fastcollection:FastCollection:26.8.7"
-    modCompileOnly "curse.maven:applied-energistics-2-wireless-terminals-459929:5162352"
     modCompileOnly "curse.maven:applied-flux-965012:5329825"
     modCompileOnly "curse.maven:mega-cells-622112:5320730"
     modCompileOnly "curse.maven:jade-324717:4768593"

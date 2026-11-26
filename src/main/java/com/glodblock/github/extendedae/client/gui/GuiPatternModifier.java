@@ -16,6 +16,7 @@ import appeng.client.gui.AEBaseScreen;
 import appeng.client.gui.Icon;
 import appeng.client.gui.style.PaletteColor;
 import appeng.client.gui.style.ScreenStyle;
+import appeng.client.gui.widgets.AE2Button;
 import appeng.core.AppEng;
 
 import com.glodblock.github.glodium.network.packet.CGenericPacket;
@@ -36,34 +37,22 @@ public class GuiPatternModifier extends AEBaseScreen<ContainerPatternModifier> {
         changeMode.setMessage(Component.translatable("gui.expatternprovider.pattern_modifier.change"));
         this.clone.setMessage(Component.translatable("gui.expatternprovider.pattern_modifier.clone.desc"));
         addToLeftToolbar(changeMode);
-        this.replace = Button.builder(Component.translatable("gui.expatternprovider.pattern_modifier.replace_button"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("replace")))
-                .size(46, 18)
-                .build();
-        this.multiBtns.add(
-                Button.builder(Component.literal("x2"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 2, false)))
-                        .size(23, 18)
-                        .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.multi.desc", 2)))
-                        .build());
-        this.multiBtns.add(
-                Button.builder(Component.literal("x10"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 10, false)))
-                        .size(23, 18)
-                        .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.multi.desc", 10)))
-                        .build());
-        this.multiBtns.add(
-                Button.builder(Component.literal("÷2"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 2, true)))
-                        .size(23, 18)
-                        .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.div.desc", 2)))
-                        .build());
-        this.multiBtns.add(
-                Button.builder(Component.literal("÷10"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 10, true)))
-                        .size(23, 18)
-                        .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.div.desc", 10)))
-                        .build());
-        this.multiBtns.add(
-                Button.builder(Component.translatable("gui.expatternprovider.pattern_modifier.clear"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("clear")))
-                        .size(36, 18)
-                        .tooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.clear.desc")))
-                        .build());
+        this.replace = new AE2Button(0, 0, 46, 18, Component.translatable("gui.expatternprovider.pattern_modifier.replace_button"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("replace")));
+        Button mul2 = new AE2Button(0, 0, 23, 18, Component.literal("x2"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 2, false)));
+        mul2.setTooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.multi.desc", 2)));
+        this.multiBtns.add(mul2);
+        Button mul10 = new AE2Button(0, 0, 23, 18, Component.literal("x10"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 10, false)));
+        mul10.setTooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.multi.desc", 10)));
+        this.multiBtns.add(mul10);
+        Button div2 = new AE2Button(0, 0, 23, 18, Component.literal("÷2"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 2, true)));
+        div2.setTooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.div.desc", 2)));
+        this.multiBtns.add(div2);
+        Button div10 = new AE2Button(0, 0, 23, 18, Component.literal("÷10"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("modify", 10, true)));
+        div10.setTooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.div.desc", 10)));
+        this.multiBtns.add(div10);
+        Button clear = new AE2Button(0, 0, 36, 18, Component.translatable("gui.expatternprovider.pattern_modifier.clear"), b -> EPPNetworkHandler.INSTANCE.sendToServer(new CGenericPacket("clear")));
+        clear.setTooltip(Tooltip.create(Component.translatable("gui.expatternprovider.pattern_modifier.clear.desc")));
+        this.multiBtns.add(clear);
         this.imageHeight = 192;
     }
 

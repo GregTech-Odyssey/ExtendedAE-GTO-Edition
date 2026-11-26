@@ -52,26 +52,26 @@
   "widgets": {
     "modeTabButton0": {
       "left": 173,
-      "bottom": 170,
-      "width": 20,
-      "height": 20
+      "bottom": 171,
+      "width": 22,
+      "height": 22
     },
     "modeTabButton1": {
       "left": 173,
       "bottom": 150,
-      "width": 20,
-      "height": 20
+      "width": 22,
+      "height": 22
     },
     "modeTabButton2": {
       "left": 173,
-      "bottom": 130,
-      "width": 20,
-      "height": 20
+      "bottom": 129,
+      "width": 22,
+      "height": 22
     },
     "modeTabButton3": {
       "left": 173,
-      "bottom": 110,
-      "width": 20,
+      "bottom": 108,
+      "width": 22,
       "height": 22
     },
     "modePanel0": {
@@ -99,12 +99,12 @@
       "bottom": 164
     },
     "clearCraftingGrid": {
-      "left": 153,
-      "bottom": 156
+      "left": 145,
+      "bottom": 158
     },
     "clearToPlayerInv": {
-      "left": 153,
-      "bottom": 120
+      "left": 155,
+      "bottom": 158
     }
   }
 }
